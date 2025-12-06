@@ -1,0 +1,101 @@
+/* Color Palette based on the image: */
+/* --green-primary: #528B5E; (Darker green from logo) */
+/* --green-light: #C8E6C9; (Pale green from background) */
+/* --cream-white: #F5F5DC; (Off-white/Earthy tone) */
+/* --text-dark: #333333; */
+
+.main-background {
+    -fx-background-color: #F5F5DC; /* Cream/Earthy background, similar to the light areas */
+}
+
+/* --- Header Bar Styling --- */
+.header-bar {
+    -fx-background-color: #528B5E; /* Darker green, prominent */
+}
+
+.header-title {
+    -fx-fill: #FFFFFF;
+    -fx-font-size: 20pt;
+    -fx-font-weight: bold;
+}
+
+/* --- Sidebar Styling (Left Pane) --- */
+.sidebar {
+    -fx-background-color: #FFFFFF; /* White/Light background for contrast */
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0.5, 0, 0); /* Subtle shadow for depth */
+}
+
+.sidebar-logo-area {
+    -fx-background-color: #C8E6C9; /* Pale green background, like the login area */
+    -fx-padding: 10 0 10 0;
+}
+
+.logo-text {
+    -fx-text-fill: #528B5E;
+    -fx-font-size: 18pt;
+    -fx-font-weight: bold;
+}
+
+.logo-subtitle {
+    -fx-text-fill: #666666;
+    -fx-font-size: 10pt;
+}
+
+/* --- Navigation Buttons (Sidebar) --- */
+.nav-button-primary {
+    -fx-background-color: #528B5E;
+    -fx-text-fill: white;
+    -fx-font-size: 14pt;
+    -fx-padding: 10 0 10 20;
+    -fx-alignment: CENTER_LEFT;
+    -fx-background-radius: 5;
+}
+
+.nav-button-secondary {
+    -fx-background-color: transparent;
+    -fx-text-fill: #333333;
+    -fx-font-size: 14pt;
+    -fx-padding: 10 0 10 20;
+    -fx-alignment: CENTER_LEFT;
+    -fx-border-color: transparent;
+    -fx-border-width: 0 0 1 0; /* Optional: light separator lines */
+    -fx-border-color: #EEE;
+}
+
+.nav-button-secondary:hover {
+    -fx-background-color: #C8E6C9; /* Highlight on hover */
+    -fx-text-fill: #528B5E;
+}
+
+/* --- Main Content Area Styling --- */
+.content-area-background {
+    -fx-background-color: #F5F5DC; /* Cream/Earthy background */
+}
+
+.content-title {
+    -fx-fill: #333333;
+    -fx-font-size: 24pt;
+    -fx-font-weight: bold;
+}
+
+/* --- Dashboard Cards --- */
+.dashboard-card {
+    -fx-background-color: #FFFFFF;
+    -fx-padding: 20;
+    -fx-background-radius: 8; /* Rounded corners */
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0.2, 0, 1); /* Subtle elevation */
+    -fx-border-color: #528B5E; /* A subtle green border */
+    -fx-border-width: 0 0 3 0;
+}
+
+.card-title {
+    -fx-text-fill: #528B5E;
+    -fx-font-size: 14pt;
+    -fx-font-weight: bold;
+}
+
+.card-value {
+    -fx-text-fill: #333333;
+    -fx-font-size: 28pt;
+    -fx-font-weight: extra-bold;
+}

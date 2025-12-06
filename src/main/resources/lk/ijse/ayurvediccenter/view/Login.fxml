@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" prefHeight="750.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.ayurvediccenter.controller.LoginController">
+   <children>
+      <Pane prefHeight="600.0" prefWidth="1007.0">
+         <children>
+            <ImageView fitHeight="750.0" fitWidth="1100.0" pickOnBounds="true">
+               <image>
+                  <Image url="@../image/72bda3294d2f6344f793d594a18d140d.jpg" />
+               </image>
+            </ImageView>
+            <Pane layoutX="-2.0" layoutY="1.0" prefHeight="750.0" prefWidth="1100.0">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <children>
+                  <HBox alignment="CENTER" prefHeight="654.0" prefWidth="1103.0">
+                     <children>
+                        <Pane prefHeight="500.0" prefWidth="360.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20 0 0 20;">
+                           <children>
+                              <ImageView fitHeight="295.0" fitWidth="295.0" layoutX="19.0" layoutY="97.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../image/Untitled_design__1_-removebg-preview.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </Pane>
+                        <Pane blendMode="HARD_LIGHT" cache="true" prefHeight="500.0" prefWidth="495.0" style="-fx-background-color: #E0E6D1;">
+                           <children>
+                              <VBox alignment="CENTER" prefHeight="157.0" prefWidth="495.0">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ආයුබෝවන් !" textAlignment="CENTER" wrappingWidth="318.1367073059082">
+                                       <font>
+                                          <Font size="36.0" />
+                                       </font>
+                                    </Text>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="WELCOME" textAlignment="RIGHT" wrappingWidth="225.33664321899414">
+                                       <font>
+                                          <Font name="Bodoni MT" size="24.0" />
+                                       </font>
+                                    </Text>
+                                 </children>
+                              </VBox>
+                              <VBox layoutY="123.0" prefHeight="382.0" prefWidth="495.0">
+                                 <children>
+                                    <Pane prefHeight="380.0" prefWidth="495.0" style="-fx-background-radius: 0 0 15 0;">
+                                       <children>
+                                          <Text layoutX="30.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" wrappingWidth="114.67657470703125">
+                                             <font>
+                                                <Font name="Times New Roman" size="24.0" />
+                                             </font>
+                                          </Text>
+                                          <Text layoutX="30.0" layoutY="165.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" wrappingWidth="114.67657470703125">
+                                             <font>
+                                                <Font name="Times New Roman" size="24.0" />
+                                             </font>
+                                          </Text>
+                                          <TextField fx:id="usernameField" cache="true" layoutX="151.0" layoutY="62.0" prefHeight="40.0" prefWidth="288.0" style="-fx-border-color: BFD784; -fx-background-color: F5F9EC; -fx-font-style: Black;">
+                                             <font>
+                                                <Font name="Calibri" size="14.0" />
+                                             </font>
+                                          </TextField>
+                                          <PasswordField fx:id="passwordField" layoutX="151.0" layoutY="138.0" prefHeight="40.0" prefWidth="288.0" style="-fx-border-color: BFD784; -fx-background-color: F5F9EC;" />
+                                          <Button layoutX="304.0" layoutY="240.0" mnemonicParsing="false" onAction="#reset" prefHeight="40.0" prefWidth="90.0" style="-fx-background-color: #C7D2AB; -fx-border-color: Black;" text="RESET">
+                                             <font>
+                                                <Font name="Bodoni MT" size="16.0" />
+                                             </font>
+                                          </Button>
+                                          <Button layoutX="154.0" layoutY="240.0" mnemonicParsing="false" onAction="#login" prefHeight="40.0" prefWidth="90.0" style="-fx-background-color: #C7D2AB; -fx-border-color: black;" text="LOGIN">
+                                             <font>
+                                                <Font name="Bodoni MT Bold" size="16.0" />
+                                             </font>
+                                          </Button>
+                                       </children>
+                                    </Pane>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </Pane>
+                     </children>
+                     <padding>
+                        <Insets top="80.0" />
+                     </padding>
+                  </HBox>
+               </children>
+            </Pane>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

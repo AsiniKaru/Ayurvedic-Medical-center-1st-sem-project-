@@ -1,0 +1,13 @@
+module lk.ijse.ayurvediccenter {
+    requires javafx.controls;
+    requires javafx.fxml;
+    requires java.base;
+    requires java.sql;
+
+    opens lk.ijse.ayurvediccenter to javafx.fxml;
+    opens lk.ijse.ayurvediccenter.controller to javafx.fxml;
+    
+
+    exports lk.ijse.ayurvediccenter.controller;
+    exports lk.ijse.ayurvediccenter;
+}
