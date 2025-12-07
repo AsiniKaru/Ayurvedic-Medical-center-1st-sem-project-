@@ -13,38 +13,66 @@ import javafx.scene.layout.BorderPane;
 
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
-public class UserViewController  {
+public class UserViewController implements Initializable {
 
-
+    @FXML
     public AnchorPane mainContent;
+    @FXML
     public BorderPane ancUserView;
 
+    @FXML
+    private Label lblDayField;
+    @FXML
+    private Label lblDate;
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        lblDate.setText(LocalDate.now().toString());
+        lblDayField.setText(LocalDate.now().getDayOfWeek().toString());
+    }
+
+
+    @FXML
     public void onActionMedicine(ActionEvent actionEvent) {
+        navigateTo("/lk/ijse/ayurvediccenter/view/Medicine.fxml");
+
     }
 
+    @FXML
     public void onActionPatients(ActionEvent actionEvent) {
+        navigateTo("/lk/ijse/ayurvediccenter/view/Patients.fxml");
+
     }
 
+    @FXML
     public void onActionReports(ActionEvent actionEvent) {
+        navigateTo("/lk/ijse/ayurvediccenter/view/Reports.fxml");
+
     }
 
+    @FXML
     public void onActionDashboard(ActionEvent actionEvent) {
         navigateTo("/lk/ijse/ayurvediccenter/view/Dashboard.fxml");
 
     }
 
+    @FXML
     public void onActionAppointment(ActionEvent actionEvent) {
         navigateTo("/lk/ijse/ayurvediccenter/view/Appointment.fxml");
 
     }
 
+    @FXML
     public void onActionTreatments(ActionEvent actionEvent) {
         navigateTo("/lk/ijse/ayurvediccenter/view/Login.fxml");
 
     }
 
+    @FXML
     public void onActionLogout(ActionEvent actionEvent) {
 
         try {
@@ -59,7 +87,7 @@ public class UserViewController  {
         }    }
 
 
-
+    @FXML
     public void navigateTo(String path) {
         try {
             mainContent.getChildren().clear();
