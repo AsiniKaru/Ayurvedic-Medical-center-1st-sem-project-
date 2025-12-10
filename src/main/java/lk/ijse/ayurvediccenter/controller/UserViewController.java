@@ -13,7 +13,6 @@ import javafx.scene.layout.BorderPane;
 
 import java.net.URL;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 public class UserViewController implements Initializable {
@@ -44,13 +43,13 @@ public class UserViewController implements Initializable {
 
     @FXML
     public void onActionPatients(ActionEvent actionEvent) {
-        navigateTo("/lk/ijse/ayurvediccenter/view/Patients.fxml");
+        navigateTo("/lk/ijse/ayurvediccenter/view/Pati.fxml");
 
     }
 
     @FXML
     public void onActionReports(ActionEvent actionEvent) {
-        navigateTo("/lk/ijse/ayurvediccenter/view/Reports.fxml");
+        navigateTo("/lk/ijse/ayurvediccenter/view/Report.fxml");
 
     }
 
@@ -68,7 +67,7 @@ public class UserViewController implements Initializable {
 
     @FXML
     public void onActionTreatments(ActionEvent actionEvent) {
-        navigateTo("/lk/ijse/ayurvediccenter/view/Login.fxml");
+        navigateTo("/lk/ijse/ayurvediccenter/view/Treatment.fxml");
 
     }
 

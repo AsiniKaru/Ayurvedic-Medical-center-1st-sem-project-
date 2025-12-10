@@ -30,7 +30,7 @@ public class LoginController {
             LoginDTO loginDTO = loginModel.verifyUser(username ,password);
         
             if(loginDTO != null){
-                        App.setRoot("Dashboard");
+                        App.setRoot("UserView");
 
             }else{
                 new Alert(Alert.AlertType.ERROR , "Invalid Username or Password!").show();
