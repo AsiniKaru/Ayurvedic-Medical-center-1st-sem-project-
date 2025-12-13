@@ -5,13 +5,24 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+
+
+import java.awt.*;
+import java.awt.event.KeyEvent;
 
 public class PatientController {
 
     @FXML
     private BorderPane patientMainContent;
+
+    @FXML
+    private TextArea idField;
+
+    @FXML
+    private TextArea nameField;
 
     @FXML
     public void addNewpatientButton(){
@@ -46,4 +57,6 @@ public class PatientController {
             e.printStackTrace();
         }
     }
+
+
 }

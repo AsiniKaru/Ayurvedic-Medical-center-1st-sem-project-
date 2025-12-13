@@ -43,7 +43,7 @@ public class UserViewController implements Initializable {
 
     @FXML
     public void onActionPatients(ActionEvent actionEvent) {
-        navigateTo("/lk/ijse/ayurvediccenter/view/Pati.fxml");
+        navigateTo("/lk/ijse/ayurvediccenter/view/Patient.fxml");
 
     }
 
