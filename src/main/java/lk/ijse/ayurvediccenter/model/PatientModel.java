@@ -18,12 +18,12 @@ public class PatientModel {
               CrudUtil.execute(
                       "INSERT INTO Patient (user_id , patient_name , patient_nic,contact_num , address , gender, date_of_birth ) VALUES (?,?,?,?,?,?,?)",
                       LoginController.userId,
-                      patientDTO.getPatient_name(),
-                      patientDTO.getPatient_nic(),
-                      patientDTO.getContact_num(),
+                      patientDTO.getPatientName(),
+                      patientDTO.getNic(),
+                      patientDTO.getContact(),
                       patientDTO.getAddress(),
                       patientDTO.getGender(),
-                      patientDTO.getDate_of_birth()
+                      patientDTO.getDateOfBirth()
               );
       return result;
   }
@@ -34,13 +34,13 @@ public class PatientModel {
      boolean result =
         CrudUtil.execute(
                 "UPDATE Patient SET patient_name=? ,address=? ,patient_nic=? ,contact_num=?  , gender=?, date_of_birth=? WHERE patient_id=? ",
-                patientDTO.getPatient_name(),
+                patientDTO.getPatientName(),
                 patientDTO.getAddress(),
-                patientDTO.getPatient_nic(),
-                patientDTO.getContact_num(),
+                patientDTO.getNic(),
+                patientDTO.getContact(),
                 patientDTO.getGender(),
-                patientDTO.getDate_of_birth(),
-                patientDTO.getPatient_id()
+                patientDTO.getDateOfBirth(),
+                patientDTO.getPatientId()
         );
      return result;
   }
@@ -82,11 +82,11 @@ public List<PatientDTO> getPatients() throws SQLException {
 
     while (rs.next()) {
         PatientDTO patientDTO = new PatientDTO(
-                rs.getInt("patient_id"),
-                rs.getString("patient_name"),
+                rs.getInt("patientId"),
+                rs.getString("patientName"),
                 rs.getString("address"),
-                rs.getString("patient_nic"),
-                rs.getString("contact_num")
+                rs.getString("nic"),
+                rs.getString("contact")
         );
         patientList.add(patientDTO);
     }

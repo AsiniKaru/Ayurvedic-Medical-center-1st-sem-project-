@@ -60,12 +60,12 @@ public class EditPatientController {
 
                     if(patientDTO != null){
 
-                        nameField.setText(patientDTO.getPatient_name());
+                        nameField.setText(patientDTO.getPatientName());
                         addressField.setText(patientDTO.getAddress());
-                        nicField.setText(patientDTO.getPatient_nic());
-                        contactNumberField.setText(patientDTO.getContact_num());
+                        nicField.setText(patientDTO.getNic());
+                        contactNumberField.setText(patientDTO.getContact());
                         genderField.setText(patientDTO.getGender());
-                        dateofbirthField.setText(patientDTO.getDate_of_birth());
+                        dateofbirthField.setText(patientDTO.getDateOfBirth());
 
                     }else{
                         new Alert(Alert.AlertType.ERROR , "Patient not found!").show();
