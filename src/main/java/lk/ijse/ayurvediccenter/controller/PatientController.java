@@ -30,8 +30,8 @@ public class PatientController {
     }
 
     @FXML
-    public void onActionPatientOverview(ActionEvent actionEvent) {
-        navigateTo("/lk/ijse/ayurvediccenter/view/PatientOverview.fxml");
+    public void onActionPatientDashboard(ActionEvent actionEvent) {
+        navigateTo("/lk/ijse/ayurvediccenter/view/PatientDashboard.fxml");
     }
 
     @FXML

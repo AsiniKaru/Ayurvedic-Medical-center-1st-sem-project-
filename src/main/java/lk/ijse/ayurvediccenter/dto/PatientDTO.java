@@ -1,35 +1,42 @@
 package lk.ijse.ayurvediccenter.dto;
 
-import lk.ijse.ayurvediccenter.controller.LoginController;
-import lk.ijse.ayurvediccenter.dto.LoginDTO;
 public class PatientDTO {
 
     private int patient_id;
-    private String patient_name ;
-    private String patient_nic  ;
-    private String contact_num ;
-    private String address ;
-    private String gender ;
-    private String date_of_birth ;
+    private String patient_name;
+    private String address;
+    private String patient_nic;
+    private String contact_num;
+    private String gender;
+    private String date_of_birth;
 
     public PatientDTO() {
     }
 
-    public PatientDTO( String patient_name, String patient_nic, String contact_num, String address, String gender, String date_of_birth) {
+    public PatientDTO(String patient_name, String address, String patient_nic, String contact_num, String gender, String date_of_birth) {
         this.patient_name = patient_name;
+        this.address = address;
         this.patient_nic = patient_nic;
         this.contact_num = contact_num;
-        this.address = address;
         this.gender = gender;
         this.date_of_birth = date_of_birth;
+
     }
 
-    public PatientDTO(int patient_id, String patient_name, String patient_nic, String contact_num, String address, String gender, String date_of_birth) {
+    public PatientDTO(int patient_id, String patient_name, String address, String patient_nic, String contact_num) {
         this.patient_id = patient_id;
         this.patient_name = patient_name;
+        this.address = address;
         this.patient_nic = patient_nic;
         this.contact_num = contact_num;
+    }
+
+    public PatientDTO(int patient_id, String patient_name, String address, String patient_nic, String contact_num, String gender, String date_of_birth) {
+        this.patient_id = patient_id;
+        this.patient_name = patient_name;
         this.address = address;
+        this.patient_nic = patient_nic;
+        this.contact_num = contact_num;
         this.gender = gender;
         this.date_of_birth = date_of_birth;
     }
@@ -50,6 +57,14 @@ public class PatientDTO {
         this.patient_name = patient_name;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     public String getPatient_nic() {
         return patient_nic;
     }
@@ -64,14 +79,6 @@ public class PatientDTO {
 
     public void setContact_num(String contact_num) {
         this.contact_num = contact_num;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
     }
 
     public String getGender() {
@@ -95,11 +102,12 @@ public class PatientDTO {
         return "PatientDTO{" +
                 "patient_id=" + patient_id +
                 ", patient_name='" + patient_name + '\'' +
+                ", address='" + address + '\'' +
                 ", patient_nic='" + patient_nic + '\'' +
                 ", contact_num='" + contact_num + '\'' +
-                ", address='" + address + '\'' +
                 ", gender='" + gender + '\'' +
                 ", date_of_birth='" + date_of_birth + '\'' +
                 '}';
     }
 }
+

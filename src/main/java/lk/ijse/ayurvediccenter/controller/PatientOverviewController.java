@@ -1,6 +1,6 @@
 package lk.ijse.ayurvediccenter.controller;
 
 
-public class PatientOverviewController {
 
+public class PatientOverviewController {
 }

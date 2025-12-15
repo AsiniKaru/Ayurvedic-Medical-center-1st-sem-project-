@@ -37,7 +37,7 @@
                   </HBox>
                   <HBox prefHeight="60.0" prefWidth="868.0" style="-fx-border-color: #344C3D; -fx-background-color: #BFCFBB;">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#onActionPatientOverview" prefHeight="58.0" prefWidth="289.0" style="-fx-background-color: transparent; -fx-border-color: #344C3D;" text="Patient Overview">
+                        <Button mnemonicParsing="false" onAction="#onActionPatientDashboard" prefHeight="58.0" prefWidth="289.0" style="-fx-background-color: transparent; -fx-border-color: #344C3D;" text="Patient Overview">
                            <font>
                               <Font name="Cambria Bold" size="18.0" />
                            </font>
