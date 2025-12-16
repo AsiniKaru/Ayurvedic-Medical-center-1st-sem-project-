@@ -1,15 +1,18 @@
 package lk.ijse.ayurvediccenter.controller;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextArea;
+
+import javafx.stage.Stage;
 import lk.ijse.ayurvediccenter.dto.PatientDTO;
 import lk.ijse.ayurvediccenter.model.PatientModel;
 
-import javax.swing.*;
-import java.net.URL;
-import java.util.ResourceBundle;
+;import java.util.Optional;
 
 public class AddNewPatientController {
 
@@ -31,6 +34,9 @@ public class AddNewPatientController {
     @FXML
     private TextArea dateofbirthField;
 
+    @FXML
+    private Button saveButton;
+
 
     private final String PATIENT_ID_REGEX = "^[0-9]+$";
     private final String PATIENT_NAME_REGEX = "^[a-zA-Z]{3,}$";
@@ -41,6 +47,8 @@ public class AddNewPatientController {
     private final String PATIENT_DATE_OF_BIRTH_REGEX = "^[0-9]{4}-[0-9]{2}-[0-9]{2}$";
 
     PatientModel patientModel = new PatientModel();
+    PatientController patientController = new PatientController();
+
 
     @FXML
     private void handleSavePatient(){
@@ -71,8 +79,29 @@ public class AddNewPatientController {
                 boolean result = patientModel.savePatient(patientDTO);
 
                 if(result){
-                    new Alert(Alert.AlertType.INFORMATION,"Patient has been saved successfully!", ButtonType.OK).show();
-                    cleanField();
+                    Alert alert =new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Success!");
+                    alert.setHeaderText("Patient successfully added. Would you like to add another patient?");
+
+                    ButtonType buttonYes = new ButtonType("Yes");
+                    ButtonType buttonNo = new ButtonType("No");
+                    alert.getButtonTypes().setAll(buttonYes, buttonNo);
+
+                    Optional<ButtonType> results = alert.showAndWait();
+
+
+                    if (results.isPresent() && results.get() == buttonYes) {
+                        cleanField();
+                        patientController.loadPatientTable();
+
+                    } else {
+
+                        Stage currentStage = (Stage) saveButton.getScene().getWindow();
+                        currentStage.close();
+                        cleanField();
+                        patientController.loadPatientTable();
+                    }
+
 
 
                 }else {

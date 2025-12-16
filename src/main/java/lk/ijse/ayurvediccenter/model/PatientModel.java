@@ -82,11 +82,11 @@ public List<PatientDTO> getPatients() throws SQLException {
 
     while (rs.next()) {
         PatientDTO patientDTO = new PatientDTO(
-                rs.getInt("patientId"),
-                rs.getString("patientName"),
+                rs.getInt("patient_id"),
+                rs.getString("patient_name"),
                 rs.getString("address"),
-                rs.getString("nic"),
-                rs.getString("contact")
+                rs.getString("patient_nic"),
+                rs.getString("contact_num")
         );
         patientList.add(patientDTO);
     }

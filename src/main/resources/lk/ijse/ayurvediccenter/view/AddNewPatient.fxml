@@ -160,7 +160,7 @@
                   </HBox>
                   <HBox prefHeight="30.0" prefWidth="868.0">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#handleSavePatient" prefHeight="46.0" prefWidth="130.0" style="-fx-background-color: #BFCFBB;" text="Save">
+                        <Button fx:id="saveButton" mnemonicParsing="false" onAction="#handleSavePatient" prefHeight="46.0" prefWidth="130.0" style="-fx-background-color: #BFCFBB;" text="Save">
                            <HBox.margin>
                               <Insets left="380.0" />
                            </HBox.margin>
