@@ -69,6 +69,28 @@ public class PatientModel {
                 }
   }
 
+    public PatientDTO searchPatientByName(String name) throws SQLException {
+        ResultSet rs =
+                CrudUtil.execute(
+                        "SELECT * FROM Patient WHERE patient_name=? ",
+                        name
+                );
+
+        if (rs.next()){
+            int patient_id = rs.getInt("patient_id");
+            String patient_name = rs.getString("patient_name");
+            String address = rs.getString("address");
+            String patient_nic = rs.getString("patient_nic");
+            String contact_num = rs.getString("contact_num");
+            String gender = rs.getString("gender");
+            String date_of_birth = rs.getString("date_of_birth");
+
+            return new PatientDTO(patient_id,patient_name,address,patient_nic,contact_num,gender,date_of_birth);
+        }else {
+            return null;
+        }
+    }
+
 
 
 public List<PatientDTO> getPatients() throws SQLException {

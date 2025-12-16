@@ -7,10 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -33,10 +30,10 @@ public class PatientController implements Initializable {
 //    private BorderPane patientMainContent;
 //
     @FXML
-    private TextArea idField;
+    private TextField idField;
 
     @FXML
-    private TextArea nameField;
+    private TextField nameField;
 
     @FXML
     private TableView <PatientDTO>tablePatient;
@@ -164,9 +161,12 @@ public class PatientController implements Initializable {
 
                     if(patientDTO != null){
 
-                        nameField.setText(patientDTO.getPatientName());
-                        addressField.setText(patientDTO.getAddress());
-                        salaryField.setText(String.valueOf(patientDTO.getSalary()));
+                        ObservableList<PatientDTO> obList =
+                                FXCollections.observableArrayList(patientDTO);
+                        tablePatient.setItems(obList);
+
+                        clearFields();
+
 
                     }else{
                         new Alert(Alert.AlertType.ERROR , "Patient not found!").show();
@@ -178,6 +178,44 @@ public class PatientController implements Initializable {
             e.printStackTrace();
         }
 
+    }
+
+    @FXML
+    private void handleSearchByName(KeyEvent event){
+        try{
+            if(event.getCode()== KeyCode.ENTER){
+                String name = nameField.getText();
+
+                if(!name.matches(PATIENT_NAME_REGEX)){
+                    new Alert(Alert.AlertType.ERROR , "Invalid Patient Name!").show();
+                }else {
+
+                    PatientDTO patientDTO = patientModel.searchPatientByName(name);
+
+                    if(patientDTO != null){
+
+                        ObservableList<PatientDTO> obList =
+                                FXCollections.observableArrayList(patientDTO);
+                        tablePatient.setItems(obList);
+
+                        clearFields();
+
+
+                    }else{
+                        new Alert(Alert.AlertType.ERROR , "Patient not found!").show();
+                    }
+
+                }
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
+    private void clearFields() {
+        idField.clear();
+        nameField.clear();
     }
 
 
