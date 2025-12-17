@@ -110,9 +110,9 @@
                   <TableView fx:id="tablePatient" prefHeight="489.0" prefWidth="868.0">
                      <columns>
                         <TableColumn fx:id="colId" prefWidth="83.20000910758972" text="Patient ID" />
-                        <TableColumn fx:id="colName" prefWidth="170.0" text="First Name" />
-                        <TableColumn fx:id="colAddress" prefWidth="170.0" text="Address" />
-                        <TableColumn fx:id="colNic" prefWidth="152.79998779296875" text="NIC" />
+                        <TableColumn fx:id="colFName" prefWidth="170.0" text="First Name" />
+                        <TableColumn fx:id="colLName" prefWidth="170.0" text="Last Name" />
+                        <TableColumn fx:id="colAddress" prefWidth="152.79998779296875" text="Address" />
                         <TableColumn fx:id="colContactnum" prefWidth="147.20001220703125" text="Contact Number" />
                         <TableColumn fx:id="conLastVisitDay" prefWidth="142.4000244140625" text="Last Visit Date" />
                      </columns>

@@ -1,28 +1,34 @@
 package lk.ijse.ayurvediccenter.dto;
 
+import java.time.LocalDate;
+import java.util.Date;
+
 public class PatientDTO {
 
     private int patientId;
-    private String patientName;
+    private String firstName;
+    private String lastName;
     private String address;
     private String nic;
     private String contact;
     private String gender;
-    private String dateOfBirth;
+    private Date dateOfBirth;
+    private Date patientSince;
 
     public PatientDTO() {
     }
 
-    public PatientDTO(int patientId, String patientName, String address, String nic, String contact) {
+    public PatientDTO(int patientId, String firstName, String lastName, String address, String contact) {
         this.patientId = patientId;
-        this.patientName = patientName;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.address = address;
-        this.nic = nic;
         this.contact = contact;
     }
 
-    public PatientDTO(String patientName, String address, String nic, String contact, String gender, String dateOfBirth) {
-        this.patientName = patientName;
+    public PatientDTO(String firstName, String lastName, String address, String nic, String contact, String gender, Date dateOfBirth) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.address = address;
         this.nic = nic;
         this.contact = contact;
@@ -30,14 +36,15 @@ public class PatientDTO {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public PatientDTO(int patientId, String patientName, String address, String nic, String contact, String gender, String dateOfBirth) {
-        this.patientId = patientId;
-        this.patientName = patientName;
+    public PatientDTO(String firstName, String lastName, String address, String nic, String contact, String gender, Date dateOfBirth, Date patientSince) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.address = address;
         this.nic = nic;
         this.contact = contact;
         this.gender = gender;
         this.dateOfBirth = dateOfBirth;
+        this.patientSince = patientSince;
     }
 
     public int getPatientId() {
@@ -48,12 +55,20 @@ public class PatientDTO {
         this.patientId = patientId;
     }
 
-    public String getPatientName() {
-        return patientName;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setPatientName(String patientName) {
-        this.patientName = patientName;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getAddress() {
@@ -88,24 +103,34 @@ public class PatientDTO {
         this.gender = gender;
     }
 
-    public String getDateOfBirth() {
+    public Date getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(String dateOfBirth) {
+    public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public Date getPatientSince() {
+        return patientSince;
+    }
+
+    public void setPatientSince(LocalDate patientSince) {
+        this.patientSince = patientSince;
     }
 
     @Override
     public String toString() {
         return "PatientDTO{" +
                 "patientId=" + patientId +
-                ", patientName='" + patientName + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
                 ", address='" + address + '\'' +
                 ", nic='" + nic + '\'' +
                 ", contact='" + contact + '\'' +
                 ", gender='" + gender + '\'' +
-                ", dateOfBirth='" + dateOfBirth + '\'' +
+                ", dateOfBirth=" + dateOfBirth +
+                ", patientSince=" + patientSince +
                 '}';
     }
 }

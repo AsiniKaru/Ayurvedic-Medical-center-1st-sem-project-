@@ -41,7 +41,7 @@
 
                 <VBox prefHeight="458.0" prefWidth="240.0" spacing="10.0">
                     <children>
-                        <Button fx:id="dashboardField" alignment="BASELINE_LEFT" graphicTextGap="15.0" mnemonicParsing="false" onAction="#onActionDashboard" prefHeight="45.0" prefWidth="220.0" style="-fx-background-color: #3E8E41; -fx-background-radius: 10;" text="Dashboard" textFill="WHITE">
+                        <Button fx:id="dashboardField" alignment="BASELINE_LEFT" graphicTextGap="15.0" mnemonicParsing="false" onAction="#onActionDashboard" prefHeight="45.0" prefWidth="220.0" style="-fx-background-color: transparent;" text="Dashboard">
                             <padding>
                                 <Insets left="30.0" />
                             </padding>

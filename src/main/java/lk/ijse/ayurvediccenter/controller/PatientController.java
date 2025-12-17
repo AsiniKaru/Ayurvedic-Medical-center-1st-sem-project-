@@ -40,17 +40,18 @@ public class PatientController implements Initializable {
     @FXML
     private TableColumn colId;
     @FXML
-    private TableColumn colName;
+    private TableColumn colFName;
     @FXML
     private TableColumn colAddress;
     @FXML
-    private TableColumn colNic;
+    private TableColumn colLName;
     @FXML
     private TableColumn colContactnum;
 
 
     private final String PATIENT_ID_REGEX = "^[0-9]+$";
-    private final String PATIENT_NAME_REGEX = "^[a-zA-Z]{3,}$";
+    private final String PATIENT_FIRST_NAME_REGEX = "^[a-zA-Z]{3,}$";
+    private final String PATIENT_LAST_NAME_REGEX = "^[a-zA-Z]{3,}$";
     private final String PATIENT_ADDRESS_REGEX = "^[a-zA-Z]{3,}$";
     private final String PATIENT_NIC_REGEX = "^([0-9]{9}[Vv]|[0-9]{12})$";
     private final String PATIENT_CONTACT_REGEX = "^[0-9]{10}$";
@@ -65,9 +66,9 @@ public class PatientController implements Initializable {
         System.out.println("Patient FXML is loaded!");
 
         colId.setCellValueFactory(new PropertyValueFactory<>("patientId"));
-        colName.setCellValueFactory(new PropertyValueFactory<>("patientName"));
+        colFName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+        colLName.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         colAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
-        colNic.setCellValueFactory(new PropertyValueFactory<>("nic"));
         colContactnum.setCellValueFactory(new PropertyValueFactory<>("contact"));
 
         loadPatientTable();
@@ -113,7 +114,7 @@ public class PatientController implements Initializable {
         patientOverviewController.initData(selectedPatient);
 
         Stage stage = new Stage();
-        stage.setTitle("Patient Details of  " + selectedPatient.getPatientName());
+        stage.setTitle("Patient Details of  " + selectedPatient.getFirstName() + " " + selectedPatient.getLastName());
         stage.setScene(new Scene(parent));
 
         stage.initModality(Modality.APPLICATION_MODAL);
@@ -155,6 +156,8 @@ public class PatientController implements Initializable {
 
                 if(!id.matches(PATIENT_ID_REGEX)){
                     new Alert(Alert.AlertType.ERROR , "Invalid Patient ID!").show();
+
+
                 }else {
 
                     PatientDTO patientDTO = patientModel.searchPatient(id);
@@ -169,7 +172,9 @@ public class PatientController implements Initializable {
 
 
                     }else{
-                        new Alert(Alert.AlertType.ERROR , "Patient not found!").show();
+                        new Alert(Alert.AlertType.ERROR , "Patient ID not found!").show();
+                        clearFields();
+
                     }
 
                 }
@@ -186,8 +191,10 @@ public class PatientController implements Initializable {
             if(event.getCode()== KeyCode.ENTER){
                 String name = nameField.getText();
 
-                if(!name.matches(PATIENT_NAME_REGEX)){
+                if(!name.matches(PATIENT_FIRST_NAME_REGEX)){
                     new Alert(Alert.AlertType.ERROR , "Invalid Patient Name!").show();
+
+
                 }else {
 
                     PatientDTO patientDTO = patientModel.searchPatientByName(name);
@@ -203,6 +210,8 @@ public class PatientController implements Initializable {
 
                     }else{
                         new Alert(Alert.AlertType.ERROR , "Patient not found!").show();
+                        clearFields();
+
                     }
 
                 }
