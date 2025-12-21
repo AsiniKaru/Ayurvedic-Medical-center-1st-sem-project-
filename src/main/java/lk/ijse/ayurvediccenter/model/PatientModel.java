@@ -9,13 +9,17 @@ import lk.ijse.ayurvediccenter.util.CrudUtil;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class PatientModel {
 
-      public boolean savePatient (PatientDTO patientDTO) throws SQLException {
-          patientDTO.setPatientSince(LocalDate.now());
+    public boolean savePatient (PatientDTO patientDTO) throws SQLException {
+
+
+          String patientSince = LocalDate.now().toString();
 
           boolean result =
                   CrudUtil.execute(
@@ -28,14 +32,14 @@ public class PatientModel {
                           patientDTO.getAddress(),
                           patientDTO.getGender(),
                           patientDTO.getDateOfBirth(),
-                          patientDTO.getPatientSince()
+                          patientSince
                   );
           return result;
       }
 
 
 
-  public boolean updatePatient(PatientDTO patientDTO) throws SQLException {
+    public boolean updatePatient(PatientDTO patientDTO) throws SQLException {
      boolean result =
         CrudUtil.execute(
                 "UPDATE Patient SET patient_fName=? ,patient_lName=? ,address=? ,patient_nic=? ,contact_num=?  , gender=?, date_of_birth=? WHERE patient_id=? ",
@@ -51,9 +55,11 @@ public class PatientModel {
      return result;
   }
 
-  public void deletePatient(){}
+    public void deletePatient(){}
 
-  public PatientDTO searchPatient(String id) throws SQLException {
+    public PatientDTO searchPatient(String id) throws SQLException {
+
+
       ResultSet rs =
               CrudUtil.execute(
                       "SELECT * FROM Patient WHERE patient_id=? ",
@@ -70,7 +76,8 @@ public class PatientModel {
                     String gender = rs.getString("gender");
                     String date_of_birth = rs.getString("date_of_birth");
 
-                    return new PatientDTO(String.valueOf(patient_id),patient_fName,patient_lName,address,patient_nic,contact_num,gender,date_of_birth);
+
+                    return new PatientDTO(patient_id,patient_fName,patient_lName,address,patient_nic,contact_num,gender,date_of_birth);
                 }else {
                     return null;
                 }
@@ -79,8 +86,10 @@ public class PatientModel {
     public PatientDTO searchPatientByName(String name) throws SQLException {
         ResultSet rs =
                 CrudUtil.execute(
-                        "SELECT * FROM Patient WHERE patient_name=? ",
+                        "SELECT * FROM Patient WHERE patient_fName=? OR patient_lName=? ",
+                        name,
                         name
+
                 );
 
         if (rs.next()){
@@ -93,7 +102,7 @@ public class PatientModel {
             String gender = rs.getString("gender");
             String date_of_birth = rs.getString("date_of_birth");
 
-            return new PatientDTO(String.valueOf(patient_id),patient_fName,patient_lName,address,patient_nic,contact_num,gender,date_of_birth);
+            return new PatientDTO(patient_id,patient_fName,patient_lName,address,patient_nic,contact_num,gender,date_of_birth);
         }else {
             return null;
         }
@@ -101,7 +110,7 @@ public class PatientModel {
 
 
 
-public List<PatientDTO> getPatients() throws SQLException {
+    public List<PatientDTO> getPatients() throws SQLException {
 
     ResultSet rs =
             CrudUtil.execute(
@@ -116,8 +125,14 @@ public List<PatientDTO> getPatients() throws SQLException {
                 rs.getString("patient_fName"),
                 rs.getString("patient_lName"),
                 rs.getString("address"),
-                rs.getString("contact_num")
+                rs.getString("patient_nic"),
+                rs.getString("contact_num"),
+                rs.getString("gender"),
+                rs.getString("date_of_birth"),
+                rs.getString("patient_since")
+
         );
+        System.out.println(patientDTO);
         patientList.add(patientDTO);
     }
 

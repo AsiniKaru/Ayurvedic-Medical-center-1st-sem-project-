@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="profileContent" prefHeight="200.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="profileContent" prefHeight="200.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.ayurvediccenter.controller.EditPatientController">
    <children>
       <StackPane prefHeight="549.0" prefWidth="800.0">
          <children>
@@ -25,7 +25,7 @@
       </StackPane>
       <HBox prefHeight="50.0" prefWidth="800.0">
          <children>
-            <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="90.0" style="-fx-background-color: #BFCFBB;" text="Update">
+            <Button mnemonicParsing="false" onAction="#handleUpdatePatient" prefHeight="26.0" prefWidth="90.0" style="-fx-background-color: #BFCFBB;" text="Update">
                <HBox.margin>
                   <Insets left="580.0" top="10.0" />
                </HBox.margin>
@@ -33,7 +33,7 @@
                   <Font name="Bodoni MT" size="14.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" prefWidth="90.0" style="-fx-background-color: #BFCFBB;" text="Reset">
+            <Button mnemonicParsing="false" onAction="#onActionReset" prefWidth="90.0" style="-fx-background-color: #BFCFBB;" text="Reset">
                <HBox.margin>
                   <Insets left="10.0" top="10.0" />
                </HBox.margin>
@@ -75,11 +75,17 @@
                                     <Font name="Cambria Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="idField" prefHeight="26.0" prefWidth="243.0" style="-fx-background-color: white; -fx-border-color: #BFCFBB;">
+                              <Label fx:id="idField" prefHeight="30.0" prefWidth="318.0" style="-fx-background-color: #F1F4F0; -fx-border-color: #BFCFBB;" text="--">
                                  <VBox.margin>
-                                    <Insets left="40.0" right="40.0" />
+                                    <Insets left="80.0" />
                                  </VBox.margin>
-                              </TextField>
+                                 <font>
+                                    <Font name="Cambria Bold" size="14.0" />
+                                 </font>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                              </Label>
                               <Label text="First Name :">
                                  <VBox.margin>
                                     <Insets top="10.0" />
@@ -90,8 +96,14 @@
                               </Label>
                               <TextField fx:id="fNameField" style="-fx-background-color: white; -fx-border-color: #BFCFBB;">
                                  <VBox.margin>
-                                    <Insets left="40.0" right="40.0" />
+                                    <Insets left="80.0" />
                                  </VBox.margin>
+                                 <font>
+                                    <Font name="Cambria Bold" size="14.0" />
+                                 </font>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
                               </TextField>
                               <Label text="Last Name :">
                                  <VBox.margin>
@@ -103,8 +115,14 @@
                               </Label>
                               <TextField fx:id="lNameField" style="-fx-background-color: white; -fx-border-color: #BFCFBB;">
                                  <VBox.margin>
-                                    <Insets left="40.0" right="40.0" />
+                                    <Insets left="80.0" />
                                  </VBox.margin>
+                                 <font>
+                                    <Font name="Cambria Bold" size="14.0" />
+                                 </font>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
                               </TextField>
                            </children>
                            <HBox.margin>
@@ -112,6 +130,9 @@
                            </HBox.margin>
                         </VBox>
                      </children>
+                     <VBox.margin>
+                        <Insets right="5.0" />
+                     </VBox.margin>
                   </HBox>
                </children>
             </VBox>
@@ -129,7 +150,7 @@
                                  <children>
                                     <Label text="Address :">
                                        <VBox.margin>
-                                          <Insets top="10.0" />
+                                          <Insets left="30.0" top="30.0" />
                                        </VBox.margin>
                                        <font>
                                           <Font name="Cambria Bold" size="14.0" />
@@ -137,12 +158,18 @@
                                     </Label>
                                     <TextField fx:id="addressField" prefHeight="26.0" prefWidth="243.0" style="-fx-background-color: white; -fx-border-color: #BFCFBB;">
                                        <VBox.margin>
-                                          <Insets left="40.0" right="40.0" />
+                                          <Insets left="80.0" />
                                        </VBox.margin>
+                                       <font>
+                                          <Font name="Cambria Bold" size="14.0" />
+                                       </font>
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
                                     </TextField>
                                     <Label text="Nic : ">
                                        <VBox.margin>
-                                          <Insets top="10.0" />
+                                          <Insets left="30.0" top="20.0" />
                                        </VBox.margin>
                                        <font>
                                           <Font name="Cambria Bold" size="14.0" />
@@ -150,12 +177,18 @@
                                     </Label>
                                     <TextField fx:id="nicField" style="-fx-background-color: white; -fx-border-color: #BFCFBB;">
                                        <VBox.margin>
-                                          <Insets left="40.0" right="40.0" />
+                                          <Insets left="80.0" />
                                        </VBox.margin>
+                                       <font>
+                                          <Font name="Cambria Bold" size="14.0" />
+                                       </font>
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
                                     </TextField>
                                     <Label text="Gender : ">
                                        <VBox.margin>
-                                          <Insets top="10.0" />
+                                          <Insets left="30.0" top="20.0" />
                                        </VBox.margin>
                                        <font>
                                           <Font name="Cambria Bold" size="14.0" />
@@ -163,21 +196,14 @@
                                     </Label>
                                     <TextField fx:id="genderField" style="-fx-background-color: white; -fx-border-color: #BFCFBB;">
                                        <VBox.margin>
-                                          <Insets left="40.0" right="40.0" />
-                                       </VBox.margin>
-                                    </TextField>
-                                    <Label text="Contact number : ">
-                                       <VBox.margin>
-                                          <Insets top="10.0" />
+                                          <Insets left="80.0" />
                                        </VBox.margin>
                                        <font>
                                           <Font name="Cambria Bold" size="14.0" />
                                        </font>
-                                    </Label>
-                                    <TextField fx:id="contactnumField" style="-fx-border-color: #BFCFBB; -fx-background-color: white;">
-                                       <VBox.margin>
-                                          <Insets left="40.0" right="40.0" />
-                                       </VBox.margin>
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
                                     </TextField>
                                  </children>
                                  <HBox.margin>
@@ -186,22 +212,9 @@
                               </VBox>
                               <VBox prefHeight="298.0" prefWidth="400.0">
                                  <children>
-                                    <Label text="Age :">
-                                       <font>
-                                          <Font name="Cambria Bold" size="14.0" />
-                                       </font>
-                                       <VBox.margin>
-                                          <Insets top="10.0" />
-                                       </VBox.margin>
-                                    </Label>
-                                    <TextField fx:id="ageField" style="-fx-background-color: white; -fx-border-color: #BFCFBB;">
-                                       <VBox.margin>
-                                          <Insets left="40.0" right="40.0" />
-                                       </VBox.margin>
-                                    </TextField>
                                     <Label text="Date-of-Birth :">
                                        <VBox.margin>
-                                          <Insets top="10.0" />
+                                          <Insets top="30.0" />
                                        </VBox.margin>
                                        <font>
                                           <Font name="Cambria Bold" size="14.0" />
@@ -209,35 +222,53 @@
                                     </Label>
                                     <TextField fx:id="dateOfBirthField" style="-fx-background-color: white; -fx-border-color: #BFCFBB;">
                                        <VBox.margin>
-                                          <Insets left="40.0" right="40.0" />
+                                          <Insets left="80.0" />
                                        </VBox.margin>
+                                       <font>
+                                          <Font name="Cambria Bold" size="14.0" />
+                                       </font>
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
+                                    </TextField>
+                                    <Label text="Contact number : ">
+                                       <VBox.margin>
+                                          <Insets top="20.0" />
+                                       </VBox.margin>
+                                       <font>
+                                          <Font name="Cambria Bold" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="contactnumField" style="-fx-border-color: #BFCFBB; -fx-background-color: white;">
+                                       <VBox.margin>
+                                          <Insets left="80.0" />
+                                       </VBox.margin>
+                                       <font>
+                                          <Font name="Cambria Bold" size="14.0" />
+                                       </font>
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
                                     </TextField>
                                     <Label text="Patient Since : ">
                                        <font>
                                           <Font name="Cambria Bold" size="14.0" />
                                        </font>
                                        <VBox.margin>
-                                          <Insets top="10.0" />
+                                          <Insets top="20.0" />
                                        </VBox.margin>
                                     </Label>
-                                    <TextField fx:id="patientSinceField" style="-fx-background-color: white; -fx-border-color: #BFCFBB;">
+                                    <Label fx:id="sinceField" prefHeight="30.0" prefWidth="308.0" style="-fx-background-color: #F1F4F0; -fx-border-color: #BFCFBB;" text="--">
                                        <VBox.margin>
-                                          <Insets left="40.0" right="40.0" />
-                                       </VBox.margin>
-                                    </TextField>
-                                    <Label text="Patient Entered By :">
-                                       <VBox.margin>
-                                          <Insets top="10.0" />
+                                          <Insets left="80.0" />
                                        </VBox.margin>
                                        <font>
                                           <Font name="Cambria Bold" size="14.0" />
                                        </font>
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
                                     </Label>
-                                    <TextField fx:id="userField" style="-fx-background-color: white; -fx-border-color: #BFCFBB;">
-                                       <VBox.margin>
-                                          <Insets left="40.0" right="40.0" />
-                                       </VBox.margin>
-                                    </TextField>
                                  </children>
                                  <HBox.margin>
                                     <Insets left="5.0" right="5.0" />

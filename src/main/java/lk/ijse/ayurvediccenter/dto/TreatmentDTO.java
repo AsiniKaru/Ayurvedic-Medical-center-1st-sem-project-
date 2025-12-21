@@ -2,24 +2,31 @@ package lk.ijse.ayurvediccenter.dto;
 
 public class TreatmentDTO {
     private int treatment_id;
-    private String treatment_type;
-    private double treatment_charges;
+    private String name;
+    private String type;
     private String description;
+    private double price;
 
     public TreatmentDTO() {
     }
 
-    public TreatmentDTO(String treatment_type, double treatment_charges, String description) {
-        this.treatment_type = treatment_type;
-        this.treatment_charges = treatment_charges;
-        this.description = description;
+    public TreatmentDTO(int treatment_id) {
+        this.treatment_id = treatment_id;
     }
 
-    public TreatmentDTO(int treatment_id, String treatment_type, double treatment_charges, String description) {
-        this.treatment_id = treatment_id;
-        this.treatment_type = treatment_type;
-        this.treatment_charges = treatment_charges;
+    public TreatmentDTO(String name, String type ,  String description, double price) {
+        this.name = name;
+        this.price = price;
         this.description = description;
+        this.type = type;
+    }
+
+    public TreatmentDTO(int treatment_id, String name, String type, String description, double price) {
+        this.treatment_id = treatment_id;
+        this.name = name;
+        this.type = type;
+        this.description = description;
+        this.price = price;
     }
 
     public int getTreatment_id() {
@@ -30,20 +37,20 @@ public class TreatmentDTO {
         this.treatment_id = treatment_id;
     }
 
-    public String getTreatment_type() {
-        return treatment_type;
+    public String getName() {
+        return name;
     }
 
-    public void setTreatment_type(String treatment_type) {
-        this.treatment_type = treatment_type;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public double getTreatment_charges() {
-        return treatment_charges;
+    public String getType() {
+        return type;
     }
 
-    public void setTreatment_charges(double treatment_charges) {
-        this.treatment_charges = treatment_charges;
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getDescription() {
@@ -54,13 +61,22 @@ public class TreatmentDTO {
         this.description = description;
     }
 
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
     @Override
     public String toString() {
         return "TreatmentDTO{" +
                 "treatment_id=" + treatment_id +
-                ", treatment_type='" + treatment_type + '\'' +
-                ", treatment_charges=" + treatment_charges +
+                ", name='" + name + '\'' +
+                ", type='" + type + '\'' +
                 ", description='" + description + '\'' +
+                ", price=" + price +
                 '}';
     }
 }

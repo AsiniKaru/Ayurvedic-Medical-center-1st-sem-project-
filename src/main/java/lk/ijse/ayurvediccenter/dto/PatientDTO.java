@@ -12,10 +12,21 @@ public class PatientDTO {
     private String nic;
     private String contact;
     private String gender;
-    private Date dateOfBirth;
-    private Date patientSince;
+    private String dateOfBirth;
+    private String patientSince;
 
     public PatientDTO() {
+    }
+
+    public PatientDTO(String firstName, String patientSince, String dateOfBirth, String gender, String contact, String nic, String address, String lastName) {
+        this.firstName = firstName;
+        this.patientSince = patientSince;
+        this.dateOfBirth = dateOfBirth;
+        this.gender = gender;
+        this.contact = contact;
+        this.nic = nic;
+        this.address = address;
+        this.lastName = lastName;
     }
 
     public PatientDTO(int patientId, String firstName, String lastName, String address, String contact) {
@@ -26,7 +37,18 @@ public class PatientDTO {
         this.contact = contact;
     }
 
-    public PatientDTO(String firstName, String lastName, String address, String nic, String contact, String gender, Date dateOfBirth) {
+    public PatientDTO(String firstName,String LastName, String address, String nic, String contact, String gender, String dateOfBirth) {
+        this.firstName = firstName;
+        this.lastName = LastName;
+        this.address = address;
+        this.nic = nic;
+        this.contact = contact;
+        this.gender = gender;
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public PatientDTO(int patientId, String firstName, String lastName, String address, String nic, String contact, String gender, String dateOfBirth) {
+        this.patientId = patientId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
@@ -36,7 +58,8 @@ public class PatientDTO {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public PatientDTO(String firstName, String lastName, String address, String nic, String contact, String gender, Date dateOfBirth, Date patientSince) {
+    public PatientDTO(int patientId, String firstName, String lastName, String address, String nic, String contact, String gender, String dateOfBirth, String patientSince) {
+        this.patientId = patientId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
@@ -103,19 +126,19 @@ public class PatientDTO {
         this.gender = gender;
     }
 
-    public Date getDateOfBirth() {
+    public String getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public Date getPatientSince() {
+    public String getPatientSince() {
         return patientSince;
     }
 
-    public void setPatientSince(LocalDate patientSince) {
+    public void setPatientSince(String patientSince) {
         this.patientSince = patientSince;
     }
 
@@ -129,8 +152,8 @@ public class PatientDTO {
                 ", nic='" + nic + '\'' +
                 ", contact='" + contact + '\'' +
                 ", gender='" + gender + '\'' +
-                ", dateOfBirth=" + dateOfBirth +
-                ", patientSince=" + patientSince +
+                ", dateOfBirth='" + dateOfBirth + '\'' +
+                ", patientSince='" + patientSince + '\'' +
                 '}';
     }
 }

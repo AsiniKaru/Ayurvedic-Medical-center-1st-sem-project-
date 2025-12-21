@@ -75,9 +75,7 @@ public class PatientController implements Initializable {
 
         tablePatient.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
-                // When a row is selected, call a method to open the new window
                 try {
-                    // 'newSelection' is the Patient object from the selected row
                     openPatientOverview(newSelection);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -134,13 +132,16 @@ public class PatientController implements Initializable {
 
             Parent root = loader.load();
 
-            // 4. Create the new Stage (the window container)
+            AddNewPatientController addController = loader.getController();
+            addController.setPatientController(this);
+
+
             Stage newStage = new Stage();
             newStage.setTitle("Add New Patient");
             newStage.setScene(new Scene(root));
 
-            newStage.initModality(Modality.APPLICATION_MODAL); // The correct method name
-            // 6. Show the window
+            newStage.initModality(Modality.APPLICATION_MODAL);
+
             newStage.show();
 
         } catch (Exception e) {

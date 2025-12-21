@@ -22,9 +22,6 @@ public class PatientOverviewController {
     private Label addressField;
 
     @FXML
-    private Label ageField;
-
-    @FXML
     private Label contactField;
 
     @FXML
@@ -48,10 +45,8 @@ public class PatientOverviewController {
     @FXML
     private Label pSinceField;
 
-    @FXML
-    private Label userIdField;
 
-
+    private PatientDTO currentDTO;
 
     public void initData(PatientDTO patientDTO) {
 
@@ -63,13 +58,36 @@ public class PatientOverviewController {
         nicField.setText(patientDTO.getNic());
         genderField.setText(patientDTO.getGender());
         contactField.setText(patientDTO.getContact());
-        dateOfBirthField.setText(patientDTO.getDateOfBirth());
+        dateOfBirthField.setText(String.valueOf(patientDTO.getDateOfBirth()));
+        pSinceField.setText(String.valueOf(patientDTO.getPatientSince()));
+
+       this.currentDTO = patientDTO;
     }
 
     @FXML
     public void onActionOverview(ActionEvent actionEvent) {
-        System.out.println("Patient Profile Overview Clicked");
-        navigateTo("/lk/ijse/ayurvediccenter/view/PatientProfile.fxml");
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/lk/ijse/ayurvediccenter/view/PatientProfile.fxml")
+            );
+
+            AnchorPane pane = loader.load();
+
+            // get REAL controller created by JavaFX
+            PatientProfileController controller = loader.getController();
+
+            // pass currentDTO
+            controller.initData(currentDTO);
+
+            profileContent.getChildren().clear();
+            profileContent.getChildren().add(pane);
+
+            pane.prefWidthProperty().bind(profileContent.widthProperty());
+            pane.prefHeightProperty().bind(profileContent.heightProperty());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -86,7 +104,26 @@ public class PatientOverviewController {
 
     @FXML
     public void onActionEditPatient(ActionEvent actionEvent) {
-        navigateTo("/lk/ijse/ayurvediccenter/view/EditPatient.fxml");
+
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/lk/ijse/ayurvediccenter/view/EditPatient.fxml")
+            );
+
+            AnchorPane pane = loader.load(); // IMPORTANT
+
+            EditPatientController controller = loader.getController();
+            controller.initData(currentDTO); // patientDTO already exists
+
+            profileContent.getChildren().clear();
+            profileContent.getChildren().add(pane);
+
+            pane.prefWidthProperty().bind(profileContent.widthProperty());
+            pane.prefHeightProperty().bind(profileContent.heightProperty());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML

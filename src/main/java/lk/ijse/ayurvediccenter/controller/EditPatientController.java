@@ -1,43 +1,55 @@
 package lk.ijse.ayurvediccenter.controller;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.fxml.Initializable;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import lk.ijse.ayurvediccenter.dto.PatientDTO;
 import lk.ijse.ayurvediccenter.model.PatientModel;
+import javafx.event.ActionEvent;
+
+import javax.swing.*;
+import java.net.URL;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
+import java.util.Date;
+import java.util.ResourceBundle;
 
 public class EditPatientController {
 
-
+    @FXML
+    private TextField addressField;
 
     @FXML
-    private TextField idField;
+    private TextField contactnumField;
 
     @FXML
-    private TextField nameField;
+    private TextField dateOfBirthField;
 
     @FXML
-    private TextArea addressField;
-
-    @FXML
-    private TextField nicField;
-
-    @FXML
-    public TextField contactNumberField;
+    private TextField fNameField;
 
     @FXML
     private TextField genderField;
 
     @FXML
-    public TextField dateofbirthField;
+    private Label idField;
+
+    @FXML
+    private TextField lNameField;
+
+    @FXML
+    private TextField nicField;
+
+    @FXML
+    private Label sinceField;
 
 
     private final String PATIENT_ID_REGEX = "^[0-9]+$";
-    private final String PATIENT_NAME_REGEX = "^[a-zA-Z]{3,}$";
+    private final String PATIENT_FIRST_NAME_REGEX = "^[a-zA-Z]{3,}$";
+    private final String PATIENT_LAST_NAME_REGEX = "^[a-zA-Z]{3,}$";
     private final String PATIENT_ADDRESS_REGEX = "^[a-zA-Z]{3,}$";
     private final String PATIENT_NIC_REGEX = "^([0-9]{9}[Vv]|[0-9]{12})$";
     private final String PATIENT_CONTACT_REGEX = "^[0-9]{10}$";
@@ -46,53 +58,80 @@ public class EditPatientController {
 
     PatientModel patientModel = new PatientModel();
 
+    private PatientDTO patientDTO;
 
-    @FXML
-    private void handleSearchPatient(KeyEvent event){
-        try{
-            if(event.getCode()== KeyCode.ENTER){
-                String id = idField.getText();
+    public void initData(PatientDTO patientDTO) {
+        System.out.println(patientDTO);
 
-                if(!id.matches(PATIENT_ID_REGEX)){
-                    new Alert(Alert.AlertType.ERROR , "Invalid Patient ID!").show();
-                }else {
-                    PatientDTO patientDTO = patientModel.searchPatient(id);
+        this.patientDTO = patientDTO;
 
-                    if(patientDTO != null){
-
-                        nameField.setText(patientDTO.getPatientName());
-                        addressField.setText(patientDTO.getAddress());
-                        nicField.setText(patientDTO.getNic());
-                        contactNumberField.setText(patientDTO.getContact());
-                        genderField.setText(patientDTO.getGender());
-                        dateofbirthField.setText(patientDTO.getDateOfBirth());
-
-                    }else{
-                        new Alert(Alert.AlertType.ERROR , "Patient not found!").show();
-                    }
-
-                }
-            }
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-
+        idField.setText(String.valueOf(patientDTO.getPatientId()));
+        fNameField.setText(patientDTO.getFirstName());
+        lNameField.setText(patientDTO.getLastName());
+        addressField.setText(patientDTO.getAddress());
+        nicField.setText(patientDTO.getNic());
+        genderField.setText(patientDTO.getGender());
+        dateOfBirthField.setText(String.valueOf(patientDTO.getDateOfBirth()));
+        contactnumField.setText(patientDTO.getContact());
+        sinceField.setText(String.valueOf(patientDTO.getPatientSince()));
     }
+
+//        @FXML
+//    public void handleSearchPatient(KeyEvent event){
+//        try{
+//            if(event.getCode()== KeyCode.ENTER){
+//                String id = idField.getText();
+//
+//                if(!id.matches(PATIENT_ID_REGEX)){
+//                    new Alert(Alert.AlertType.ERROR , "Invalid Patient ID!").show();
+//                }else {
+//                    PatientDTO patientDTO = patientModel.searchPatient(id);
+//
+//
+//                    if(patientDTO != null){
+//
+//                        idField.setText(String.valueOf(patientDTO.getPatientId()));
+//                        fNameField.setText(patientDTO.getFirstName());
+//                        lNameField.setText(patientDTO.getLastName());
+//                        addressField.setText(patientDTO.getAddress());
+//                        nicField.setText(patientDTO.getNic());
+//                        genderField.setText(patientDTO.getGender());
+//                        contactnumField.setText(patientDTO.getContact());
+//                        dateOfBirthField.setText(patientDTO.getDateOfBirth());
+//                        sinceField.setText(patientDTO.getPatientSince());
+//
+//
+//
+//                    }else{
+//                        new Alert(Alert.AlertType.ERROR , "Patient not found!").show();
+//                    }
+//
+//                }
+//            }
+//        }catch(Exception e){
+//            e.printStackTrace();
+//        }
+//
+//    }
+
 
     @FXML
     private void handleUpdatePatient() {
-        try{
+        try {
             String id = idField.getText();
-            String name = nameField.getText().trim();
+            String fName = fNameField.getText().trim();
+            String lName = lNameField.getText().trim();
             String address = addressField.getText().trim();
             String nic = nicField.getText().trim();
-            String contactnumber = contactNumberField.getText().trim();
+            String contactnumber = contactnumField.getText().trim();
             String gender = genderField.getText().trim();
-            String dateofbirth = dateofbirthField.getText().trim();
+            String dateofbirth = dateOfBirthField.getText().trim();
 
             if (!id.matches(PATIENT_ID_REGEX)) {
                 new Alert(Alert.AlertType.ERROR, "Invalid id format!", ButtonType.OK).show();
-            } else if (!name.matches(PATIENT_NAME_REGEX)) {
+            } else if (!fName.matches(PATIENT_FIRST_NAME_REGEX)) {
+                new Alert(Alert.AlertType.ERROR, "Invalid name format!", ButtonType.OK).show();
+            } else if (!lName.matches(PATIENT_LAST_NAME_REGEX)) {
                 new Alert(Alert.AlertType.ERROR, "Invalid name format!", ButtonType.OK).show();
             } else if (!address.matches(PATIENT_ADDRESS_REGEX)) {
                 new Alert(Alert.AlertType.ERROR, "Invalid address format!", ButtonType.OK).show();
@@ -105,14 +144,13 @@ public class EditPatientController {
             } else if (!gender.matches(PATIENT_GENDER_REGEX)) {
                 new Alert(Alert.AlertType.ERROR, "Invalid gender format!", ButtonType.OK).show();
             } else {
-                System.out.println(name + "," + address + "," + nic + "," + contactnumber + "," + gender + "," + dateofbirth);
-                PatientDTO patientDTO = new PatientDTO(Integer.parseInt(id), name, address, nic, contactnumber, gender, dateofbirth);
+                System.out.println(fName + "," + lName + "," + address + "," + nic + "," + contactnumber + "," + gender + "," + dateofbirth);
+                PatientDTO patientDTO = new PatientDTO(Integer.parseInt(id), fName, lName, address, nic, contactnumber, gender, dateofbirth);
 
                 boolean result = patientModel.updatePatient(patientDTO);
 
                 if (result) {
                     new Alert(Alert.AlertType.INFORMATION, "Patient has been Updated successfully!", ButtonType.OK).show();
-                    cleanField();
 
 
                 } else {
@@ -120,22 +158,18 @@ public class EditPatientController {
                 }
             }
 
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
 
-        @FXML
-        private void cleanField () {
-            idField.setText("");
-            nameField.setText("");
-            addressField.setText("");
-            nicField.setText("");
-            contactNumberField.setText("");
-            genderField.setText("");
-            dateofbirthField.setText("");
+    @FXML
+    public void onActionReset(ActionEvent event) {
+        initData(patientDTO);
 
-        }
+    }
+
+
 
 }

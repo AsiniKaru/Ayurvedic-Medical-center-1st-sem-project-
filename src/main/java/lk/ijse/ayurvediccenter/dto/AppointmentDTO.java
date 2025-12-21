@@ -23,6 +23,8 @@ public class AppointmentDTO {
         this.appointment_date = appointment_date;
     }
 
+
+
     public AppointmentDTO(int appointment_id, int doc_id, int patient_id, double doc_charges, double treatment_charges, double prescription_charges, double total_charges, String appointment_date) {
         this.appointment_id = appointment_id;
         this.doc_id = doc_id;
