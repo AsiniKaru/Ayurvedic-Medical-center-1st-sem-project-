@@ -81,7 +81,7 @@
                      <children>
                         <HBox prefHeight="146.0" prefWidth="868.0">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#loadPatientTable" prefHeight="26.0" prefWidth="145.0" style="-fx-background-color: BFCFBB;" text="Reset">
+                              <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="145.0" style="-fx-background-color: BFCFBB;" text="Reset">
                                  <HBox.margin>
                                     <Insets left="450.0" top="10.0" />
                                  </HBox.margin>
@@ -89,7 +89,7 @@
                                     <Font name="Cambria Bold" size="13.0" />
                                  </font>
                               </Button>
-                              <Button mnemonicParsing="false" onAction="#onActionAddPatient" prefHeight="24.0" prefWidth="249.0" style="-fx-background-color: #BFCFBB; -fx-border-color: black;" text="+ Add New Appointment">
+                              <Button mnemonicParsing="false" prefHeight="24.0" prefWidth="249.0" style="-fx-background-color: #BFCFBB; -fx-border-color: black;" text="+ Add New Appointment">
                                  <HBox.margin>
                                     <Insets top="60.0" />
                                  </HBox.margin>

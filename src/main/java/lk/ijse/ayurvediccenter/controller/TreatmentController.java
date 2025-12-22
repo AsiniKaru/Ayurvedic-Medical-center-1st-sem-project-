@@ -7,22 +7,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import lk.ijse.ayurvediccenter.dto.PatientDTO;
 import lk.ijse.ayurvediccenter.dto.TreatmentDTO;
-import lk.ijse.ayurvediccenter.model.PatientModel;
 import lk.ijse.ayurvediccenter.model.TreatmentModel;
-
-import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -45,28 +38,67 @@ public class TreatmentController implements Initializable {
     private TableColumn colType;
 
     @FXML
+    private TableColumn colAction;
+
+    @FXML
     private TableView tableTreatment;
 
     @FXML
-    private TextArea tIdField;
+    private TextField tIdField;
     @FXML
-    private TextArea tNameField;
+    private TextField tNameField;
 
 
     TreatmentModel treatmentModel = new TreatmentModel();
 
     private final String TREATMENT_ID_REGEX = "^[0-9]+$";
-    private final String TREATMENT_NAME_REGEX = "^[a-zA-Z]{3,}$";
+    private final String TREATMENT_NAME_REGEX = "^[A-Za-z]+ [A-Za-z]+$";
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         System.out.println("Treatment FXML is loaded!");
 
         colId.setCellValueFactory(new PropertyValueFactory<>("treatment_id"));
-        colName.setCellValueFactory(new PropertyValueFactory<>("treatment_name"));
-        colType.setCellValueFactory(new PropertyValueFactory<>("treatment_type"));
+        colName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colType.setCellValueFactory(new PropertyValueFactory<>("type"));
         colDesc.setCellValueFactory(new PropertyValueFactory<>("description"));
-        colPrice.setCellValueFactory(new PropertyValueFactory<>("treatment_charges"));
+        colPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
+
+
+
+        // Custom cell factory for description to wrap text
+        colDesc.setCellValueFactory(new PropertyValueFactory<>("description"));
+        colDesc.setCellFactory(tc -> {
+            return new TableCell<TreatmentDTO, String>() {
+                private final TextArea textArea = new TextArea();
+
+                {
+                    textArea.setWrapText(true);        // wrap text
+                    textArea.setEditable(false);       // read-only
+                    textArea.setPrefHeight(10);       // initial row height
+                    textArea.setStyle("-fx-background-color: transparent; -fx-padding: 0; -fx-border-color: transparent;");
+                }
+
+                @Override
+                protected void updateItem(String description, boolean empty) {
+                    super.updateItem(description, empty);
+                    if (empty || description == null) {
+                        setGraphic(null);
+                    } else {
+                        textArea.setText(description);
+                        setGraphic(textArea);
+
+                        // Adjust row height based on text
+                        this.setPrefHeight(Math.max(50, textArea.getText().split("\n").length * 20));
+                    }
+                }
+            };
+        });
+
+        // Optional: fixed row height for other rows
+        tableTreatment.setFixedCellSize(70);
+        tableTreatment.setStyle("-fx-font-size: 12;");
+
 
         loadTreatmentTable();
 //
@@ -100,6 +132,8 @@ public class TreatmentController implements Initializable {
             e.printStackTrace();
         }
     }
+
+
 /*
     private void openPatientOverview(PatientDTO selectedPatient) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/lk/ijse/ayurvediccenter/view/PatientOverview.fxml"));
@@ -118,6 +152,7 @@ public class TreatmentController implements Initializable {
     }
 
 */
+
     @FXML
     public void onActionAddTreatment(){
         try{
@@ -144,6 +179,13 @@ public class TreatmentController implements Initializable {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    public void handleEditTreatment(TreatmentDTO treatmentDTO){}
+
+    @FXML
+    public void handleDeleteTreatment(TreatmentDTO treatmentDTO){}
+
 
     @FXML
     private void handleSearchById(KeyEvent event){

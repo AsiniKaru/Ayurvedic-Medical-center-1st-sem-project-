@@ -15,7 +15,7 @@ public class TreatmentModel {
 
         boolean result =
                 CrudUtil.execute(
-                        "INSERT INTO Treatment ( treatment_name, treatment_type ,description , treatment_charges) VALUES (?,?,?,?,?,?,?,?,?)",
+                        "INSERT INTO Treatment ( treatment_name, treatment_type ,description , treatment_charges) VALUES (?,?,?,?)",
                         treatmentDTO.getName(),
                         treatmentDTO.getType(),
                         treatmentDTO.getDescription(),
@@ -58,7 +58,7 @@ public class TreatmentModel {
             String treatment_Name = rs.getString("treatment_name");
             String treatment_type = rs.getString("treatment_type");
             String description = rs.getString("description");
-            double price = rs.getDouble("price");
+            double price = rs.getDouble("treatment_charges");
 
 
             return new TreatmentDTO(treatment_id,treatment_Name,treatment_type,description,price);
@@ -80,7 +80,7 @@ public class TreatmentModel {
             String treatment_Name = rs.getString("treatment_name");
             String treatment_type = rs.getString("treatment_type");
             String description = rs.getString("description");
-            double price = rs.getDouble("price");
+            double price = rs.getDouble("treatment_charges");
 
 
             return new TreatmentDTO(treatment_id,treatment_Name,treatment_type,description,price);
@@ -103,10 +103,10 @@ public class TreatmentModel {
         while (rs.next()) {
             TreatmentDTO treatmentDTO = new TreatmentDTO(
                     rs.getInt("treatment_id"),
-                    rs.getString("name"),
-                    rs.getString("type"),
+                    rs.getString("treatment_name"),
+                    rs.getString("treatment_type"),
                     rs.getString("description"),
-                    rs.getDouble("price")
+                    rs.getDouble("treatment_charges")
             );
             System.out.println(treatmentDTO);
             treatmentList.add(treatmentDTO);

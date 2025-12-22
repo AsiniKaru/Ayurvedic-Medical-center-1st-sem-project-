@@ -2,27 +2,27 @@ package lk.ijse.ayurvediccenter.dto;
 
 public class MedicineDTO {
     private int med_id;
-    private String med_name;
+    private String name;
     private String description;
-    private int stack_qty;
-    private double unit_price;
+    private int qty;
+    private double price;
 
     public MedicineDTO() {
     }
 
-    public MedicineDTO(String med_name, String description, int stack_qty, double unit_price) {
-        this.med_name = med_name;
+    public MedicineDTO(String name, String description, int qty, double price) {
+        this.name = name;
         this.description = description;
-        this.stack_qty = stack_qty;
-        this.unit_price = unit_price;
+        this.qty = qty;
+        this.price = price;
     }
 
-    public MedicineDTO(int med_id, String med_name, String description, int stack_qty, double unit_price) {
+    public MedicineDTO(int med_id, String name, String description, int qty, double price) {
         this.med_id = med_id;
-        this.med_name = med_name;
+        this.name = name;
         this.description = description;
-        this.stack_qty = stack_qty;
-        this.unit_price = unit_price;
+        this.qty = qty;
+        this.price = price;
     }
 
     public int getMed_id() {
@@ -33,12 +33,12 @@ public class MedicineDTO {
         this.med_id = med_id;
     }
 
-    public String getMed_name() {
-        return med_name;
+    public String getName() {
+        return name;
     }
 
-    public void setMed_name(String med_name) {
-        this.med_name = med_name;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDescription() {
@@ -49,30 +49,30 @@ public class MedicineDTO {
         this.description = description;
     }
 
-    public int getStack_qty() {
-        return stack_qty;
+    public int getQty() {
+        return qty;
     }
 
-    public void setStack_qty(int stack_qty) {
-        this.stack_qty = stack_qty;
+    public void setQty(int qty) {
+        this.qty = qty;
     }
 
-    public double getUnit_price() {
-        return unit_price;
+    public double getPrice() {
+        return price;
     }
 
-    public void setUnit_price(double unit_price) {
-        this.unit_price = unit_price;
+    public void setPrice(double price) {
+        this.price = price;
     }
 
     @Override
     public String toString() {
         return "MedicineDTO{" +
                 "med_id=" + med_id +
-                ", med_name='" + med_name + '\'' +
+                ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
-                ", stack_qty=" + stack_qty +
-                ", unit_price=" + unit_price +
+                ", qty=" + qty +
+                ", price=" + price +
                 '}';
     }
 }

@@ -1,15 +1,125 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.ayurvediccenter.controller.MedicineController">
-    <children>
-        <Label layoutX="110.0" layoutY="136.0" text="Medicine">
-            <font>
-                <Font size="51.0" />
-            </font>
-        </Label>
-    </children>
+   <children>
+      <ImageView fitHeight="659.0" fitWidth="868.0" pickOnBounds="true">
+         <image>
+            <Image url="@../image/Screenshot%202025-12-10%20191201.png" />
+         </image>
+      </ImageView>
+      <BorderPane fx:id="patientMainContent" prefHeight="761.0" prefWidth="868.0">
+         <top>
+            <VBox prefHeight="298.0" prefWidth="868.0" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox prefHeight="52.0" prefWidth="868.0">
+                     <children>
+                        <HBox prefHeight="43.0" prefWidth="868.0">
+                           <children>
+                              <Label prefHeight="44.0" prefWidth="496.0" text="Medicine Dashboard" textFill="#344c3d">
+                                 <font>
+                                    <Font name="Cambria Bold" size="36.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="15.0" top="5.0" />
+                                 </HBox.margin>
+                              </Label>
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="49.0" prefWidth="868.0">
+                     <children>
+                        <Text layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Medicine ID :" wrappingWidth="237.50785446166992">
+                           <font>
+                              <Font name="Cambria" size="24.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="50.0" top="10.0" />
+                           </HBox.margin>
+                        </Text>
+                        <TextField fx:id="tIdField" onKeyPressed="#handleSearchById" prefHeight="51.0" prefWidth="511.0" promptText="Search By Medicine ID" style="-fx-border-color: #BFCFBB; -fx-border-width: 2; -fx-font-family: Cambria; -fx-font-size: 18;" />
+                     </children>
+                     <VBox.margin>
+                        <Insets top="15.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox prefHeight="49.0" prefWidth="868.0">
+                     <children>
+                        <Text layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Medicine Name :" wrappingWidth="238.30784225463867">
+                           <font>
+                              <Font name="Cambria" size="24.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="50.0" top="10.0" />
+                           </HBox.margin>
+                        </Text>
+                        <TextField fx:id="tNameField" onKeyPressed="#handleSearchByName" prefHeight="51.0" prefWidth="511.0" promptText="Search By Medicine Name" style="-fx-border-color: #BFCFBB; -fx-border-width: 2; -fx-font-family: Cambria; -fx-font-size: 18;" />
+                     </children>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox prefHeight="73.0" prefWidth="868.0">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                     <children>
+                        <HBox prefHeight="146.0" prefWidth="868.0">
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#loadMedicineTable" prefHeight="26.0" prefWidth="145.0" style="-fx-background-color: BFCFBB;" text="Reset">
+                                 <HBox.margin>
+                                    <Insets left="450.0" top="10.0" />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font name="Cambria Bold" size="13.0" />
+                                 </font>
+                              </Button>
+                              <Button mnemonicParsing="false" onAction="#onActionAddMedicine" prefHeight="24.0" prefWidth="249.0" style="-fx-background-color: #BFCFBB; -fx-border-color: black;" text="+ Add New Medicine">
+                                 <HBox.margin>
+                                    <Insets top="60.0" />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font name="Cambria Bold" size="12.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </top>
+         <center>
+            <VBox prefHeight="425.0" prefWidth="868.0" BorderPane.alignment="CENTER">
+               <children>
+                  <TableView fx:id="tableMedicine" prefHeight="479.0" prefWidth="868.0" style="-fx-background-color: #F1F4F0;">
+                     <columns>
+                        <TableColumn fx:id="colId" prefWidth="83.20000910758972" text="Medicine ID" />
+                        <TableColumn fx:id="colName" prefWidth="134.40001678466797" text="Medicine Name" />
+                        <TableColumn fx:id="colDesc" prefWidth="217.60003662109375" text="Description " />
+                        <TableColumn fx:id="colQty" prefWidth="132.00003051757812" text="Stock Qty" />
+                        <TableColumn fx:id="colPrice" prefWidth="145.5999755859375" text="Unit Price" />
+                        <TableColumn fx:id="colAction" prefWidth="164.79998779296875" text="action" />
+                     </columns>
+                  </TableView>
+               </children>
+            </VBox>
+         </center>
+      </BorderPane>
+   </children>
 </AnchorPane>

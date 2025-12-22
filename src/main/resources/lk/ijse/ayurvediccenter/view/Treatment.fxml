@@ -5,7 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -42,7 +42,7 @@
                         </HBox>
                      </children>
                   </HBox>
-                  <HBox prefHeight="30.0" prefWidth="868.0">
+                  <HBox prefHeight="49.0" prefWidth="868.0">
                      <children>
                         <Text layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Treatement ID :" wrappingWidth="237.50785446166992">
                            <font>
@@ -52,13 +52,13 @@
                               <Insets left="50.0" top="10.0" />
                            </HBox.margin>
                         </Text>
-                        <TextArea fx:id="tIdField" onDragDetected="#handleSearchById" prefHeight="58.0" prefWidth="511.0" promptText="Search By Treatment ID" style="-fx-border-color: #BFCFBB; -fx-border-width: 2; -fx-font-family: Cambria; -fx-font-size: 18;" />
+                        <TextField fx:id="tIdField" onKeyPressed="#handleSearchById" prefHeight="51.0" prefWidth="511.0" promptText="Search By Treatment ID" style="-fx-border-color: #BFCFBB; -fx-border-width: 2; -fx-font-family: Cambria; -fx-font-size: 18;" />
                      </children>
                      <VBox.margin>
                         <Insets top="15.0" />
                      </VBox.margin>
                   </HBox>
-                  <HBox prefHeight="30.0" prefWidth="868.0">
+                  <HBox prefHeight="49.0" prefWidth="868.0">
                      <children>
                         <Text layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tratment Name :" wrappingWidth="238.30784225463867">
                            <font>
@@ -68,7 +68,7 @@
                               <Insets left="50.0" top="10.0" />
                            </HBox.margin>
                         </Text>
-                        <TextArea fx:id="tNameField" onDragDetected="#handleSearchByName" prefHeight="58.0" prefWidth="511.0" promptText="Search By Treatment Name" style="-fx-border-color: #BFCFBB; -fx-border-width: 2; -fx-font-family: Cambria; -fx-font-size: 18;" />
+                        <TextField fx:id="tNameField" onKeyPressed="#handleSearchByName" prefHeight="51.0" prefWidth="511.0" promptText="Search By Treatment Name" style="-fx-border-color: #BFCFBB; -fx-border-width: 2; -fx-font-family: Cambria; -fx-font-size: 18;" />
                      </children>
                      <VBox.margin>
                         <Insets top="10.0" />
@@ -81,7 +81,7 @@
                      <children>
                         <HBox prefHeight="146.0" prefWidth="868.0">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#clearFields" prefHeight="26.0" prefWidth="145.0" style="-fx-background-color: BFCFBB;" text="Reset">
+                              <Button mnemonicParsing="false" onAction="#loadTreatmentTable" prefHeight="26.0" prefWidth="145.0" style="-fx-background-color: BFCFBB;" text="Reset">
                                  <HBox.margin>
                                     <Insets left="450.0" top="10.0" />
                                  </HBox.margin>
@@ -114,7 +114,7 @@
                         <TableColumn fx:id="colType" prefWidth="131.19998168945312" text="Treatment Type" />
                         <TableColumn fx:id="colDesc" prefWidth="217.60000610351562" text="Description " />
                         <TableColumn fx:id="colPrice" prefWidth="145.5999755859375" text="Base Price" />
-                        <TableColumn prefWidth="164.79998779296875" text="action" />
+                        <TableColumn fx:id="colAction" prefWidth="164.79998779296875" text="action" />
                      </columns>
                   </TableView>
                </children>
