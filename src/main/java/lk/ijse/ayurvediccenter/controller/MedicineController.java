@@ -11,8 +11,10 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import lk.ijse.ayurvediccenter.dto.MedicineDTO;
 import lk.ijse.ayurvediccenter.dto.TreatmentDTO;
 import lk.ijse.ayurvediccenter.model.MedicineModel;
@@ -20,26 +22,28 @@ import lk.ijse.ayurvediccenter.model.MedicineModel;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class MedicineController implements Initializable {
 
     @FXML
-    private TableColumn colAction;
+    private TableColumn<MedicineDTO,Void> colAction;
 
     @FXML
-    private TableColumn colDesc;
+    private TableColumn<MedicineDTO,String>  colDesc;
 
     @FXML
-    private TableColumn colId;
+    private TableColumn<MedicineDTO,Integer>  colId;
 
     @FXML
-    private TableColumn colName;
+    private TableColumn<MedicineDTO,String>  colName;
 
     @FXML
-    private TableColumn colPrice;
+    private TableColumn<MedicineDTO,Double>  colPrice;
 
     @FXML
-    private TableColumn colQty;
+    private TableColumn<MedicineDTO,Integer>  colQty;
 
 
     @FXML
@@ -49,7 +53,7 @@ public class MedicineController implements Initializable {
     private TextField tNameField;
 
     @FXML
-    private TableView tableMedicine;
+    private TableView<MedicineDTO>  tableMedicine;
 
     private final String MEDICINE_ID_REGEX = "^[0-9]+$";
     private final String MEDICINE_NAME_REGEX = "^[A-Za-z]+ [A-Za-z]+$";
@@ -70,37 +74,48 @@ public class MedicineController implements Initializable {
         colPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
 
 
-        // Custom cell factory for description to wrap text
-        colDesc.setCellValueFactory(new PropertyValueFactory<>("description"));
-        colDesc.setCellFactory(tc -> {
-            return new TableCell<TreatmentDTO, String>() {
-                private final TextArea textArea = new TextArea();
+        colAction.setCellFactory(param -> new TableCell<>() {
 
-                {
-                    textArea.setWrapText(true);        // wrap text
-                    textArea.setEditable(false);       // read-only
-                    textArea.setPrefHeight(10);       // initial row height
-                    textArea.setStyle("-fx-background-color: transparent; -fx-padding: 0; -fx-border-color: transparent;");
+            private final Button btnEdit = new Button("Edit");
+            private final Button btnDelete = new Button("Delete");
+            private final HBox hBox = new HBox(10, btnEdit, btnDelete);
+
+            {
+                // 🔹 Edit button action
+                btnEdit.setOnAction(event -> {
+                    MedicineDTO medicine = getTableView()
+                            .getItems()
+                            .get(getIndex());
+
+                    handleEditMedicine(medicine);
+                });
+
+                // 🔹 Delete button action
+                btnDelete.setOnAction(event -> {
+                    MedicineDTO medicine = getTableView()
+                            .getItems()
+                            .get(getIndex());
+
+                    handleDeleteMedicine(medicine);
+                });
+
+                hBox.setStyle("-fx-alignment: CENTER;");
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(hBox);
                 }
-
-                @Override
-                protected void updateItem(String description, boolean empty) {
-                    super.updateItem(description, empty);
-                    if (empty || description == null) {
-                        setGraphic(null);
-                    } else {
-                        textArea.setText(description);
-                        setGraphic(textArea);
-
-                        // Adjust row height based on text
-                        this.setPrefHeight(Math.max(50, textArea.getText().split("\n").length * 20));
-                    }
-                }
-            };
+            }
         });
 
         // Optional: fixed row height for other rows
-        tableMedicine.setFixedCellSize(70);
+        tableMedicine.setFixedCellSize(30);
         tableMedicine.setStyle("-fx-font-size: 12;");
 
 
@@ -136,13 +151,17 @@ public class MedicineController implements Initializable {
 
             Parent root = loader.load();
 
+
             AddMedicineController addController = loader.getController();
             addController.setMedicineController(this);
+            addController.setUpdate(false);
+
 
 
             Stage newStage = new Stage();
             newStage.setTitle("Add New Medicine");
             newStage.setScene(new Scene(root));
+
 
             newStage.initModality(Modality.APPLICATION_MODAL);
 
@@ -156,10 +175,64 @@ public class MedicineController implements Initializable {
     @FXML
     public void handleEditMedicine(MedicineDTO medicineDTO){
 
+        if (medicineDTO == null) {
+            new Alert(Alert.AlertType.WARNING, "No medicine selected!").show();
+            return;
+        }
+
+        FXMLLoader loader = new FXMLLoader ();
+        loader.setLocation(getClass().getResource("/lk/ijse/ayurvediccenter/view/AddMedicine.fxml"));
+        try {
+            loader.load();
+        } catch (Exception ex) {
+            Logger.getLogger(AddMedicineController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        AddMedicineController addMedicineController = loader.getController();
+        addMedicineController.setMedicineController(this);
+        addMedicineController.setUpdate(true);
+        addMedicineController.setTextField(
+                medicineDTO.getMed_id(),
+                medicineDTO.getName(),
+                medicineDTO.getDescription(),
+                medicineDTO.getQty(),
+                medicineDTO.getPrice()
+        );
+        Parent parent = loader.getRoot();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(parent));
+        stage.initStyle(StageStyle.UTILITY);
+        stage.show();
+
+
     }
 
     @FXML
-    public void handleDeleteMedicine(MedicineDTO medicineDTO){}
+    public void handleDeleteMedicine(MedicineDTO medicineDTO) {
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION,
+                "Are you sure you want to delete?",
+                ButtonType.YES, ButtonType.NO);
+
+        if (alert.showAndWait().orElse(ButtonType.NO) == ButtonType.YES) {
+            tableMedicine.getItems().remove(medicineDTO);
+
+            try{
+                boolean isDeleted = medicineModel.deleteMedicine(String.valueOf(medicineDTO.getMed_id()));
+
+                if(isDeleted){
+                    new Alert(Alert.AlertType.INFORMATION, "Customer deleted successfully!").show();
+
+                } else {
+                    new Alert(Alert.AlertType.ERROR, "Something went wrong!").show();
+
+                }
+
+            }catch(Exception e){
+                    e.printStackTrace();
+            }
+        }
+    }
 
 
     @FXML

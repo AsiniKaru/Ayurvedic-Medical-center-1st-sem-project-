@@ -25,7 +25,7 @@
                <children>
                   <HBox prefHeight="30.0" prefWidth="868.0">
                      <children>
-                        <Text fill="#344c3d" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add New Medicine" wrappingWidth="346.30785751342773">
+                        <Text fill="#344c3d" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Medicine Details" wrappingWidth="346.30785751342773">
                            <font>
                               <Font name="Cambria Bold" size="30.0" />
                            </font>

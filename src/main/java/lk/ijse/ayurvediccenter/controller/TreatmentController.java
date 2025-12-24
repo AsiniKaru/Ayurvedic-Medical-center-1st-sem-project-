@@ -14,34 +14,38 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import lk.ijse.ayurvediccenter.dto.MedicineDTO;
 import lk.ijse.ayurvediccenter.dto.TreatmentDTO;
 import lk.ijse.ayurvediccenter.model.TreatmentModel;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class TreatmentController implements Initializable {
 
     @FXML
-    private TableColumn colDesc;
+    private TableColumn<TreatmentDTO,String> colDesc;
 
     @FXML
-    private TableColumn colId;
+    private TableColumn<TreatmentDTO,Integer> colId;
 
     @FXML
-    private TableColumn colName;
+    private TableColumn<TreatmentDTO,String> colName;
 
     @FXML
-    private TableColumn colPrice;
+    private TableColumn<TreatmentDTO,Double> colPrice;
 
     @FXML
-    private TableColumn colType;
+    private TableColumn<TreatmentDTO,String> colType;
 
     @FXML
-    private TableColumn colAction;
+    private TableColumn<TreatmentDTO,Void> colAction;
 
     @FXML
-    private TableView tableTreatment;
+    private TableView<TreatmentDTO> tableTreatment;
 
     @FXML
     private TextField tIdField;
@@ -99,6 +103,45 @@ public class TreatmentController implements Initializable {
         tableTreatment.setFixedCellSize(70);
         tableTreatment.setStyle("-fx-font-size: 12;");
 
+        colAction.setCellFactory(param -> new TableCell<>() {
+
+            private final Button btnEdit = new Button("Edit");
+            private final Button btnDelete = new Button("Delete");
+            private final HBox hBox = new HBox(10, btnEdit, btnDelete);
+
+            {
+                // 🔹 Edit button action
+                btnEdit.setOnAction(event -> {
+                    TreatmentDTO treatmentDTO = getTableView()
+                            .getItems()
+                            .get(getIndex());
+
+                    handleEditTreatment(treatmentDTO);
+                });
+
+                // 🔹 Delete button action
+                btnDelete.setOnAction(event -> {
+                    TreatmentDTO treatmentDTO = getTableView()
+                            .getItems()
+                            .get(getIndex());
+
+                    handleDeleteTreatment(treatmentDTO);
+                });
+
+                hBox.setStyle("-fx-alignment: CENTER;");
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(hBox);
+                }
+            }
+        });
 
         loadTreatmentTable();
 //
@@ -165,6 +208,7 @@ public class TreatmentController implements Initializable {
 
             AddTreatmentController addController = loader.getController();
             addController.setTreatmentController(this);
+            addController.setUpdate(false);
 
 
             Stage newStage = new Stage();
@@ -181,10 +225,65 @@ public class TreatmentController implements Initializable {
     }
 
     @FXML
-    public void handleEditTreatment(TreatmentDTO treatmentDTO){}
+    public void handleEditTreatment(TreatmentDTO treatmentDTO){
+        if (treatmentDTO == null) {
+            new Alert(Alert.AlertType.WARNING, "No treatment selected!").show();
+            return;
+        }
+
+        FXMLLoader loader = new FXMLLoader ();
+        loader.setLocation(getClass().getResource("/lk/ijse/ayurvediccenter/view/AddTreatment.fxml"));
+        try {
+            loader.load();
+        } catch (Exception ex) {
+            Logger.getLogger(AddTreatmentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        AddTreatmentController addTreatmentController = loader.getController();
+        addTreatmentController.setTreatmentController(this);
+        addTreatmentController.setUpdate(true);
+        addTreatmentController.setTextField(
+                treatmentDTO.getTreatment_id(),
+                treatmentDTO.getName(),
+                treatmentDTO.getType(),
+                treatmentDTO.getDescription(),
+                treatmentDTO.getPrice()
+        );
+        Parent parent = loader.getRoot();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(parent));
+        stage.initStyle(StageStyle.UTILITY);
+        stage.show();
+
+
+    }
 
     @FXML
-    public void handleDeleteTreatment(TreatmentDTO treatmentDTO){}
+    public void handleDeleteTreatment(TreatmentDTO treatmentDTO){
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION,
+                "Are you sure you want to delete?",
+                ButtonType.YES, ButtonType.NO);
+
+        if (alert.showAndWait().orElse(ButtonType.NO) == ButtonType.YES) {
+            tableTreatment.getItems().remove(treatmentDTO);
+
+            try{
+                boolean isDeleted = treatmentModel.deleteTreatment(String.valueOf(treatmentDTO.getTreatment_id()));
+
+                if(isDeleted){
+                    new Alert(Alert.AlertType.INFORMATION, "Treatment deleted successfully!").show();
+
+                } else {
+                    new Alert(Alert.AlertType.ERROR, "Something went wrong!").show();
+
+                }
+
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+    }
 
 
     @FXML

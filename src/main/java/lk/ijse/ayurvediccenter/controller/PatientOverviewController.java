@@ -4,12 +4,13 @@ package lk.ijse.ayurvediccenter.controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import lk.ijse.ayurvediccenter.dto.PatientDTO;
+import lk.ijse.ayurvediccenter.model.PatientModel;
+
+import java.util.Optional;
 
 public class PatientOverviewController {
 
@@ -45,6 +46,12 @@ public class PatientOverviewController {
     @FXML
     private Label pSinceField;
 
+    @FXML
+    private Button deleteButton;
+
+    private final PatientModel patientModel = new PatientModel();
+
+    private PatientController patientController = new PatientController();
 
     private PatientDTO currentDTO;
 
@@ -125,6 +132,64 @@ public class PatientOverviewController {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    public void onActionDeletePatient(ActionEvent actionEvent) {
+        try {
+
+            boolean isDeleted = patientModel.deletePatient(String.valueOf(currentDTO.getPatientId()));
+
+            if(isDeleted) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Success!");
+                alert.setHeaderText("Patient Record Deleted Successfully");
+
+                ButtonType buttonYes = new ButtonType(" Go Back");
+                alert.getButtonTypes().setAll(buttonYes);
+                Optional<ButtonType> results = alert.showAndWait();
+                patientController.loadPatientTable();
+
+
+                if (results.isPresent() && results.get() == buttonYes) {
+                    Stage currentStage = (Stage) deleteButton.getScene().getWindow();
+                    currentStage.close();
+
+                }
+
+
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Something went wrong!").show();
+            }
+
+        } catch(Exception e) {
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "Something went wrong!").show();
+        }
+
+    }
+/*
+
+medicineController.loadMedicineTable();
+                                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                                alert.setTitle("Success!");
+                                alert.setHeaderText("Medicine successfully Updated");
+
+                                ButtonType buttonYes = new ButtonType("update Again");
+                                ButtonType buttonNo = new ButtonType("Go Back ");
+
+
+                                Optional<ButtonType> results = alert.showAndWait();
+
+
+                                if (results.isPresent() && results.get() == buttonYes) {
+
+
+                                } else {
+
+
+                                }
+
+ */
 
     @FXML
     public void navigateTo(String path) {

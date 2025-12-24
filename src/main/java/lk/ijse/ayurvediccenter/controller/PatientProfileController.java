@@ -5,12 +5,16 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import lk.ijse.ayurvediccenter.dto.PatientDTO;
+import lk.ijse.ayurvediccenter.model.PatientModel;
 
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class PatientProfileController  {
@@ -46,6 +50,13 @@ public class PatientProfileController  {
 
     @FXML
     private Label pSinceField;
+
+    @FXML
+    private Button deleteButton;
+
+    private PatientController patientController;
+
+    PatientModel patientModel =  new PatientModel();
 
     private PatientDTO patientDTO;
 
@@ -89,6 +100,41 @@ public class PatientProfileController  {
 
         } catch (Exception e) {
             e.printStackTrace();
+        }
+
+    }
+
+    @FXML
+    public void onActionDeletePatient(ActionEvent actionEvent) {
+        try {
+
+            boolean isDeleted = patientModel.deletePatient(String.valueOf(patientDTO.getPatientId()));
+
+            if(isDeleted) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Success!");
+                alert.setHeaderText("Patient Record Deleted Successfully");
+
+                ButtonType buttonYes = new ButtonType("Go Back");
+                alert.getButtonTypes().setAll(buttonYes);
+                Optional<ButtonType> results = alert.showAndWait();
+                patientController.loadPatientTable();
+
+
+                if (results.isPresent() && results.get() == buttonYes) {
+                    Stage currentStage = (Stage) deleteButton.getScene().getWindow();
+                    currentStage.close();
+
+                }
+
+
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Something went wrong!").show();
+            }
+
+        } catch(Exception e) {
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "Something went wrong!").show();
         }
 
     }

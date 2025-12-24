@@ -7,7 +7,6 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 import lk.ijse.ayurvediccenter.dto.MedicineDTO;
-import lk.ijse.ayurvediccenter.dto.TreatmentDTO;
 import lk.ijse.ayurvediccenter.model.MedicineModel;
 
 import java.util.Optional;
@@ -30,6 +29,10 @@ public class AddMedicineController {
     @FXML
     private Button saveButton;
 
+    private boolean update ;
+
+    int id;
+
     private final String MEDICINE_ID_REGEX = "^[0-9]+$";
     private final String MEDICINE_NAME_REGEX = "^[A-Za-z]+ [A-Za-z]+$";
     private final String MEDICINE_QTY_REGEX =  "^[0-9]+$";
@@ -38,69 +41,118 @@ public class AddMedicineController {
 
     MedicineModel medicineModel = new MedicineModel();
 
+
     public void setMedicineController(MedicineController medicineController) {
         this.medicineController = medicineController;
     }
 
     @FXML
     private void handleSaveMedicine(){
-        String name = medNameField.getText();
-        String description = medDescriptionField.getText();
-        String qty = medQtyField.getText();
-        String price = medPriceField.getText();
 
+                String name = medNameField.getText();
+                String description = medDescriptionField.getText();
+                String qty = medQtyField.getText();
+                String price = medPriceField.getText();
 
-
-        if(!name.matches(MEDICINE_NAME_REGEX)) {
-            new Alert(Alert.AlertType.ERROR, "Invalid Name format!", ButtonType.OK).show();
-        }else if(!description.matches(MEDICINE_DESCRIPTION_REGEX)) {
-            new Alert(Alert.AlertType.ERROR, "Invalid description format!", ButtonType.OK).show();
-        }else if(!qty.matches(MEDICINE_QTY_REGEX)) {
-            new Alert(Alert.AlertType.ERROR, "Invalid qty format!", ButtonType.OK).show();
-        }else if(!price.matches(MEDICINE_PRICE_REGEX)) {
-            new Alert(Alert.AlertType.ERROR, "Invalid price format!", ButtonType.OK).show();
-        }else{
-            try{
-                MedicineDTO medicineDTO = new MedicineDTO(name, description, Integer.parseInt(qty), Double.parseDouble(price));
-                boolean result = medicineModel.saveMedicine(medicineDTO);
-
-                if(result){
-                    medicineController.loadMedicineTable();
-                    Alert alert =new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Success!");
-                    alert.setHeaderText("Medicine successfully added. Would you like to add another Medicine?");
-
-                    ButtonType buttonYes = new ButtonType("Yes");
-                    ButtonType buttonNo = new ButtonType("No");
-                    alert.getButtonTypes().setAll(buttonYes, buttonNo);
-
-                    Optional<ButtonType> results = alert.showAndWait();
-
-
-                    if (results.isPresent() && results.get() == buttonYes) {
-                        cleanField();
-
-
-                    } else {
-
-                        Stage currentStage = (Stage) saveButton.getScene().getWindow();
-                        currentStage.close();
-                        cleanField();
-                        medicineController.loadMedicineTable();
-                    }
-
-
-
+                if(!name.matches(MEDICINE_NAME_REGEX)) {
+                    new Alert(Alert.AlertType.ERROR, "Invalid Name format!", ButtonType.OK).show();
+                }else if(!description.matches(MEDICINE_DESCRIPTION_REGEX)) {
+                    new Alert(Alert.AlertType.ERROR, "Invalid description format!", ButtonType.OK).show();
+                }else if(!qty.matches(MEDICINE_QTY_REGEX)) {
+                    new Alert(Alert.AlertType.ERROR, "Invalid qty format!", ButtonType.OK).show();
+                }else if(!price.matches(MEDICINE_PRICE_REGEX)) {
+                    new Alert(Alert.AlertType.ERROR, "Invalid price format!", ButtonType.OK).show();
                 }else {
-                    new Alert(Alert.AlertType.ERROR,"Failed to save Medicine!", ButtonType.OK).show();
+                    try {
+
+                        ////////////////////// Save Medicine ////////////////////////////
+                        if (!update) {
+                            MedicineDTO medicineDTO = new MedicineDTO(name, description, Integer.parseInt(qty), Double.parseDouble(price));
+                            boolean result = medicineModel.saveMedicine(medicineDTO);
+
+                            if (result) {
+                                medicineController.loadMedicineTable();
+                                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                                alert.setTitle("Success!");
+                                alert.setHeaderText("Medicine successfully added. Would you like to add another Medicine?");
+
+                                ButtonType buttonYes = new ButtonType("Yes");
+                                ButtonType buttonNo = new ButtonType("No");
+                                alert.getButtonTypes().setAll(buttonYes, buttonNo);
+
+                                Optional<ButtonType> results = alert.showAndWait();
+
+
+                                if (results.isPresent() && results.get() == buttonYes) {
+                                    cleanField();
+
+
+                                } else {
+
+                                    Stage currentStage = (Stage) saveButton.getScene().getWindow();
+                                    currentStage.close();
+                                    cleanField();
+                                    medicineController.loadMedicineTable();
+                                }
+
+                            } else {
+                                new Alert(Alert.AlertType.ERROR, "Failed to save Medicine!", ButtonType.OK).show();
+                            }
+
+                            ////////////////////// Update Medicine ////////////////////////////
+                        } else {
+                            MedicineDTO medicineDTO = new MedicineDTO(id, name, description, Integer.parseInt(qty), Double.parseDouble(price));
+                            boolean result = medicineModel.updateMedicine(medicineDTO);
+
+                            if (result) {
+                                medicineController.loadMedicineTable();
+                                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                                alert.setTitle("Success!");
+                                alert.setHeaderText("Medicine successfully Updated");
+
+                                ButtonType buttonYes = new ButtonType("update Again");
+                                ButtonType buttonNo = new ButtonType("Go Back ");
+                                alert.getButtonTypes().setAll(buttonYes, buttonNo);
+
+                                Optional<ButtonType> results = alert.showAndWait();
+
+
+                                if (results.isPresent() && results.get() == buttonYes) {
+
+
+                                } else {
+
+                                    Stage currentStage = (Stage) saveButton.getScene().getWindow();
+                                    currentStage.close();
+                                    cleanField();
+                                    medicineController.loadMedicineTable();
+                                }
+
+                            } else {
+                                new Alert(Alert.AlertType.ERROR, "Failed to Update Medicine!", ButtonType.OK).show();
+                            }
+
+                        }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
-            }catch(Exception e){
-                e.printStackTrace();
-            }
-        }
+
     }
+    void setUpdate(boolean b) {
+        this.update = b;
 
+    }
+    void setTextField( int medId , String medName , String Description , int medQty , double medPrice) {
 
+        id = medId;
+        medNameField.setText(medName);
+        medDescriptionField.setText(Description);
+        medQtyField.setText(String.valueOf(medQty));
+        medPriceField.setText(String.valueOf(medPrice));
+
+    }
     @FXML
     private void cleanField(){
         medNameField.setText("");

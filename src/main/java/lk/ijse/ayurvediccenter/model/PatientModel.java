@@ -55,7 +55,14 @@ public class PatientModel {
      return result;
   }
 
-    public void deletePatient(){}
+    public boolean deletePatient(String id) throws SQLException {
+        boolean result =
+                CrudUtil.execute(
+                        "DELETE FROM Patient  WHERE patient_id=? ",
+                        id
+                );
+        return result;
+    }
 
     public PatientDTO searchPatient(String id) throws SQLException {
 

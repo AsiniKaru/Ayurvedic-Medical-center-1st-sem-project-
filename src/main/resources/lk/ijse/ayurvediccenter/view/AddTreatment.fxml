@@ -25,7 +25,7 @@
                <children>
                   <HBox prefHeight="30.0" prefWidth="868.0">
                      <children>
-                        <Text fill="#344c3d" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add New Treatment" wrappingWidth="346.30785751342773">
+                        <Text fill="#344c3d" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" Treatment Preview" wrappingWidth="346.30785751342773">
                            <font>
                               <Font name="Cambria Bold" size="30.0" />
                            </font>
@@ -120,7 +120,7 @@
                   </HBox>
                   <HBox prefHeight="82.0" prefWidth="868.0">
                      <children>
-                        <Button fx:id="saveButton" mnemonicParsing="false" onAction="#handleSavePatient" prefHeight="46.0" prefWidth="130.0" style="-fx-background-color: #BFCFBB;" text="Save">
+                        <Button fx:id="saveButton" mnemonicParsing="false" onAction="#handleSaveTreatment" prefHeight="46.0" prefWidth="130.0" style="-fx-background-color: #BFCFBB;" text="Save">
                            <HBox.margin>
                               <Insets left="380.0" />
                            </HBox.margin>

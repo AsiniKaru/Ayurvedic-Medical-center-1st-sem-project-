@@ -149,6 +149,8 @@ public class PatientController implements Initializable {
         }
     }
 
+
+
     @FXML
     private void handleSearchById(KeyEvent event){
         try{

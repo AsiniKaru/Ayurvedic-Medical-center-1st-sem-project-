@@ -7,6 +7,17 @@ public class MedicineDTO {
     private int qty;
     private double price;
 
+
+    private boolean editing;
+
+    public boolean isEditing() {
+        return editing;
+    }
+
+    public void setEditing(boolean editing) {
+        this.editing = editing;
+    }
+
     public MedicineDTO() {
     }
 

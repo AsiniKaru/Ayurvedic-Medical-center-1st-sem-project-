@@ -30,6 +30,11 @@ public class AddTreatmentController {
     @FXML
     private Button saveButton;
 
+    private boolean update ;
+
+    int id;
+
+
     private final String TREATMENT_ID_REGEX = "^[0-9]+$";
     private final String TREATMENT_NAME_REGEX = "^[A-Za-z]+ [A-Za-z]+$";
     private final String TREATMENT_TYPE_REGEX = "^[a-zA-Z]+ [A-Za-z]+$";
@@ -61,45 +66,99 @@ public class AddTreatmentController {
             new Alert(Alert.AlertType.ERROR, "Invalid price format!", ButtonType.OK).show();
         }else{
             try{
-                TreatmentDTO teatmentDTO = new TreatmentDTO(name, type, description, Double.parseDouble(price));
-                boolean result = treatmentModel.saveTreatment(teatmentDTO);
 
-                if(result){
-                    treatmentController.loadTreatmentTable();
-                    Alert alert =new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Success!");
-                    alert.setHeaderText("Treatment successfully added. Would you like to add another Treatment?");
+                ////////////////////// Save Treatment ////////////////////////////
+                if(!update) {
+                    TreatmentDTO teatmentDTO = new TreatmentDTO(name, type, description, Double.parseDouble(price));
+                    boolean result = treatmentModel.saveTreatment(teatmentDTO);
 
-                    ButtonType buttonYes = new ButtonType("Yes");
-                    ButtonType buttonNo = new ButtonType("No");
-                    alert.getButtonTypes().setAll(buttonYes, buttonNo);
+                    if (result) {
+                        treatmentController.loadTreatmentTable();
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Success!");
+                        alert.setHeaderText("Treatment successfully added. Would you like to add another Treatment?");
 
-                    Optional<ButtonType> results = alert.showAndWait();
+                        ButtonType buttonYes = new ButtonType("Yes");
+                        ButtonType buttonNo = new ButtonType("No");
+                        alert.getButtonTypes().setAll(buttonYes, buttonNo);
+
+                        Optional<ButtonType> results = alert.showAndWait();
 
 
-                    if (results.isPresent() && results.get() == buttonYes) {
-                        cleanField();
+                        if (results.isPresent() && results.get() == buttonYes) {
+                            cleanField();
+
+
+                        } else {
+
+                            Stage currentStage = (Stage) saveButton.getScene().getWindow();
+                            currentStage.close();
+                            cleanField();
+                            treatmentController.loadTreatmentTable();
+                        }
 
 
                     } else {
+                        new Alert(Alert.AlertType.ERROR, "Failed to save treatment!", ButtonType.OK).show();
+                    }
 
-                        Stage currentStage = (Stage) saveButton.getScene().getWindow();
-                        currentStage.close();
-                        cleanField();
+                ////////////////////// Update Treatment ////////////////////////////
+                }else{
+
+                    TreatmentDTO treatmentDTO = new TreatmentDTO(id , name, type, description, Double.parseDouble(price));
+                    boolean result = treatmentModel.updateTreatment(treatmentDTO);
+
+                    if (result) {
                         treatmentController.loadTreatmentTable();
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Success!");
+                        alert.setHeaderText("Treatment successfully Updated . Would you like to update again?");
+
+                        ButtonType buttonYes = new ButtonType("Yes");
+                        ButtonType buttonNo = new ButtonType("No");
+                        alert.getButtonTypes().setAll(buttonYes, buttonNo);
+
+                        Optional<ButtonType> results = alert.showAndWait();
+
+
+                        if (results.isPresent() && results.get() == buttonYes) {
+
+
+
+                        } else {
+
+                            Stage currentStage = (Stage) saveButton.getScene().getWindow();
+                            currentStage.close();
+                            cleanField();
+                            treatmentController.loadTreatmentTable();
+                        }
+
+
+                    } else {
+                        new Alert(Alert.AlertType.ERROR, "Failed to update treatment!", ButtonType.OK).show();
                     }
 
 
-
-                }else {
-                    new Alert(Alert.AlertType.ERROR,"Failed to save patient!", ButtonType.OK).show();
                 }
+
+
             }catch(Exception e){
                 e.printStackTrace();
             }
         }
     }
+    void setUpdate(boolean b) {
+        this.update = b;
 
+    }
+    void setTextField( int tId , String tName ,String type ,  String Description , double Price) {
+
+        id = tId;
+        tNameField.setText(tName);
+        tTypeField.setText(type);
+        tDescriptionField.setText(Description);
+        tPriceField.setText(String.valueOf(Price ));
+    }
 
     @FXML
     private void cleanField(){

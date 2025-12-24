@@ -1,25 +1,31 @@
 package lk.ijse.ayurvediccenter.dto;
 
-public class Employee {
+public class EmployeeDTO {
     private int emp_id ;
-    private String emp_name;
+    private String fName;
+    private String lName;
+    private String address;
     private String contact_num;
     private String email;
     private String role;
 
-    public Employee() {
+    public EmployeeDTO() {
     }
 
-    public Employee(int emp_id, String emp_name, String contact_num, String email, String role) {
-        this.emp_id = emp_id;
-        this.emp_name = emp_name;
+    public EmployeeDTO(String fName, String lName, String address, String contact_num, String email, String role) {
+        this.fName = fName;
+        this.lName = lName;
+        this.address = address;
         this.contact_num = contact_num;
         this.email = email;
         this.role = role;
     }
 
-    public Employee(String emp_name, String contact_num, String email, String role) {
-        this.emp_name = emp_name;
+    public EmployeeDTO(int emp_id, String fName, String lName, String address, String contact_num, String email, String role) {
+        this.emp_id = emp_id;
+        this.fName = fName;
+        this.lName = lName;
+        this.address = address;
         this.contact_num = contact_num;
         this.email = email;
         this.role = role;
@@ -33,12 +39,28 @@ public class Employee {
         this.emp_id = emp_id;
     }
 
-    public String getEmp_name() {
-        return emp_name;
+    public String getfName() {
+        return fName;
     }
 
-    public void setEmp_name(String emp_name) {
-        this.emp_name = emp_name;
+    public void setfName(String fName) {
+        this.fName = fName;
+    }
+
+    public String getlName() {
+        return lName;
+    }
+
+    public void setlName(String lName) {
+        this.lName = lName;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getContact_num() {
@@ -67,9 +89,11 @@ public class Employee {
 
     @Override
     public String toString() {
-        return "Employee{" +
+        return "EmployeeDTO{" +
                 "emp_id=" + emp_id +
-                ", emp_name='" + emp_name + '\'' +
+                ", fName='" + fName + '\'' +
+                ", lName='" + lName + '\'' +
+                ", address='" + address + '\'' +
                 ", contact_num='" + contact_num + '\'' +
                 ", email='" + email + '\'' +
                 ", role='" + role + '\'' +

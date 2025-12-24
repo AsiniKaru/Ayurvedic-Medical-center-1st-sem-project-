@@ -25,25 +25,31 @@ public class TreatmentModel {
     }
 
 
-/*
+
     public boolean updateTreatment(TreatmentDTO treatmentDTO) throws SQLException {
         boolean result =
                 CrudUtil.execute(
-                        "UPDATE Patient SET patient_fName=? ,patient_lName=? ,address=? ,patient_nic=? ,contact_num=?  , gender=?, date_of_birth=? WHERE patient_id=? ",
-                        patientDTO.getFirstName(),
-                        patientDTO.getLastName(),
-                        patientDTO.getAddress(),
-                        patientDTO.getNic(),
-                        patientDTO.getContact(),
-                        patientDTO.getGender(),
-                        patientDTO.getDateOfBirth(),
-                        patientDTO.getPatientId()
+                        "UPDATE Treatment SET treatment_name=? ,treatment_type=? , description=? , treatment_charges=? WHERE treatment_id=? ",
+                        treatmentDTO.getName(),
+                        treatmentDTO.getType(),
+                        treatmentDTO.getDescription(),
+                        treatmentDTO.getPrice(),
+                        treatmentDTO.getTreatment_id()
                 );
         return result;
     }
 
-    public void deleteTreatment(){}
-*/
+    public boolean deleteTreatment(String id) throws SQLException {
+        boolean result =
+                CrudUtil.execute(
+                        "DELETE FROM Treatment  WHERE treatment_id=? ",
+                        id
+                );
+        return result;
+
+
+    }
+
     public TreatmentDTO searchTreatment(String id) throws SQLException {
 
 
