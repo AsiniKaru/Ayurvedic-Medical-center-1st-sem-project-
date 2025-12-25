@@ -2,27 +2,37 @@ package lk.ijse.ayurvediccenter.dto;
 
 public class DoctorDTO {
     private int doctor_id;
-    private String doc_name ;
+    private String fname ;
+    private String lname;
+    private String address;
     private String contact_num ;
     private String email ;
-    private double doc_charges;
+    private double dcharges;
 
     public DoctorDTO() {
     }
 
-    public DoctorDTO(String doc_name, String contact_num, String email, double doc_charges) {
-        this.doc_name = doc_name;
-        this.contact_num = contact_num;
-        this.email = email;
-        this.doc_charges = doc_charges;
+    public DoctorDTO(int doctor_id) {
+        this.doctor_id = doctor_id;
     }
 
-    public DoctorDTO(int doctor_id, String doc_name, String contact_num, String email, double doc_charges) {
-        this.doctor_id = doctor_id;
-        this.doc_name = doc_name;
+    public DoctorDTO(String fname, String lname, String address, String contact_num, String email, double dcharges) {
+        this.fname = fname;
+        this.lname = lname;
+        this.address = address;
         this.contact_num = contact_num;
         this.email = email;
-        this.doc_charges = doc_charges;
+        this.dcharges = dcharges;
+    }
+
+    public DoctorDTO(int doctor_id, String fname, String lname, String address, String contact_num, String email, double dcharges) {
+        this.doctor_id = doctor_id;
+        this.fname = fname;
+        this.lname = lname;
+        this.address = address;
+        this.contact_num = contact_num;
+        this.email = email;
+        this.dcharges = dcharges;
     }
 
     public int getDoctor_id() {
@@ -33,12 +43,28 @@ public class DoctorDTO {
         this.doctor_id = doctor_id;
     }
 
-    public String getDoc_name() {
-        return doc_name;
+    public String getFname() {
+        return fname;
     }
 
-    public void setDoc_name(String doc_name) {
-        this.doc_name = doc_name;
+    public void setFname(String fname) {
+        this.fname = fname;
+    }
+
+    public String getLname() {
+        return lname;
+    }
+
+    public void setLname(String lname) {
+        this.lname = lname;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getContact_num() {
@@ -57,22 +83,24 @@ public class DoctorDTO {
         this.email = email;
     }
 
-    public double getDoc_charges() {
-        return doc_charges;
+    public double getDcharges() {
+        return dcharges;
     }
 
-    public void setDoc_charges(double doc_charges) {
-        this.doc_charges = doc_charges;
+    public void setDcharges(double dcharges) {
+        this.dcharges = dcharges;
     }
 
     @Override
     public String toString() {
         return "DoctorDTO{" +
                 "doctor_id=" + doctor_id +
-                ", doc_name='" + doc_name + '\'' +
+                ", fname='" + fname + '\'' +
+                ", lname='" + lname + '\'' +
+                ", address='" + address + '\'' +
                 ", contact_num='" + contact_num + '\'' +
                 ", email='" + email + '\'' +
-                ", doc_charges=" + doc_charges +
+                ", dcharges=" + dcharges +
                 '}';
     }
 }

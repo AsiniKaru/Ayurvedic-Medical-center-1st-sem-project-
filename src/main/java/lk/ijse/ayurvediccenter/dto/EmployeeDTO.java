@@ -12,6 +12,10 @@ public class EmployeeDTO {
     public EmployeeDTO() {
     }
 
+    public EmployeeDTO(int emp_id) {
+        this.emp_id = emp_id;
+    }
+
     public EmployeeDTO(String fName, String lName, String address, String contact_num, String email, String role) {
         this.fName = fName;
         this.lName = lName;

@@ -33,15 +33,7 @@ public class UserViewController implements Initializable {
     @FXML
     private Label lblDate;
 
-    @FXML
-    private ComboBox<String> cmbPages;
 
-    private final Map<String, String> pagesMap = Map.of(
-            "Profile", "/lk/ijse/ayurvediccenter/view/Profile.fxml",
-            "Setting", "/lk/ijse/ayurvediccenter/view/Setting.fxml",
-            "Change Password", "/lk/ijse/ayurvediccenter/view/ChangePassword.fxml",
-            "Emp Management", "/lk/ijse/ayurvediccenter/view/EmpManagement.fxml"
-    );
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -49,25 +41,12 @@ public class UserViewController implements Initializable {
         lblDate.setText(LocalDate.now().toString());
         lblDayField.setText(LocalDate.now().getDayOfWeek().toString());
 
-        cmbPages.getItems().addAll(pagesMap.keySet());
 
-        // Handle selection changes
-        cmbPages.setOnAction(event -> handlePageSelect());
 
 
     }
 
-    @FXML
-    private void handlePageSelect() {
-        String selected = cmbPages.getValue();
-        if (selected == null) return;
 
-            String path = pagesMap.get(selected);
-            if (path != null) {
-                navigateTo(path);
-
-        }
-    }
 
     @FXML
     public void onActionMedicine(ActionEvent actionEvent) {
@@ -105,6 +84,20 @@ public class UserViewController implements Initializable {
         navigateTo("/lk/ijse/ayurvediccenter/view/Treatment.fxml");
 
     }
+    @FXML
+    public  void onActionSetting(ActionEvent actionEvent) {
+        try {
+            ancUserView.getChildren().clear();
+            BorderPane borderPane = (BorderPane) FXMLLoader.load(getClass().getResource("/lk/ijse/ayurvediccenter/view/Setting.fxml"));
+            borderPane.prefWidthProperty().bind(ancUserView.widthProperty());
+            borderPane.prefHeightProperty().bind(ancUserView.heightProperty());
+            ancUserView.getChildren().add(borderPane);
+        } catch (Exception e) {
+            new Alert(Alert.AlertType.ERROR, "Page not found", ButtonType.OK).show();
+            e.printStackTrace();
+        }
+
+    }
 
     @FXML
     public void onActionLogout(ActionEvent actionEvent) {
@@ -118,7 +111,8 @@ public class UserViewController implements Initializable {
         } catch (Exception e) {
             new Alert(Alert.AlertType.ERROR, "Page not found", ButtonType.OK).show();
             e.printStackTrace();
-        }    }
+        }
+    }
 
 
     @FXML
