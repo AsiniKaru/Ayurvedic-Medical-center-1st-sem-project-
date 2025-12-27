@@ -16,6 +16,8 @@ public class DoctorDTO {
         this.doctor_id = doctor_id;
     }
 
+
+
     public DoctorDTO(String fname, String lname, String address, String contact_num, String email, double dcharges) {
         this.fname = fname;
         this.lname = lname;

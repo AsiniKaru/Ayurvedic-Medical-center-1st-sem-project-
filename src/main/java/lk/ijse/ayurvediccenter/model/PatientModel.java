@@ -2,20 +2,18 @@ package lk.ijse.ayurvediccenter.model;
 
 
 import lk.ijse.ayurvediccenter.controller.LoginController;
-import lk.ijse.ayurvediccenter.dto.LoginDTO;
 import lk.ijse.ayurvediccenter.dto.PatientDTO;
 import lk.ijse.ayurvediccenter.util.CrudUtil;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class PatientModel {
 
+//  this Method will Save a new Patient to the Patient Table
     public boolean savePatient (PatientDTO patientDTO) throws SQLException {
 
 
@@ -37,8 +35,7 @@ public class PatientModel {
           return result;
       }
 
-
-
+//  this Method will Update the Patient Table
     public boolean updatePatient(PatientDTO patientDTO) throws SQLException {
      boolean result =
         CrudUtil.execute(
@@ -55,6 +52,7 @@ public class PatientModel {
      return result;
   }
 
+//  this Method will Delete the details from the table of a specific patient_id
     public boolean deletePatient(String id) throws SQLException {
         boolean result =
                 CrudUtil.execute(
@@ -64,8 +62,8 @@ public class PatientModel {
         return result;
     }
 
+//   this method will Search Patient details of a specific patient_id
     public PatientDTO searchPatient(String id) throws SQLException {
-
 
       ResultSet rs =
               CrudUtil.execute(
@@ -90,6 +88,7 @@ public class PatientModel {
                 }
   }
 
+//  this Method will Search a specific Patient details by patient_name
     public PatientDTO searchPatientByName(String name) throws SQLException {
         ResultSet rs =
                 CrudUtil.execute(
@@ -115,8 +114,7 @@ public class PatientModel {
         }
     }
 
-
-
+//  this Method will get the details of all the Patient of the table
     public List<PatientDTO> getPatients() throws SQLException {
 
     ResultSet rs =

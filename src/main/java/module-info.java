@@ -11,4 +11,5 @@ module lk.ijse.ayurvediccenter {
 
     exports lk.ijse.ayurvediccenter.controller;
     exports lk.ijse.ayurvediccenter;
+    opens lk.ijse.ayurvediccenter.dto.tm to javafx.base;
 }

@@ -9,23 +9,30 @@ public class AppointmentDTO {
     private double prescription_charges;
     private double total_charges ;
     private String appointment_date ;
+    private String appointment_status ;
 
     public AppointmentDTO() {
     }
 
-    public AppointmentDTO(int doc_id, int patient_id, double doc_charges, double treatment_charges, double prescription_charges, double total_charges, String appointment_date) {
+    public AppointmentDTO(int appointment_id, int patient_id, String appointment_date, String appointment_status) {
+        this.appointment_id = appointment_id;
+        this.patient_id = patient_id;
+        this.appointment_date = appointment_date;
+        this.appointment_status = appointment_status;
+    }
+
+    public AppointmentDTO(double total_charges, int doc_id, int patient_id, double doc_charges, double treatment_charges, double prescription_charges, String appointment_date, String appointment_status) {
+        this.total_charges = total_charges;
         this.doc_id = doc_id;
         this.patient_id = patient_id;
         this.doc_charges = doc_charges;
         this.treatment_charges = treatment_charges;
         this.prescription_charges = prescription_charges;
-        this.total_charges = total_charges;
         this.appointment_date = appointment_date;
+        this.appointment_status = appointment_status;
     }
 
-
-
-    public AppointmentDTO(int appointment_id, int doc_id, int patient_id, double doc_charges, double treatment_charges, double prescription_charges, double total_charges, String appointment_date) {
+    public AppointmentDTO(int appointment_id, int doc_id, int patient_id, double doc_charges, double treatment_charges, double prescription_charges, double total_charges, String appointment_date, String appointment_status) {
         this.appointment_id = appointment_id;
         this.doc_id = doc_id;
         this.patient_id = patient_id;
@@ -34,6 +41,7 @@ public class AppointmentDTO {
         this.prescription_charges = prescription_charges;
         this.total_charges = total_charges;
         this.appointment_date = appointment_date;
+        this.appointment_status = appointment_status;
     }
 
     public int getAppointment_id() {
@@ -100,6 +108,14 @@ public class AppointmentDTO {
         this.appointment_date = appointment_date;
     }
 
+    public String getAppointment_status() {
+        return appointment_status;
+    }
+
+    public void setAppointment_status(String appointment_status) {
+        this.appointment_status = appointment_status;
+    }
+
     @Override
     public String toString() {
         return "AppointmentDTO{" +
@@ -111,6 +127,7 @@ public class AppointmentDTO {
                 ", prescription_charges=" + prescription_charges +
                 ", total_charges=" + total_charges +
                 ", appointment_date='" + appointment_date + '\'' +
+                ", appointment_status='" + appointment_status + '\'' +
                 '}';
     }
 }

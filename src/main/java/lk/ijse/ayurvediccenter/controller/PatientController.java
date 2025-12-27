@@ -12,9 +12,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import lk.ijse.ayurvediccenter.dto.PatientDTO;
+import lk.ijse.ayurvediccenter.dto.TreatmentDTO;
 import lk.ijse.ayurvediccenter.model.PatientModel;
 
 import java.io.IOException;
@@ -26,21 +28,32 @@ import java.util.ResourceBundle;
 
 public class PatientController implements Initializable {
 
-    @FXML private TextField idField;
+    @FXML
+    private TextField idField;
 
-    @FXML private TextField nameField;
+    @FXML
+    private TextField nameField;
 
-    @FXML private TableView <PatientDTO>tablePatient;
+    @FXML
+    private TableView<PatientDTO> tablePatient;
 
-    @FXML private TableColumn colId;
+    @FXML
+    private TableColumn colId;
 
-    @FXML private TableColumn colFName;
+    @FXML
+    private TableColumn colFName;
 
-    @FXML private TableColumn colAddress;
+    @FXML
+    private TableColumn colAddress;
 
-    @FXML private TableColumn colLName;
+    @FXML
+    private TableColumn colLName;
 
-    @FXML private TableColumn colContactnum;
+    @FXML
+    private TableColumn colContactnum;
+
+    @FXML
+    private TableColumn<PatientDTO, Void> colAction;
 
 
     private final String PATIENT_ID_REGEX = "^[0-9]+$";
@@ -65,6 +78,35 @@ public class PatientController implements Initializable {
         colAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
         colContactnum.setCellValueFactory(new PropertyValueFactory<>("contact"));
 
+        colAction.setCellFactory(param -> new TableCell<>() {
+
+            private final Button btnAddtoAppointment = new Button("Add to Appointment ");
+            private final HBox hBox = new HBox(10, btnAddtoAppointment);
+
+            {
+                // 🔹 Edit button action
+                btnAddtoAppointment.setOnAction(event -> {
+                    PatientDTO patientDTO = getTableView()
+                            .getItems()
+                            .get(getIndex());
+
+                    handleAddAppointment(patientDTO);
+                });
+
+                hBox.setStyle("-fx-alignment: CENTER;");
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(hBox);
+                }
+            }
+        });
         loadPatientTable();
 
         tablePatient.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
@@ -80,20 +122,19 @@ public class PatientController implements Initializable {
     }
 
 
-
     @FXML
-    public void loadPatientTable(){
-        try{
+    public void loadPatientTable() {
+        try {
             List<PatientDTO> patientList = patientModel.getPatients();
 
             ObservableList<PatientDTO> obList = FXCollections.observableArrayList();
 
-            for(PatientDTO patientDTO : patientList){
+            for (PatientDTO patientDTO : patientList) {
                 obList.add(patientDTO);
             }
             tablePatient.setItems(obList);
 
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -115,10 +156,9 @@ public class PatientController implements Initializable {
     }
 
 
-
     @FXML
-    public void onActionAddPatient(){
-        try{
+    public void onActionAddPatient() {
+        try {
 
             FXMLLoader loader = new FXMLLoader();
 
@@ -144,22 +184,21 @@ public class PatientController implements Initializable {
     }
 
 
-
     @FXML
-    private void handleSearchById(KeyEvent event){
-        try{
-            if(event.getCode()== KeyCode.ENTER){
+    private void handleSearchById(KeyEvent event) {
+        try {
+            if (event.getCode() == KeyCode.ENTER) {
                 String id = idField.getText();
 
-                if(!id.matches(PATIENT_ID_REGEX)){
-                    new Alert(Alert.AlertType.ERROR , "Invalid Patient ID!").show();
+                if (!id.matches(PATIENT_ID_REGEX)) {
+                    new Alert(Alert.AlertType.ERROR, "Invalid Patient ID!").show();
 
 
-                }else {
+                } else {
 
                     PatientDTO patientDTO = patientModel.searchPatient(id);
 
-                    if(patientDTO != null){
+                    if (patientDTO != null) {
 
                         ObservableList<PatientDTO> obList =
                                 FXCollections.observableArrayList(patientDTO);
@@ -168,35 +207,35 @@ public class PatientController implements Initializable {
                         clearFields();
 
 
-                    }else{
-                        new Alert(Alert.AlertType.ERROR , "Patient ID not found!").show();
+                    } else {
+                        new Alert(Alert.AlertType.ERROR, "Patient ID not found!").show();
                         clearFields();
 
                     }
 
                 }
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
 
     @FXML
-    private void handleSearchByName(KeyEvent event){
-        try{
-            if(event.getCode()== KeyCode.ENTER){
+    private void handleSearchByName(KeyEvent event) {
+        try {
+            if (event.getCode() == KeyCode.ENTER) {
                 String name = nameField.getText();
 
-                if(!name.matches(PATIENT_FIRST_NAME_REGEX)){
-                    new Alert(Alert.AlertType.ERROR , "Invalid Patient Name!").show();
+                if (!name.matches(PATIENT_FIRST_NAME_REGEX)) {
+                    new Alert(Alert.AlertType.ERROR, "Invalid Patient Name!").show();
 
 
-                }else {
+                } else {
 
                     PatientDTO patientDTO = patientModel.searchPatientByName(name);
 
-                    if(patientDTO != null){
+                    if (patientDTO != null) {
 
                         ObservableList<PatientDTO> obList =
                                 FXCollections.observableArrayList(patientDTO);
@@ -205,15 +244,15 @@ public class PatientController implements Initializable {
                         clearFields();
 
 
-                    }else{
-                        new Alert(Alert.AlertType.ERROR , "Patient not found!").show();
+                    } else {
+                        new Alert(Alert.AlertType.ERROR, "Patient not found!").show();
                         clearFields();
 
                     }
 
                 }
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -223,6 +262,36 @@ public class PatientController implements Initializable {
         idField.clear();
         nameField.clear();
     }
+
+    public void handleAddAppointment(PatientDTO patientDTO) {
+        try{
+            FXMLLoader loader = new FXMLLoader();
+
+            loader.setLocation(getClass().getResource("/lk/ijse/ayurvediccenter/view/AddAppointment.fxml"));
+
+            Parent root = loader.load();
+
+            AddAppointmentController addController = loader.getController();
+            addController.setPatientController(this);
+
+
+            Stage newStage = new Stage();
+            newStage.setTitle("Add New Appointment");
+            newStage.setScene(new Scene(root));
+
+            newStage.initModality(Modality.APPLICATION_MODAL);
+
+            newStage.show();
+
+        } catch(
+        Exception e)
+
+        {
+            e.printStackTrace();
+        }
+}
+
+
 
 
 ////    @FXML

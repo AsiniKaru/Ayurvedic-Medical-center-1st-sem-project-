@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -15,7 +18,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.ayurvediccenter.controller.AddTreatmentController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.ayurvediccenter.controller.AddAppointmentController">
    <children>
       <ImageView fitHeight="659.0" fitWidth="868.0" pickOnBounds="true">
          <image>
@@ -54,28 +57,12 @@
                               <Insets left="15.0" top="15.0" />
                            </HBox.margin>
                         </Text>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="App ID" wrappingWidth="137.53754234313965">
+                        <Text fx:id="appIDField" strokeType="OUTSIDE" strokeWidth="0.0" text="App ID" wrappingWidth="137.53754234313965">
                            <font>
                               <Font name="Cambria" size="24.0" />
                            </font>
                            <HBox.margin>
                               <Insets left="10.0" top="15.0" />
-                           </HBox.margin>
-                        </Text>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date :">
-                           <font>
-                              <Font name="Cambria" size="24.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets left="250.0" top="15.0" />
-                           </HBox.margin>
-                        </Text>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date" wrappingWidth="137.53754234313965">
-                           <font>
-                              <Font name="Cambria" size="24.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets top="15.0" />
                            </HBox.margin>
                         </Text>
                      </children>
@@ -91,34 +78,57 @@
                         <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                      </VBox.margin>
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Patient Details" underline="true" wrappingWidth="158.26913452148438">
-                           <font>
-                              <Font name="Bodoni MT" size="24.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets left="300.0" />
-                           </VBox.margin>
-                        </Text>
-                        <HBox prefHeight="34.0" prefWidth="823.0">
+                        <HBox prefHeight="55.0" prefWidth="823.0">
                            <children>
-                              <Label prefHeight="27.0" prefWidth="126.0" text="Patient ID :">
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Patient Details" underline="true" wrappingWidth="158.26913452148438">
+                                 <font>
+                                    <Font name="Bodoni MT" size="24.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="300.0" />
+                                 </HBox.margin>
+                              </Text>
+                              <Button fx:id="saveButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="143.0" style="-fx-background-color: #3E5B49; -fx-background-radius: 20;" text="Save" textFill="WHITE">
+                                 <HBox.margin>
+                                    <Insets left="75.0" top="5.0" />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font name="Cambria Bold" size="18.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="resetButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="130.0" style="-fx-background-color: #3E5B49; -fx-background-radius: 20;" text="Reset" textFill="WHITE">
+                                 <font>
+                                    <Font name="Cambria Bold" size="18.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="10.0" top="5.0" />
+                                 </HBox.margin>
+                              </Button>
+                           </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox prefHeight="23.0" prefWidth="823.0">
+                           <children>
+                              <Label prefHeight="28.0" prefWidth="200.0" text="Patient ID            :">
                                  <font>
                                     <Font name="Arial" size="24.0" />
                                  </font>
                                  <HBox.margin>
-                                    <Insets left="30.0" top="15.0" />
+                                    <Insets left="30.0" />
                                  </HBox.margin>
                               </Label>
-                              <ComboBox prefHeight="32.0" prefWidth="149.0" style="-fx-background-color: #A4C1AF;">
+                              <ComboBox fx:id="comboPatientId" onAction="#handleSelectPatientId" prefHeight="32.0" prefWidth="149.0" style="-fx-background-color: #A4C1AF; -fx-font-size: 18; -fx-font-family: Cambria;">
                                  <HBox.margin>
-                                    <Insets top="10.0" />
+                                    <Insets left="10.0" />
                                  </HBox.margin>
                               </ComboBox>
                            </children>
                         </HBox>
-                        <HBox prefHeight="38.0" prefWidth="823.0">
+                        <HBox prefHeight="35.0" prefWidth="823.0">
                            <children>
-                              <Label prefHeight="30.0" prefWidth="244.0" text="First Name : ">
+                              <Label prefHeight="28.0" prefWidth="200.0" text="Patient Name      : ">
                                  <font>
                                     <Font name="Arial" size="24.0" />
                                  </font>
@@ -126,29 +136,9 @@
                                     <Insets left="30.0" top="15.0" />
                                  </HBox.margin>
                               </Label>
-                              <Label prefHeight="30.0" prefWidth="244.0" text="Last Name : ">
-                                 <font>
-                                    <Font name="Arial" size="24.0" />
-                                 </font>
+                              <TextField fx:id="pNameField" prefHeight="38.0" prefWidth="351.0" style="-fx-border-radius: 10; -fx-border-color: #A4C1AF; -fx-background-radius: 10; -fx-border-width: 2;">
                                  <HBox.margin>
-                                    <Insets left="145.0" top="15.0" />
-                                 </HBox.margin>
-                              </Label>
-                           </children>
-                        </HBox>
-                        <HBox prefHeight="56.0" prefWidth="864.0">
-                           <children>
-                              <TextField fx:id="fNameField1" editable="false" prefHeight="39.0" prefWidth="350.0" style="-fx-border-radius: 10; -fx-border-color: #A4C1AF; -fx-background-radius: 10; -fx-border-width: 2;">
-                                 <HBox.margin>
-                                    <Insets left="30.0" top="5.0" />
-                                 </HBox.margin>
-                                 <font>
-                                    <Font name="Cambria" size="18.0" />
-                                 </font>
-                              </TextField>
-                              <TextField fx:id="lNameField1" editable="false" prefHeight="39.0" prefWidth="350.0" style="-fx-border-radius: 10; -fx-border-color: #A4C1AF; -fx-background-radius: 10; -fx-border-width: 2;">
-                                 <HBox.margin>
-                                    <Insets left="40.0" top="5.0" />
+                                    <Insets left="10.0" top="10.0" />
                                  </HBox.margin>
                                  <font>
                                     <Font name="Cambria" size="18.0" />
@@ -156,9 +146,9 @@
                               </TextField>
                            </children>
                         </HBox>
-                        <HBox prefHeight="73.0" prefWidth="823.0">
+                        <HBox prefHeight="35.0" prefWidth="823.0">
                            <children>
-                              <Label prefHeight="27.0" prefWidth="196.0" text="Contact Number :">
+                              <Label prefHeight="28.0" prefWidth="200.0" text="Contact Number :">
                                  <font>
                                     <Font name="Arial" size="24.0" />
                                  </font>
@@ -166,12 +156,12 @@
                                     <Insets left="30.0" top="15.0" />
                                  </HBox.margin>
                               </Label>
-                              <TextField fx:id="lNameField3" editable="false" prefHeight="38.0" prefWidth="246.0" style="-fx-border-radius: 10; -fx-border-color: #A4C1AF; -fx-background-radius: 10; -fx-border-width: 2;">
+                              <TextField fx:id="contactField" prefHeight="38.0" prefWidth="246.0" style="-fx-border-radius: 10; -fx-border-color: #A4C1AF; -fx-background-radius: 10; -fx-border-width: 2;">
                                  <font>
                                     <Font name="Cambria" size="18.0" />
                                  </font>
                                  <HBox.margin>
-                                    <Insets left="10.0" top="12.0" />
+                                    <Insets left="10.0" top="10.0" />
                                  </HBox.margin>
                               </TextField>
                            </children>
@@ -181,7 +171,7 @@
                               <Font name="Bodoni MT" size="24.0" />
                            </font>
                            <VBox.margin>
-                              <Insets left="280.0" />
+                              <Insets left="280.0" top="10.0" />
                            </VBox.margin>
                         </Text>
                         <HBox prefHeight="54.0" prefWidth="823.0">
@@ -194,7 +184,7 @@
                                     <Insets left="30.0" top="15.0" />
                                  </HBox.margin>
                               </Label>
-                              <Label prefHeight="30.0" prefWidth="244.0" text="Treatment Type :">
+                              <Label fx:id="lblTreatmentType" prefHeight="30.0" prefWidth="218.0" text="Treatment Type :">
                                  <font>
                                     <Font name="Arial" size="24.0" />
                                  </font>
@@ -202,61 +192,102 @@
                                     <Insets left="145.0" top="15.0" />
                                  </HBox.margin>
                               </Label>
+                              <Button mnemonicParsing="false" onAction="#handleAddTreatment" prefHeight="35.0" prefWidth="154.0" style="-fx-background-color: #537961; -fx-background-radius: 20;" text="Add  Treatment" textFill="WHITE">
+                                 <font>
+                                    <Font name="Cambria Bold" size="12.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets top="10.0" />
+                                 </HBox.margin>
+                              </Button>
                            </children>
                         </HBox>
-                        <HBox prefHeight="56.0" prefWidth="864.0">
+                        <HBox prefHeight="37.0" prefWidth="823.0">
                            <children>
-                              <ComboBox prefHeight="34.0" prefWidth="290.0" style="-fx-background-color: #A4C1AF;">
+                              <ComboBox fx:id="comboAppointmentType" prefHeight="34.0" prefWidth="290.0" style="-fx-background-color: #A4C1AF; -fx-font-family: Cambria; -fx-font-size: 18;">
                                  <HBox.margin>
                                     <Insets left="30.0" />
                                  </HBox.margin>
                               </ComboBox>
-                              <ComboBox prefHeight="34.0" prefWidth="290.0" style="-fx-background-color: #A4C1AF;">
+                              <ComboBox fx:id="comboTreatmentType" prefHeight="34.0" prefWidth="290.0" style="-fx-background-color: #A4C1AF; -fx-font-family: Cambria; -fx-font-size: 18;">
                                  <HBox.margin>
                                     <Insets left="100.0" />
                                  </HBox.margin>
                               </ComboBox>
                            </children>
                         </HBox>
-                        <HBox prefHeight="56.0" prefWidth="864.0">
+                        <HBox prefHeight="168.0" prefWidth="823.0">
                            <children>
-                              <Label prefHeight="30.0" prefWidth="77.0" text="Date :">
-                                 <font>
-                                    <Font name="Arial" size="24.0" />
-                                 </font>
+                              <VBox prefHeight="168.0" prefWidth="163.0">
+                                 <children>
+                                    <Label prefHeight="27.0" prefWidth="176.0" text="Doctor ID       :">
+                                       <font>
+                                          <Font name="Arial" size="24.0" />
+                                       </font>
+                                       <VBox.margin>
+                                          <Insets top="15.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                    <Label prefHeight="27.0" prefWidth="155.0" text="Doctor Name :">
+                                       <font>
+                                          <Font name="Arial" size="24.0" />
+                                       </font>
+                                       <VBox.margin>
+                                          <Insets top="20.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                    <Label prefHeight="30.0" prefWidth="160.0" text="Date              :">
+                                       <font>
+                                          <Font name="Arial" size="24.0" />
+                                       </font>
+                                       <VBox.margin>
+                                          <Insets top="20.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                 </children>
                                  <HBox.margin>
                                     <Insets left="30.0" />
                                  </HBox.margin>
-                              </Label>
-                              <DatePicker prefHeight="34.0" prefWidth="233.0" style="-fx-border-color: #A4C1AF;">
+                              </VBox>
+                              <VBox prefHeight="168.0" prefWidth="219.0">
+                                 <children>
+                                    <ComboBox fx:id="comboDocId" onAction="#handleSelectDoctorId" prefHeight="32.0" prefWidth="124.0" style="-fx-background-color: #A4C1AF; -fx-font-family: Cambria; -fx-font-size: 18;">
+                                       <VBox.margin>
+                                          <Insets top="5.0" />
+                                       </VBox.margin>
+                                    </ComboBox>
+                                    <TextField fx:id="docNameField" prefHeight="38.0" prefWidth="246.0" style="-fx-border-radius: 10; -fx-border-color: #A4C1AF; -fx-background-radius: 10; -fx-border-width: 2;">
+                                       <font>
+                                          <Font name="Cambria" size="18.0" />
+                                       </font>
+                                       <VBox.margin>
+                                          <Insets top="10.0" />
+                                       </VBox.margin>
+                                    </TextField>
+                                    <DatePicker fx:id="dateField" onAction="#getDate" prefHeight="34.0" prefWidth="198.0" style="-fx-border-color: #A4C1AF;">
+                                       <VBox.margin>
+                                          <Insets top="15.0" />
+                                       </VBox.margin>
+                                       <cursor>
+                                          <Cursor fx:constant="DISAPPEAR" />
+                                       </cursor>
+                                    </DatePicker>
+                                 </children>
                                  <HBox.margin>
-                                    <Insets left="15.0" />
+                                    <Insets top="10.0" />
                                  </HBox.margin>
-                              </DatePicker>
+                              </VBox>
+                              <TableView fx:id="tableAppTreatment" prefHeight="163.0" prefWidth="390.0" style="-fx-border-color: #537961;">
+                                <columns>
+                                  <TableColumn fx:id="colTId" prefWidth="108.79998475313187" text="Treatment_ID" />
+                                  <TableColumn fx:id="colTName" prefWidth="170.40003967285156" text="Treatment_Name" />
+                                    <TableColumn fx:id="colActionDelete" prefWidth="117.5999755859375" text="Action" />
+                                </columns>
+                                 <HBox.margin>
+                                    <Insets bottom="5.0" left="10.0" top="5.0" />
+                                 </HBox.margin>
+                              </TableView>
                            </children>
-                        </HBox>
-                        <HBox prefHeight="70.0" prefWidth="823.0">
-                           <children>
-                              <Button fx:id="saveButton" mnemonicParsing="false" prefHeight="46.0" prefWidth="143.0" style="-fx-background-color: #3E5B49; -fx-background-radius: 20;" text="Save" textFill="WHITE">
-                                 <HBox.margin>
-                                    <Insets left="400.0" />
-                                 </HBox.margin>
-                                 <font>
-                                    <Font name="Cambria Bold" size="24.0" />
-                                 </font>
-                              </Button>
-                              <Button mnemonicParsing="false" prefHeight="46.0" prefWidth="145.0" style="-fx-background-color: #3E5B49; -fx-background-radius: 20;" text="Reset" textFill="WHITE">
-                                 <font>
-                                    <Font name="Cambria Bold" size="24.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets left="10.0" />
-                                 </HBox.margin>
-                              </Button>
-                           </children>
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin>
                         </HBox>
                      </children>
                   </VBox>

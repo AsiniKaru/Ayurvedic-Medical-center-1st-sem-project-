@@ -114,7 +114,7 @@
                         <TableColumn fx:id="colLName" prefWidth="170.0" text="Last Name" />
                         <TableColumn fx:id="colAddress" prefWidth="152.79998779296875" text="Address" />
                         <TableColumn fx:id="colContactnum" prefWidth="147.20001220703125" text="Contact Number" />
-                        <TableColumn fx:id="conLastVisitDay" prefWidth="142.4000244140625" text="Last Visit Date" />
+                        <TableColumn fx:id="colAction" prefWidth="142.4000244140625" text="Action" />
                      </columns>
                   </TableView>
                </children>

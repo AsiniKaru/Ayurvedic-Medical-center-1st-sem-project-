@@ -1,15 +1,12 @@
 package lk.ijse.ayurvediccenter.model;
 
-import javafx.fxml.Initializable;
 import lk.ijse.ayurvediccenter.dto.DoctorDTO;
 import lk.ijse.ayurvediccenter.dto.EmployeeDTO;
-import lk.ijse.ayurvediccenter.dto.PatientDTO;
 import lk.ijse.ayurvediccenter.util.CrudUtil;
 import lk.ijse.ayurvediccenter.controller.LoginController;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -199,7 +196,7 @@ public class EmployeeModel {
                 );
 
 
-        if (rs.next()) { // ✅ MOVE CURSOR
+        if (rs.next()) {
             int emp_id = rs.getInt("emp_id");
             System.out.println("getNextEmpId: " + emp_id);
             return emp_id + 1;

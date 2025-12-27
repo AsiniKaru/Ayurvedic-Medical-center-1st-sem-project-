@@ -1,16 +1,19 @@
 package lk.ijse.ayurvediccenter.model;
 
 import lk.ijse.ayurvediccenter.dto.DoctorDTO;
-import lk.ijse.ayurvediccenter.dto.EmployeeDTO;
+import lk.ijse.ayurvediccenter.dto.TreatmentDTO;
 import lk.ijse.ayurvediccenter.util.CrudUtil;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DoctorModel {
 
     public String username;
 
+//  this Method will give the logged doctor details from the User table using the user_id
     public DoctorDTO getDoctorId(int userId) throws SQLException {
         ResultSet rs =
                 CrudUtil.execute(
@@ -29,6 +32,7 @@ public class DoctorModel {
 
     }
 
+//  this Method will give Doctor Details of a specific doctor_id
     public DoctorDTO searchDoctor(int id) throws SQLException {
 
         ResultSet rs =
@@ -53,4 +57,33 @@ public class DoctorModel {
             return null;
         }
     }
+
+//  this Method will give the all the Doctor details of the table
+    public List<DoctorDTO> getDoctors() throws SQLException {
+
+        ResultSet rs =
+                CrudUtil.execute(
+                        "SELECT * FROM Doctor ORDER BY doc_id DESC"
+                );
+
+        List<DoctorDTO> doctorList = new ArrayList<>();
+
+        while (rs.next()) {
+            DoctorDTO doctorDTO = new DoctorDTO(
+                    rs.getInt("doc_id"),
+                    rs.getString("doc_name"),
+                    rs.getString("lname"),
+                    rs.getString("address"),
+                    rs.getString("contact_num"),
+                    rs.getString("email"),
+                    rs.getDouble("doc_charges")
+            );
+            System.out.println(doctorDTO);
+            doctorList.add(doctorDTO);
+        }
+
+        return doctorList;
+
+    }
+
 }

@@ -11,6 +11,7 @@ import java.util.List;
 
 public class TreatmentModel {
 
+//  this Method will Save new Treatments to the Treatments table
     public boolean saveTreatment (TreatmentDTO treatmentDTO) throws SQLException {
 
         boolean result =
@@ -24,8 +25,7 @@ public class TreatmentModel {
         return result;
     }
 
-
-
+//  this Method will Update the treatment details in the table
     public boolean updateTreatment(TreatmentDTO treatmentDTO) throws SQLException {
         boolean result =
                 CrudUtil.execute(
@@ -39,6 +39,7 @@ public class TreatmentModel {
         return result;
     }
 
+//  this Method will Delete the treatment records from the Treatment table
     public boolean deleteTreatment(String id) throws SQLException {
         boolean result =
                 CrudUtil.execute(
@@ -50,6 +51,7 @@ public class TreatmentModel {
 
     }
 
+//  this Method will give Treatment details of a  Specific treatment_id
     public TreatmentDTO searchTreatment(String id) throws SQLException {
 
 
@@ -73,6 +75,7 @@ public class TreatmentModel {
         }
     }
 
+//  this Method will give Treatment details of a specific treatment_name
     public TreatmentDTO searchTreatmentByName(String name) throws SQLException {
         ResultSet rs =
                 CrudUtil.execute(
@@ -95,8 +98,7 @@ public class TreatmentModel {
         }
     }
 
-
-
+//  this Method will give the all the Treatment details of the table
     public List<TreatmentDTO> getTreatments() throws SQLException {
 
         ResultSet rs =
