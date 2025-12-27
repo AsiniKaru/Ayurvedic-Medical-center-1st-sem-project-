@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.ayurvediccenter.controller.PrivacyPolicyController">
+   <children>
+      <ImageView fitHeight="752.0" fitWidth="864.0" opacity="0.5" pickOnBounds="true">
+         <image>
+            <Image url="@../image/Untitled_design__1_-removebg-preview.png" />
+         </image>
+      </ImageView>
+      <BorderPane prefHeight="752.0" prefWidth="864.0">
+         <top>
+            <VBox prefHeight="74.0" prefWidth="864.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Text fill="#344c3d" strokeType="OUTSIDE" strokeWidth="0.0" text="Privacy Policy" wrappingWidth="417.8547058105469">
+                     <font>
+                        <Font name="Imprint MT Shadow" size="48.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="15.0" top="10.0" />
+                     </VBox.margin>
+                  </Text>
+                  <Pane prefHeight="5.0" prefWidth="864.0" style="-fx-background-color: #BFCFBB;" />
+               </children>
+            </VBox>
+         </top>
+         <center>
+            <ScrollPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #293D31; -fx-border-width: 2;" BorderPane.alignment="CENTER">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+              </content>
+               <BorderPane.margin>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </BorderPane.margin>
+               <content>
+                  <StackPane>
+
+                     <!-- Watermark Image -->
+                     <ImageView fx:id="watermarkImage" fitWidth="400" opacity="0.08" preserveRatio="true" />
+
+                     <!-- Privacy Policy Text -->
+                     <TextFlow fx:id="privacyTextFlow" lineSpacing="5" style="-fx-padding: 40;" />
+
+                  </StackPane>
+               </content>
+            </ScrollPane>
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>
