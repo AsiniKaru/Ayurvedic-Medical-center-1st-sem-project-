@@ -23,30 +23,24 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 
-//
+
 public class PatientController implements Initializable {
-//
-//    @FXML
-//    private BorderPane patientMainContent;
-//
-    @FXML
-    private TextField idField;
 
-    @FXML
-    private TextField nameField;
+    @FXML private TextField idField;
 
-    @FXML
-    private TableView <PatientDTO>tablePatient;
-    @FXML
-    private TableColumn colId;
-    @FXML
-    private TableColumn colFName;
-    @FXML
-    private TableColumn colAddress;
-    @FXML
-    private TableColumn colLName;
-    @FXML
-    private TableColumn colContactnum;
+    @FXML private TextField nameField;
+
+    @FXML private TableView <PatientDTO>tablePatient;
+
+    @FXML private TableColumn colId;
+
+    @FXML private TableColumn colFName;
+
+    @FXML private TableColumn colAddress;
+
+    @FXML private TableColumn colLName;
+
+    @FXML private TableColumn colContactnum;
 
 
     private final String PATIENT_ID_REGEX = "^[0-9]+$";

@@ -46,7 +46,7 @@ public class SettingController implements Initializable {
     @FXML private BorderPane profileView;
 
     boolean isEmp;
-    public String Username;
+    static String Username;
 
     EmployeeModel employeeModel = new EmployeeModel();
     EmployeeDTO employeeDTO = new EmployeeDTO();
@@ -64,7 +64,7 @@ public class SettingController implements Initializable {
 
         }else{
             usernameField.setText(employeeModel.username);
-            Username = employeeModel.username;
+
         }
     }
 
@@ -94,8 +94,8 @@ public class SettingController implements Initializable {
                 employeeDTO = employeeModel.searchEmployee(employeeDTO.getEmp_id());
                 userIdField.setText(String.valueOf(employeeDTO.getEmp_id()));
                 nameField.setText(employeeModel.username);
-                fNameField.setText(employeeDTO.getfName());
-                lNameField.setText(employeeDTO.getlName());
+                fNameField.setText(employeeDTO.getFName());
+                lNameField.setText(employeeDTO.getLName());
                 addressField.setText(employeeDTO.getAddress());
                 contactField.setText(employeeDTO.getContact_num());
                 emailField.setText(employeeDTO.getEmail());
@@ -131,8 +131,8 @@ public class SettingController implements Initializable {
             AnchorPane pane = loader.load(); // IMPORTANT
 
             EditProfileController controller = loader.getController();
-            controller.initData(employeeDTO,Username); // patientDTO already exists
-            System.out.println("Username" + Username);
+            controller.initData(employeeDTO); // patientDTO already exists
+
 
             mainContain.getChildren().clear();
             mainContain.getChildren().add(pane);
@@ -148,7 +148,29 @@ public class SettingController implements Initializable {
     }
 
     @FXML
-    public void onActionChangePassword(){ navigateTo("/lk/ijse/ayurvediccenter/view/ChangePassword.fxml"); }
+    public void onActionChangePassword(){
+
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/lk/ijse/ayurvediccenter/view/ChangePassword.fxml"));
+
+            AnchorPane pane = loader.load(); // IMPORTANT
+
+            ChangePasswordController controller = loader.getController();
+            controller.initData(employeeDTO); // patientDTO already exists
+
+
+            mainContain.getChildren().clear();
+            mainContain.getChildren().add(pane);
+
+
+            pane.prefWidthProperty().bind(mainContain.widthProperty());
+            pane.prefHeightProperty().bind(mainContain.heightProperty());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     @FXML
     public void onActionEmployeeManage(){ navigateTo("/lk/ijse/ayurvediccenter/view/EmpManagement.fxml"); }

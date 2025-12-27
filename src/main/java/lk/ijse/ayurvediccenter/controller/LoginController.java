@@ -36,7 +36,6 @@ public class LoginController {
         
             if(loginDTO != null){
                     LoginController.userId = loginDTO.getUserId();
-
                     System.out.println(userId);
 
                         App.setRoot("UserView");

@@ -6,7 +6,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import lk.ijse.ayurvediccenter.dto.EmployeeDTO;
-import lk.ijse.ayurvediccenter.dto.PatientDTO;
+import lk.ijse.ayurvediccenter.controller.SettingController;
 import lk.ijse.ayurvediccenter.model.EmployeeModel;
 
 import java.sql.SQLException;
@@ -40,16 +40,24 @@ public class EditProfileController {
     EmployeeModel employeeModel =new EmployeeModel();
 
     private EmployeeDTO employeeDTO;
-    private String Username;
 
-    public void initData(EmployeeDTO employeeDTO , String Username) throws SQLException{
+    private EmpManagementController empManagementController;
+
+    public void setInitData(EmployeeDTO employeeDTO ,EmpManagementController empManagementController) throws SQLException {
         this.employeeDTO = employeeDTO;
-        this.Username = Username;
+        this.empManagementController = empManagementController;
 
+        initData(employeeDTO);
+    }
+
+    public void initData(EmployeeDTO employeeDTO ) throws SQLException{
+        this.employeeDTO = employeeDTO;
+
+        System.out.println(employeeDTO);
         userIdField.setText(String.valueOf(employeeDTO.getEmp_id()));
-        nameField.setText(Username);
-        fNameField.setText(employeeDTO.getfName());
-        lNameField.setText(employeeDTO.getlName());
+        nameField.setText(employeeDTO.getFName());
+        fNameField.setText(employeeDTO.getFName());
+        lNameField.setText(employeeDTO.getLName());
         addressField.setText(employeeDTO.getAddress());
         contactField.setText(employeeDTO.getContact_num());
         emailField.setText(employeeDTO.getEmail());
@@ -58,7 +66,7 @@ public class EditProfileController {
 
 
     @FXML
-    private void handleUpdateEmployee() {
+    public void handleUpdateEmployee() {
         try {
             String fName =fNameField.getText();
             String lName = lNameField.getText().trim();
@@ -87,6 +95,7 @@ public class EditProfileController {
 
                 if (result) {
                     new Alert(Alert.AlertType.INFORMATION, "Employee has been Updated successfully!", ButtonType.OK).show();
+                    empManagementController.loadEmployeeTable();
 
 
                 } else {

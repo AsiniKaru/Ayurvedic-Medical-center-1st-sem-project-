@@ -44,7 +44,7 @@
                   </HBox>
                   <HBox prefHeight="30.0" prefWidth="868.0">
                      <children>
-                        <Text layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Appointment ID :" wrappingWidth="237.50785446166992">
+                        <Text layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search By Date :" wrappingWidth="237.50785446166992">
                            <font>
                               <Font name="Cambria" size="24.0" />
                            </font>
@@ -52,7 +52,7 @@
                               <Insets left="50.0" top="10.0" />
                            </HBox.margin>
                         </Text>
-                        <TextArea prefHeight="58.0" prefWidth="511.0" promptText="Search By Appointment ID" style="-fx-border-color: #BFCFBB; -fx-border-width: 2; -fx-font-family: Cambria; -fx-font-size: 18;" />
+                        <TextArea prefHeight="58.0" prefWidth="511.0" promptText="Search By Appointment Date" style="-fx-border-color: #BFCFBB; -fx-border-width: 2; -fx-font-family: Cambria; -fx-font-size: 18;" />
                      </children>
                      <VBox.margin>
                         <Insets top="15.0" />
@@ -60,7 +60,7 @@
                   </HBox>
                   <HBox prefHeight="30.0" prefWidth="868.0">
                      <children>
-                        <Text layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Patient Name :" wrappingWidth="238.30784225463867">
+                        <Text layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search By ID or Name :" wrappingWidth="238.30784225463867">
                            <font>
                               <Font name="Cambria" size="24.0" />
                            </font>
@@ -68,7 +68,7 @@
                               <Insets left="50.0" top="10.0" />
                            </HBox.margin>
                         </Text>
-                        <TextArea prefHeight="58.0" prefWidth="511.0" promptText="Search By Patient Name" style="-fx-border-color: #BFCFBB; -fx-border-width: 2; -fx-font-family: Cambria; -fx-font-size: 18;" />
+                        <TextArea prefHeight="58.0" prefWidth="511.0" promptText="Search By Patient ID or First Name or Last Name" style="-fx-border-color: #BFCFBB; -fx-border-width: 2; -fx-font-family: Cambria; -fx-font-size: 18;" />
                      </children>
                      <VBox.margin>
                         <Insets top="10.0" />
@@ -109,12 +109,13 @@
                <children>
                   <TableView fx:id="tableAppointment" prefHeight="479.0" prefWidth="868.0">
                      <columns>
-                        <TableColumn fx:id="colAppId" prefWidth="83.20000910758972" text="App ID" />
-                        <TableColumn fx:id="colPId" prefWidth="96.80001068115234" text="Patient ID" />
-                        <TableColumn fx:id="colFName" prefWidth="144.79998779296875" text="First Name" />
-                        <TableColumn fx:id="colLName" prefWidth="157.60003662109375" text="Last Name" />
-                        <TableColumn fx:id="colContactnum" prefWidth="172.00003051757812" text="Contact Number" />
-                        <TableColumn fx:id="conLastVisitDay" prefWidth="218.39996337890625" text="action" />
+                        <TableColumn fx:id="colAppId" prefWidth="60.000001549720764" text="App ID" />
+                        <TableColumn fx:id="colPId" prefWidth="64.79995727539062" text="Patient ID" />
+                        <TableColumn fx:id="colFName" prefWidth="200.80004119873047" text="Name" />
+                        <TableColumn fx:id="colLName" prefWidth="146.39996337890625" text="Contact Number" />
+                        <TableColumn fx:id="colContactnum" prefWidth="124.00003051757812" text="App Type" />
+                        <TableColumn fx:id="conLastVisitDay" prefWidth="136.79998779296875" text="App Status" />
+                        <TableColumn prefWidth="134.39996337890625" text="Action" />
                      </columns>
                   </TableView>
                </children>

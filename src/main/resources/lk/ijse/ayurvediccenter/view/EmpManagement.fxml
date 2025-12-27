@@ -48,7 +48,7 @@
                               <Insets left="50.0" top="10.0" />
                            </HBox.margin>
                         </Text>
-                        <TextField fx:id="idField"  prefHeight="80.0" prefWidth="516.0" promptText="Search By Employee ID" style="-fx-border-color: #BFCFBB; -fx-border-width: 2; -fx-font-family: Cambria; -fx-font-size: 18;">
+                        <TextField fx:id="idField" onKeyPressed="#handleSearchById" prefHeight="80.0" prefWidth="516.0" promptText="Search By Employee ID" style="-fx-border-color: #BFCFBB; -fx-border-width: 2; -fx-font-family: Cambria; -fx-font-size: 18;">
                            <font>
                               <Font name="Cambria" size="18.0" />
                            </font>
@@ -68,7 +68,7 @@
                               <Insets left="50.0" top="10.0" />
                            </HBox.margin>
                         </Text>
-                        <TextField fx:id="nameField"  prefHeight="59.0" prefWidth="516.0" promptText="Search By Employee Name" style="-fx-border-color: #BFCFBB; -fx-border-width: 2; -fx-font-family: Cambria; -fx-font-size: 18;">
+                        <TextField fx:id="nameField" onKeyPressed="#handleSearchByName" prefHeight="59.0" prefWidth="516.0" promptText="Search By Employee Name" style="-fx-border-color: #BFCFBB; -fx-border-width: 2; -fx-font-family: Cambria; -fx-font-size: 18;">
                            <font>
                               <Font name="Cambria" size="18.0" />
                            </font>
@@ -80,7 +80,7 @@
                   </HBox>
                   <HBox prefHeight="99.0" prefWidth="868.0">
                      <children>
-                        <Button mnemonicParsing="false"  prefHeight="26.0" prefWidth="145.0" style="-fx-background-color: BFCFBB;" text="Reset">
+                        <Button mnemonicParsing="false" onAction="#loadEmployeeTable" prefHeight="26.0" prefWidth="145.0" style="-fx-background-color: BFCFBB;" text="Reset">
                            <HBox.margin>
                               <Insets left="450.0" top="10.0" />
                            </HBox.margin>
@@ -88,7 +88,7 @@
                               <Font name="Cambria Bold" size="13.0" />
                            </font>
                         </Button>
-                        <Button mnemonicParsing="false"  prefHeight="24.0" prefWidth="249.0" style="-fx-background-color: #BFCFBB; -fx-border-color: black;" text="+ Add New Employee">
+                        <Button fx:id="btnAddEmployee" mnemonicParsing="false" onAction="#handleAddEmployee" prefHeight="24.0" prefWidth="249.0" style="-fx-background-color: #BFCFBB; -fx-border-color: black;" text="+ Add New Employee">
                            <HBox.margin>
                               <Insets top="60.0" />
                            </HBox.margin>
@@ -107,15 +107,15 @@
          <center>
             <VBox prefHeight="425.0" prefWidth="868.0" BorderPane.alignment="CENTER">
                <children>
-                  <TableView fx:id="tablePatient" prefHeight="489.0" prefWidth="868.0">
+                  <TableView fx:id="tableEmployees" prefHeight="489.0" prefWidth="868.0" stylesheets="@../css/TreatmentView.css">
                      <columns>
                         <TableColumn fx:id="colId" prefWidth="83.20000910758972" text="Emp ID" />
                         <TableColumn fx:id="colFName" prefWidth="131.1999740600586" text="First Name" />
-                        <TableColumn fx:id="colLName" prefWidth="136.800048828125" text="Last Name" />
-                        <TableColumn fx:id="colAddress" prefWidth="126.39996337890625" text="Address" />
-                        <TableColumn fx:id="colContactnum" prefWidth="132.0" text="Contact Number" />
-                        <TableColumn fx:id="conLastVisitDay" prefWidth="134.933349609375" text="Email" />
-                        <TableColumn prefWidth="121.5999755859375" text="Role" />
+                        <TableColumn fx:id="colLName" prefWidth="132.00006103515625" text="Last Name" />
+                        <TableColumn fx:id="colAddress" prefWidth="119.20001220703125" text="Address" />
+                        <TableColumn fx:id="colContactnum" prefWidth="115.99996948242188" text="Contact Number" />
+                        <TableColumn fx:id="colEmail" prefWidth="148.800048828125" text="Email" />
+                        <TableColumn fx:id="colAction" prefWidth="133.5999755859375" text="Action" />
                      </columns>
                   </TableView>
                </children>
