@@ -86,4 +86,20 @@ public class DoctorModel {
 
     }
 
+//   this Method will give the charges of a specific doctor_id
+    public double getDoctorCharges(int id) throws SQLException {
+        ResultSet rs =
+                CrudUtil.execute(
+                        "SELECT doc_charges FROM Doctor WHERE doc_id=? ",
+                        id
+                );
+
+        if (rs.next()){
+
+            return rs.getDouble("doc_charges");
+        }else {
+            return 0.00;
+        }
+    }
+
 }

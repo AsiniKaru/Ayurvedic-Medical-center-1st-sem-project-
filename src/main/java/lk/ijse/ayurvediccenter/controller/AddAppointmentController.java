@@ -6,20 +6,21 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
-import lk.ijse.ayurvediccenter.dto.DoctorDTO;
-import lk.ijse.ayurvediccenter.dto.PatientDTO;
-import lk.ijse.ayurvediccenter.dto.TreatmentDTO;
+import lk.ijse.ayurvediccenter.dto.*;
+import lk.ijse.ayurvediccenter.dto.tm.AppPatientTM;
 import lk.ijse.ayurvediccenter.model.AppointmentModel;
 import lk.ijse.ayurvediccenter.model.DoctorModel;
 import lk.ijse.ayurvediccenter.model.PatientModel;
 import lk.ijse.ayurvediccenter.model.TreatmentModel;
-import lk.ijse.ayurvediccenter.controller.PatientController;
+import lk.ijse.ayurvediccenter.model.enums.AppointmentStatus;
 
 import java.net.URL;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -53,7 +54,11 @@ public class AddAppointmentController implements Initializable {
 
     @FXML private TableColumn<?, ?> colTName;
 
-    @FXML private TableView<?> tableAppTreatment;
+    @FXML private TableColumn<?, ?> colTPrice;
+
+    @FXML private TableColumn<TreatmentDTO, Void> colActionRemove;
+
+    @FXML private TableView<TreatmentDTO> tableAppTreatment;
 
     @FXML private Text appIDField;
 
@@ -63,6 +68,8 @@ public class AddAppointmentController implements Initializable {
     private AppointmentModel appointmentModel = new AppointmentModel();
     private TreatmentModel treatmentModel = new TreatmentModel();
     private DoctorModel doctorModel = new DoctorModel();
+
+    private ObservableList<TreatmentDTO> treatmentList = FXCollections.observableArrayList();
 
     private AppointmentController addController;
     private PatientController patientController;
@@ -77,6 +84,40 @@ public class AddAppointmentController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        colTId.setCellValueFactory(new PropertyValueFactory<>("treatment_id"));
+        colTName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colTPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
+        colActionRemove.setCellFactory(param -> new TableCell<>() {
+
+            private final Button btnRemove = new Button("Remove");
+            private final HBox hBox = new HBox(10, btnRemove);
+
+            {
+                // 🔹 Remove button action
+                btnRemove.setOnAction(event -> {
+                    TreatmentDTO treatmentDTO = getTableView()
+                            .getItems()
+                            .get(getIndex());
+
+                    handleRemoveTreatment(treatmentDTO);
+                });
+
+                hBox.setStyle("-fx-alignment: CENTER;");
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(hBox);
+                }
+            }
+        });
+
 
         comboAppointmentType.getItems().addAll(
                 "Medication",
@@ -126,9 +167,74 @@ public class AddAppointmentController implements Initializable {
 
     }
 
+
+    @FXML
+    void handleSaveAppointment(ActionEvent event) {
+        try{
+            String doctorId = comboDocId.getSelectionModel().getSelectedItem();
+            String patientId = comboPatientId.getSelectionModel().getSelectedItem();
+            String appDate = dateField.getValue().toString();
+            double docCharges = doctorModel.getDoctorCharges(Integer.parseInt(doctorId));
+            AppointmentStatus appStatus = AppointmentStatus.ACTIVE;
+            String appType = comboAppointmentType.getSelectionModel().getSelectedItem();
+
+
+            List<AppTreatmentDTO> appTreatmentList = new ArrayList<>();
+
+            for(TreatmentDTO treatmentType : treatmentList ){
+
+                    AppTreatmentDTO appTreatmentDTO = new AppTreatmentDTO(
+                            treatmentType.getTreatment_id(),
+                            treatmentType.getName()
+                    );
+                    appTreatmentList.add(appTreatmentDTO);
+
+                    AppointmentDTO appointmentDTO = new AppointmentDTO(
+                        Integer.parseInt(doctorId),
+                        Integer.parseInt(patientId),
+                        docCharges,
+                        appDate,
+                        appType,
+                        appStatus,
+                        appTreatmentList
+            );
+
+            boolean isAppointmentPlaced = appointmentModel.saveAppointment(appointmentDTO);
+
+            if (isAppointmentPlaced) {
+                new Alert(Alert.AlertType.INFORMATION, "Appointment Successfully Saved", ButtonType.OK).show();
+            }
+
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "Something went wrong", ButtonType.OK).show();
+        }
+    }
+
+
     @FXML
     public void handleAddTreatment(ActionEvent event) {
 
+        if (comboTreatmentType.getValue() == null) return;
+
+        try {
+            TreatmentDTO treatmentDTO =
+                    treatmentModel.searchTreatmentByName(comboTreatmentType.getValue());
+
+            // prevent duplicates (optional but good)
+            if (!treatmentList.contains(treatmentDTO)) {
+                treatmentList.add(treatmentDTO);
+            }else{
+                new Alert(Alert.AlertType.INFORMATION, "treatment already added!", ButtonType.OK).show();
+            }
+
+            tableAppTreatment.setItems(treatmentList);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void loadPatientId(){
@@ -149,6 +255,8 @@ public class AddAppointmentController implements Initializable {
 
     }
 
+
+
     public void loadTreatmentName(){
         try{
             List<TreatmentDTO> treatmentList = treatmentModel.getTreatments();
@@ -158,10 +266,21 @@ public class AddAppointmentController implements Initializable {
                 obList.add(String.valueOf(treatmentDTO.getName()));
             }
             comboTreatmentType.setItems(obList);
+
+
         }catch(Exception e){
             e.printStackTrace();
         }
     }
+
+    @FXML
+    public void handleRemoveTreatment(TreatmentDTO treatmentDTO){
+
+            tableAppTreatment.getItems().remove(treatmentDTO);
+
+    }
+
+
 
     public void loadDocId(){
         try {
@@ -232,5 +351,23 @@ public class AddAppointmentController implements Initializable {
         addTreatmentButton.setVisible(true);
         comboTreatmentType.setVisible(true);
         tableAppTreatment.setVisible(true);
+    }
+
+    @FXML
+    private void onActionReset(){
+        comboPatientId.setValue(null);
+        pNameField.clear();
+        contactField.clear();
+
+        comboAppointmentType.setValue(null);
+        comboDocId.setValue(null);
+        docNameField.clear();
+        dateField.setValue(null);
+
+        comboTreatmentType.setValue(null);
+        treatmentList.clear();
+        tableAppTreatment.refresh();
+        invisible();
+
     }
 }

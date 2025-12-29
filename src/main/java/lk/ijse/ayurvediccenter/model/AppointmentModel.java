@@ -1,8 +1,11 @@
 package lk.ijse.ayurvediccenter.model;
 
+import lk.ijse.ayurvediccenter.db.DBConnection;
+import lk.ijse.ayurvediccenter.dto.AppointmentDTO;
 import lk.ijse.ayurvediccenter.dto.tm.AppPatientTM;
 import lk.ijse.ayurvediccenter.util.CrudUtil;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -10,6 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AppointmentModel {
+
+    private AppTreatmentModel appTreatmentModel = new AppTreatmentModel();
 
     //  this Method will get the details of all the (Today)Appointment of the table
     public List<AppPatientTM> getTodayAppointments() throws SQLException {
@@ -47,17 +52,46 @@ public class AppointmentModel {
     }
 
     //  this Method will Save a new Appointment to the Appointment Table
-//    public boolean saveAppointment (AppointmentDTO appointmentDTO) throws SQLException {
-//
-//        boolean result =
-//                CrudUtil.execute(
-//                        "INSERT INTO Appointment (doc_id , patient_id ,doc_charges , appointment_date ,app_type , app_statues ) VALUES (?,?,?,?,?,?,?,?,?)",
-//
-//
-//
-//                );
-//        return result;
-//    }
+    public boolean saveAppointment(AppointmentDTO appointmentDTO) throws Exception {
+        Connection conn = DBConnection.getInstance().getConnection();
+
+        try{
+            conn.setAutoCommit(false);
+            boolean isAppointmentPlaced  = CrudUtil.execute(
+                    "INSERT INTO Appointment (doc_id , patient_id ,doc_charges , appointment_date ,app_type , app_statues ) VALUES (?,?,?,?,?,?)",
+                    appointmentDTO.getDoc_id(),
+                    appointmentDTO.getPatient_id(),
+                    appointmentDTO.getDoc_charges(),
+                    appointmentDTO.getAppointment_date(),
+                    appointmentDTO.getAppType(),
+                    appointmentDTO.getAppStatus().name()
+
+            );
+            if (isAppointmentPlaced) {
+                ResultSet rs = CrudUtil.execute("SELECT appointment_id FROM Appointment ORDER BY appointment_id DESC LIMIT 1 ");
+                if (rs.next()) {
+                    int appointmentId = rs.getInt("appointment_id");
+
+                    appTreatmentModel.saveAppTreatment(appointmentId,appointmentDTO.getAppointment_date(),appointmentDTO.getTreatmentList());
+
+                }else{
+                    throw new Exception("Something went wrong when finding the Appointment id");
+                }
+            }else{
+                throw new Exception("Something went wrong when place the Appointment ");
+
+            }
+            conn.commit();
+            return true;
+
+        }catch(Exception e){
+            conn.rollback();
+            throw e;
+        } finally {
+        conn.setAutoCommit(true);
+         }
+
+    }
 
 
 //  this Method will give the appointment_ID that new Appointment gonna assign-to

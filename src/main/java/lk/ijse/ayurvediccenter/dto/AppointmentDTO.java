@@ -1,39 +1,40 @@
 package lk.ijse.ayurvediccenter.dto;
 
+import lk.ijse.ayurvediccenter.model.enums.AppointmentStatus;
+
+import java.util.List;
+
 public class AppointmentDTO {
-    private int appointment_id ;
-    private int doc_id ;
-    private int patient_id ;
-    private double doc_charges ;
-    private double treatment_charges ;
+    private int appointment_id;
+    private int doc_id;
+    private int patient_id;
+    private double doc_charges;
+    private double treatment_charges;
     private double prescription_charges;
-    private double total_charges ;
-    private String appointment_date ;
-    private String appointment_status ;
+    private double total_charges;
+    private String appointment_date;
+    private String appType;
+    private AppointmentStatus appStatus;
+    List<AppTreatmentDTO> treatmentList;
 
     public AppointmentDTO() {
     }
 
-    public AppointmentDTO(int appointment_id, int patient_id, String appointment_date, String appointment_status) {
+    public AppointmentDTO(int appointment_id) {
         this.appointment_id = appointment_id;
-        this.patient_id = patient_id;
-        this.appointment_date = appointment_date;
-        this.appointment_status = appointment_status;
     }
 
-    public AppointmentDTO(double total_charges, int doc_id, int patient_id, double doc_charges, double treatment_charges, double prescription_charges, String appointment_date, String appointment_status) {
-        this.total_charges = total_charges;
+    public AppointmentDTO(int doc_id, int patient_id, double doc_charges, String appointment_date, String appType, AppointmentStatus appStatus, List<AppTreatmentDTO> treatmentList) {
         this.doc_id = doc_id;
         this.patient_id = patient_id;
         this.doc_charges = doc_charges;
-        this.treatment_charges = treatment_charges;
-        this.prescription_charges = prescription_charges;
         this.appointment_date = appointment_date;
-        this.appointment_status = appointment_status;
+        this.appType = appType;
+        this.appStatus = appStatus;
+        this.treatmentList = treatmentList;
     }
 
-    public AppointmentDTO(int appointment_id, int doc_id, int patient_id, double doc_charges, double treatment_charges, double prescription_charges, double total_charges, String appointment_date, String appointment_status) {
-        this.appointment_id = appointment_id;
+    public AppointmentDTO(int doc_id, int patient_id, double doc_charges, double treatment_charges, double prescription_charges, double total_charges, String appointment_date, String appType, AppointmentStatus appStatus, List<AppTreatmentDTO> treatmentList) {
         this.doc_id = doc_id;
         this.patient_id = patient_id;
         this.doc_charges = doc_charges;
@@ -41,7 +42,23 @@ public class AppointmentDTO {
         this.prescription_charges = prescription_charges;
         this.total_charges = total_charges;
         this.appointment_date = appointment_date;
-        this.appointment_status = appointment_status;
+        this.appType = appType;
+        this.appStatus = appStatus;
+        this.treatmentList = treatmentList;
+    }
+
+    public AppointmentDTO(int appointment_id, int doc_id, int patient_id, double doc_charges, double treatment_charges, double prescription_charges, double total_charges, String appointment_date, String appType, AppointmentStatus appStatus, List<AppTreatmentDTO> treatmentList) {
+        this.appointment_id = appointment_id;
+        this.doc_id = doc_id;
+        this.patient_id = patient_id;
+        this.doc_charges = doc_charges;
+        this.treatment_charges = treatment_charges;
+        this.prescription_charges = prescription_charges;
+        this.total_charges = total_charges;
+        this.appointment_date = appointment_date;
+        this.appType = appType;
+        this.appStatus = appStatus;
+        this.treatmentList = treatmentList;
     }
 
     public int getAppointment_id() {
@@ -108,12 +125,28 @@ public class AppointmentDTO {
         this.appointment_date = appointment_date;
     }
 
-    public String getAppointment_status() {
-        return appointment_status;
+    public String getAppType() {
+        return appType;
     }
 
-    public void setAppointment_status(String appointment_status) {
-        this.appointment_status = appointment_status;
+    public void setAppType(String appType) {
+        this.appType = appType;
+    }
+
+    public AppointmentStatus getAppStatus() {
+        return appStatus;
+    }
+
+    public void setAppStatus(AppointmentStatus appStatus) {
+        this.appStatus = appStatus;
+    }
+
+    public List<AppTreatmentDTO> getTreatmentList() {
+        return treatmentList;
+    }
+
+    public void setTreatmentList(List<AppTreatmentDTO> treatmentList) {
+        this.treatmentList = treatmentList;
     }
 
     @Override
@@ -127,7 +160,9 @@ public class AppointmentDTO {
                 ", prescription_charges=" + prescription_charges +
                 ", total_charges=" + total_charges +
                 ", appointment_date='" + appointment_date + '\'' +
-                ", appointment_status='" + appointment_status + '\'' +
+                ", appType='" + appType + '\'' +
+                ", appStatus=" + appStatus +
+                ", treatmentList=" + treatmentList +
                 '}';
     }
 }

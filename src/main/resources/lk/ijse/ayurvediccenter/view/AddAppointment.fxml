@@ -88,7 +88,7 @@
                                     <Insets left="300.0" />
                                  </HBox.margin>
                               </Text>
-                              <Button fx:id="saveButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="143.0" style="-fx-background-color: #3E5B49; -fx-background-radius: 20;" text="Save" textFill="WHITE">
+                              <Button fx:id="saveButton" mnemonicParsing="false" onAction="#handleSaveAppointment" prefHeight="40.0" prefWidth="143.0" style="-fx-background-color: #3E5B49; -fx-background-radius: 20;" text="Save" textFill="WHITE">
                                  <HBox.margin>
                                     <Insets left="75.0" top="5.0" />
                                  </HBox.margin>
@@ -96,7 +96,7 @@
                                     <Font name="Cambria Bold" size="18.0" />
                                  </font>
                               </Button>
-                              <Button fx:id="resetButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="130.0" style="-fx-background-color: #3E5B49; -fx-background-radius: 20;" text="Reset" textFill="WHITE">
+                              <Button fx:id="setButton" mnemonicParsing="false" onAction="#onActionReset" prefHeight="40.0" prefWidth="130.0" style="-fx-background-color: #3E5B49; -fx-background-radius: 20;" text="Reset" textFill="WHITE">
                                  <font>
                                     <Font name="Cambria Bold" size="18.0" />
                                  </font>
@@ -192,7 +192,7 @@
                                     <Insets left="145.0" top="15.0" />
                                  </HBox.margin>
                               </Label>
-                              <Button mnemonicParsing="false" onAction="#handleAddTreatment" prefHeight="35.0" prefWidth="154.0" style="-fx-background-color: #537961; -fx-background-radius: 20;" text="Add  Treatment" textFill="WHITE">
+                              <Button fx:id="addTreatmentButton" mnemonicParsing="false" onAction="#handleAddTreatment" prefHeight="35.0" prefWidth="154.0" style="-fx-background-color: #537961; -fx-background-radius: 20;" text="Add  Treatment" textFill="WHITE">
                                  <font>
                                     <Font name="Cambria Bold" size="12.0" />
                                  </font>
@@ -277,11 +277,12 @@
                                     <Insets top="10.0" />
                                  </HBox.margin>
                               </VBox>
-                              <TableView fx:id="tableAppTreatment" prefHeight="163.0" prefWidth="390.0" style="-fx-border-color: #537961;">
+                              <TableView fx:id="tableAppTreatment" prefHeight="163.0" prefWidth="390.0" style="-fx-border-color: #537961; -fx-font-family: Cambria; -fx-font-size: 12; -fx-background-color: #E1EAE4;" stylesheets="@../css/TableView.css">
                                 <columns>
-                                  <TableColumn fx:id="colTId" prefWidth="108.79998475313187" text="Treatment_ID" />
-                                  <TableColumn fx:id="colTName" prefWidth="170.40003967285156" text="Treatment_Name" />
-                                    <TableColumn fx:id="colActionDelete" prefWidth="117.5999755859375" text="Action" />
+                                  <TableColumn fx:id="colTId" prefWidth="84.00006413459778" text="Treatment_ID" />
+                                  <TableColumn fx:id="colTName" prefWidth="108.79995727539062" text="Treatment_Name" />
+                                    <TableColumn fx:id="colTPrice" prefWidth="100.26664733886719" text="Price" />
+                                    <TableColumn fx:id="colActionRemove" prefWidth="92.5333251953125" text="Action" />
                                 </columns>
                                  <HBox.margin>
                                     <Insets bottom="5.0" left="10.0" top="5.0" />
