@@ -107,7 +107,7 @@
          <center>
             <VBox prefHeight="425.0" prefWidth="868.0" BorderPane.alignment="CENTER">
                <children>
-                  <TableView fx:id="tableEmployees" prefHeight="489.0" prefWidth="868.0" stylesheets="@../css/TreatmentView.css">
+                  <TableView fx:id="tableEmployees" prefHeight="489.0" prefWidth="868.0" stylesheets="@../css/TableView.css">
                      <columns>
                         <TableColumn fx:id="colId" prefWidth="83.20000910758972" text="Emp ID" />
                         <TableColumn fx:id="colFName" prefWidth="131.1999740600586" text="First Name" />

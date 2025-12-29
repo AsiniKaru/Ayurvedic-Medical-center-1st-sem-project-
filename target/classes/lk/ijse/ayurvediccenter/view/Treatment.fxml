@@ -107,7 +107,7 @@
          <center>
             <VBox prefHeight="425.0" prefWidth="868.0" BorderPane.alignment="CENTER">
                <children>
-                  <TableView fx:id="tableTreatment" prefHeight="479.0" prefWidth="868.0" style="-fx-background-color: #F1F4F0;" stylesheets="@../css/TreatmentView.css">
+                  <TableView fx:id="tableTreatment" prefHeight="479.0" prefWidth="868.0" style="-fx-background-color: #F1F4F0;" stylesheets="@../css/TableView.css">
                      <columns>
                         <TableColumn fx:id="colId" prefWidth="83.20000910758972" text="Treatment ID" />
                         <TableColumn fx:id="colName" prefWidth="134.40001678466797" text="Treatment Name" />
