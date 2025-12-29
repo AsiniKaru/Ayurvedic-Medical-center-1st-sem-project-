@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="overviewContent" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.ayurvediccenter.controller.AppointmentViewController">
+   <children>
+      <BorderPane prefHeight="600.0" prefWidth="800.0">
+         <top>
+            <HBox prefHeight="54.0" prefWidth="800.0" style="-fx-background-color: #BDDBB2;" BorderPane.alignment="CENTER">
+               <children>
+                  <Button mnemonicParsing="false" prefHeight="54.0" prefWidth="200.0" style="-fx-background-color: transparent;" text="Prescription">
+                     <font>
+                        <Font name="Cambria Bold" size="14.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="overviewButton" mnemonicParsing="false" onAction="#onActionOverview" prefHeight="54.0" prefWidth="200.0" style="-fx-background-color: transparent;" text="Overview">
+                     <font>
+                        <Font name="Cambria Bold" size="14.0" />
+                     </font>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#onActionDiagnosisHistory" prefHeight="54.0" prefWidth="200.0" style="-fx-background-color: transparent;" text="Diagnosis History">
+                     <font>
+                        <Font name="Cambria Bold" size="14.0" />
+                     </font>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#onActionMedicationHistory" prefHeight="54.0" prefWidth="200.0" style="-fx-background-color: transparent;" text="Medication History">
+                     <font>
+                        <Font name="Cambria Bold" size="14.0" />
+                     </font>
+                  </Button>
+                  <Button mnemonicParsing="false" prefHeight="54.0" prefWidth="200.0" style="-fx-background-color: transparent;" text="Appointment               History" textAlignment="CENTER" wrapText="true">
+                     <font>
+                        <Font name="Cambria Bold" size="14.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+         </top>
+         <center>
+            <AnchorPane fx:id="profileContent" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <StackPane prefHeight="549.0" prefWidth="800.0">
+                     <children>
+                        <ImageView fitHeight="548.0" fitWidth="800.0" opacity="0.52" pickOnBounds="true">
+                           <image>
+                              <Image url="@../image/Screenshot%202025-12-10%20191201.png" />
+                           </image>
+                        </ImageView>
+                        <VBox prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <HBox prefHeight="58.0" prefWidth="800.0" style="-fx-border-color: #537961; -fx-border-width: 2; -fx-border-radius: 10;">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Appointment ID :">
+                                       <font>
+                                          <Font name="Cambria" size="24.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets left="15.0" top="5.0" />
+                                       </HBox.margin>
+                                    </Text>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="App ID" wrappingWidth="137.53754234313965">
+                                       <font>
+                                          <Font name="Cambria" size="24.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets left="10.0" top="5.0" />
+                                       </HBox.margin>
+                                    </Text>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date :">
+                                       <font>
+                                          <Font name="Cambria" size="24.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets left="250.0" top="5.0" />
+                                       </HBox.margin>
+                                    </Text>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date" wrappingWidth="137.53754234313965">
+                                       <font>
+                                          <Font name="Cambria" size="24.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets top="5.0" />
+                                       </HBox.margin>
+                                    </Text>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets left="20.0" right="20.0" top="5.0" />
+                                 </VBox.margin>
+                              </HBox>
+                              <VBox prefHeight="491.0" prefWidth="832.0" style="-fx-border-color: #537961; -fx-border-width: 2; -fx-border-radius: 10;">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="20.0" right="20.0" top="5.0" />
+                                 </VBox.margin>
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Add Diagnosis Syntom">
+                                       <font>
+                                          <Font name="Cambria" size="24.0" />
+                                       </font>
+                                    </Text>
+                                    <TextArea prefHeight="33.0" prefWidth="726.0" style="-fx-border-color: #A4C1AF; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-width: 2;" wrapText="true">
+                                       <VBox.margin>
+                                          <Insets left="30.0" right="30.0" top="5.0" />
+                                       </VBox.margin>
+                                    </TextArea>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Add Medicine">
+                                       <font>
+                                          <Font name="Cambria" size="24.0" />
+                                       </font>
+                                    </Text>
+                                    <HBox prefHeight="42.0" prefWidth="787.0">
+                                       <children>
+                                          <ComboBox prefHeight="36.0" prefWidth="190.0" style="-fx-background-color: #A4C1AF;">
+                                             <HBox.margin>
+                                                <Insets left="15.0" />
+                                             </HBox.margin>
+                                          </ComboBox>
+                                          <TextArea prefHeight="58.0" prefWidth="502.0" promptText="Instruction from medication" style="-fx-border-color: #A4C1AF; -fx-background-radius: 10; -fx-border-width: 2; -fx-border-radius: 10;">
+                                             <HBox.margin>
+                                                <Insets bottom="5.0" left="30.0" />
+                                             </HBox.margin>
+                                          </TextArea>
+                                       </children>
+                                    </HBox>
+                                    <TableView prefHeight="97.0" prefWidth="787.0" style="-fx-border-color: #A4C1AF;">
+                                      <columns>
+                                        <TableColumn prefWidth="189.59997254610062" text="C1" />
+                                        <TableColumn prefWidth="536.8000335693359" text="C2" />
+                                      </columns>
+                                       <VBox.margin>
+                                          <Insets left="30.0" right="30.0" />
+                                       </VBox.margin>
+                                    </TableView>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Add Treatment">
+                                       <font>
+                                          <Font name="Cambria" size="24.0" />
+                                       </font>
+                                    </Text>
+                                    <HBox prefHeight="42.0" prefWidth="787.0">
+                                       <children>
+                                          <ComboBox prefHeight="36.0" prefWidth="190.0" style="-fx-background-color: #A4C1AF;">
+                                             <HBox.margin>
+                                                <Insets left="15.0" />
+                                             </HBox.margin>
+                                          </ComboBox>
+                                          <TextArea prefHeight="58.0" prefWidth="502.0" promptText="Instruction from Treatments" style="-fx-border-color: #A4C1AF; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-width: 2;">
+                                             <HBox.margin>
+                                                <Insets bottom="5.0" left="30.0" />
+                                             </HBox.margin>
+                                          </TextArea>
+                                       </children>
+                                    </HBox>
+                                    <TableView prefHeight="97.0" prefWidth="787.0" style="-fx-border-color: #A4C1AF;">
+                                       <columns>
+                                          <TableColumn prefWidth="189.59997254610062" text="C1" />
+                                          <TableColumn prefWidth="536.8000335693359" text="C2" />
+                                       </columns>
+                                       <VBox.margin>
+                                          <Insets left="30.0" right="30.0" />
+                                       </VBox.margin>
+                                    </TableView>
+                                    <HBox prefHeight="68.0" prefWidth="787.0">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Next Visit Day :">
+                                             <font>
+                                                <Font name="Cambria" size="24.0" />
+                                             </font>
+                                             <HBox.margin>
+                                                <Insets top="10.0" />
+                                             </HBox.margin>
+                                          </Text>
+                                          <DatePicker style="-fx-border-color: #A4C1AF;">
+                                             <HBox.margin>
+                                                <Insets top="15.0" />
+                                             </HBox.margin>
+                                          </DatePicker>
+                                          <Button fx:id="saveButton" mnemonicParsing="false" prefHeight="46.0" prefWidth="143.0" style="-fx-background-color: #3E5B49; -fx-background-radius: 20;" text="Save" textFill="WHITE">
+                                             <font>
+                                                <Font name="Cambria Bold" size="24.0" />
+                                             </font>
+                                             <HBox.margin>
+                                                <Insets left="100.0" top="10.0" />
+                                             </HBox.margin>
+                                          </Button>
+                                          <Button mnemonicParsing="false" prefHeight="46.0" prefWidth="145.0" style="-fx-background-color: #3E5B49; -fx-background-radius: 20;" text="Reset" textFill="WHITE">
+                                             <font>
+                                                <Font name="Cambria Bold" size="24.0" />
+                                             </font>
+                                             <HBox.margin>
+                                                <Insets left="10.0" top="10.0" />
+                                             </HBox.margin>
+                                          </Button>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </StackPane>
+               </children>
+            </AnchorPane>
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>
