@@ -31,6 +31,7 @@ public class AppPatientTM {
         this.contact = contact;
         this.appointmentDate = appointmentDate;
         this.appointmentStatus = appointmentStatus;
+        this.appointmentType = appointmentType;
     }
 
     public int getAppointmentId() {

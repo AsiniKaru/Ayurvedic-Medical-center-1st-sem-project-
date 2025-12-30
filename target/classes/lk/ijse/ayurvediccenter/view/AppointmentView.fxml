@@ -107,20 +107,26 @@
                                     <Insets bottom="10.0" left="20.0" right="20.0" top="5.0" />
                                  </VBox.margin>
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Add Diagnosis Syntom">
+                                    <Text onMouseClicked="#toggleDiagnosisSection" strokeType="OUTSIDE" strokeWidth="0.0" text="+ Add Diagnosis Syntom">
                                        <font>
                                           <Font name="Cambria" size="24.0" />
                                        </font>
+                                       <VBox.margin>
+                                          <Insets left="10.0" />
+                                       </VBox.margin>
                                     </Text>
                                     <TextArea prefHeight="33.0" prefWidth="726.0" style="-fx-border-color: #A4C1AF; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-width: 2;" wrapText="true">
                                        <VBox.margin>
                                           <Insets left="30.0" right="30.0" top="5.0" />
                                        </VBox.margin>
                                     </TextArea>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Add Medicine">
+                                    <Text onMouseClicked="#toggleMedicineSection" strokeType="OUTSIDE" strokeWidth="0.0" text="+ Add Medicine">
                                        <font>
                                           <Font name="Cambria" size="24.0" />
                                        </font>
+                                       <VBox.margin>
+                                          <Insets left="10.0" />
+                                       </VBox.margin>
                                     </Text>
                                     <HBox prefHeight="42.0" prefWidth="787.0">
                                        <children>
@@ -145,10 +151,13 @@
                                           <Insets left="30.0" right="30.0" />
                                        </VBox.margin>
                                     </TableView>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Add Treatment">
+                                    <Text onMouseClicked="#toggleTreatmentSection" strokeType="OUTSIDE" strokeWidth="0.0" text="+ Add Treatment">
                                        <font>
                                           <Font name="Cambria" size="24.0" />
                                        </font>
+                                       <VBox.margin>
+                                          <Insets left="10.0" />
+                                       </VBox.margin>
                                     </Text>
                                     <HBox prefHeight="42.0" prefWidth="787.0">
                                        <children>
@@ -188,7 +197,7 @@
                                                 <Insets top="15.0" />
                                              </HBox.margin>
                                           </DatePicker>
-                                          <Button fx:id="saveButton" mnemonicParsing="false" prefHeight="46.0" prefWidth="143.0" style="-fx-background-color: #3E5B49; -fx-background-radius: 20;" text="Save" textFill="WHITE">
+                                          <Button fx:id="saveButton" mnemonicParsing="false" onAction="#btnSaveOnAction" prefHeight="46.0" prefWidth="143.0" style="-fx-background-color: #3E5B49; -fx-background-radius: 20;" text="Save" textFill="WHITE">
                                              <font>
                                                 <Font name="Cambria Bold" size="24.0" />
                                              </font>

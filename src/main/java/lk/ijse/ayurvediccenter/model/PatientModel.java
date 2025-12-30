@@ -3,6 +3,7 @@ package lk.ijse.ayurvediccenter.model;
 
 import lk.ijse.ayurvediccenter.controller.LoginController;
 import lk.ijse.ayurvediccenter.dto.PatientDTO;
+import lk.ijse.ayurvediccenter.dto.tm.AppPatientTM;
 import lk.ijse.ayurvediccenter.util.CrudUtil;
 
 import java.sql.ResultSet;
@@ -144,5 +145,80 @@ public class PatientModel {
     return patientList;
 
 }
+
+//   this Method will give appointment details of a specific patient_id
+    public List<AppPatientTM> getAppointmentById(String id) throws SQLException {
+
+        ResultSet rs =
+                CrudUtil.execute(
+                        "SELECT a.appointment_id, p.patient_id, " +
+                                "CONCAT(p.patient_fName, ' ', p.patient_lName) AS patient_name, " +
+                                "p.contact_num, a.appointment_date, a.app_statues, a.app_type " +
+                                "FROM Appointment a " +
+                                "JOIN Patient p ON a.patient_id = p.patient_id " +
+                                "WHERE p.patient_id = ? ",
+                        id
+                );
+
+        List<AppPatientTM> appointmentlist = new ArrayList<>();
+
+        while (rs.next()) {
+            AppPatientTM appPatientTM = new AppPatientTM(
+                    rs.getInt("appointment_id"),
+                    rs.getInt("patient_id"),
+                    rs.getString("patient_name"),
+                    rs.getString("contact_num"),
+                    rs.getString("appointment_date"),
+                    rs.getString("app_statues"),
+                    rs.getString("app_type")
+
+            );
+
+            System.out.println(appPatientTM);
+            appointmentlist.add(appPatientTM);
+        }
+
+        return appointmentlist;
+
+    }
+
+//   this Method will give appointment details of a specific patient_fName or patient_lName
+    public List<AppPatientTM> getAppointmentByName(String name) throws SQLException {
+
+        ResultSet rs =
+                CrudUtil.execute(
+                        "SELECT a.appointment_id, p.patient_id, " +
+                                "CONCAT(p.patient_fName, ' ', p.patient_lName) AS patient_name, " +
+                                "p.contact_num, a.appointment_date, a.app_statues, a.app_type " +
+                                "FROM Appointment a " +
+                                "JOIN Patient p ON a.patient_id = p.patient_id " +
+                                "WHERE p.patient_fName = ? Or p.patient_lName = ? ",
+                        name,
+                        name
+                );
+
+        List<AppPatientTM> appointmentlist = new ArrayList<>();
+
+        while (rs.next()) {
+            AppPatientTM appPatientTM = new AppPatientTM(
+                    rs.getInt("appointment_id"),
+                    rs.getInt("patient_id"),
+                    rs.getString("patient_name"),
+                    rs.getString("contact_num"),
+                    rs.getString("appointment_date"),
+                    rs.getString("app_statues"),
+                    rs.getString("app_type")
+
+            );
+
+            System.out.println(appPatientTM);
+            appointmentlist.add(appPatientTM);
+        }
+
+        return appointmentlist;
+
+    }
+
+
 
 }

@@ -24,6 +24,7 @@ public class AppointmentDTO {
         this.appointment_id = appointment_id;
     }
 
+
     public AppointmentDTO(int doc_id, int patient_id, double doc_charges, String appointment_date, String appType, AppointmentStatus appStatus, List<AppTreatmentDTO> treatmentList) {
         this.doc_id = doc_id;
         this.patient_id = patient_id;

@@ -279,10 +279,9 @@
                               </VBox>
                               <TableView fx:id="tableAppTreatment" prefHeight="163.0" prefWidth="390.0" style="-fx-border-color: #537961; -fx-font-family: Cambria; -fx-font-size: 12; -fx-background-color: #E1EAE4;" stylesheets="@../css/TableView.css">
                                 <columns>
-                                  <TableColumn fx:id="colTId" prefWidth="84.00006413459778" text="Treatment_ID" />
-                                  <TableColumn fx:id="colTName" prefWidth="108.79995727539062" text="Treatment_Name" />
-                                    <TableColumn fx:id="colTPrice" prefWidth="100.26664733886719" text="Price" />
-                                    <TableColumn fx:id="colActionRemove" prefWidth="92.5333251953125" text="Action" />
+                                  <TableColumn fx:id="colTId" prefWidth="106.4001190662384" text="Treatment_ID" />
+                                  <TableColumn fx:id="colTName" prefWidth="140.79995727539062" text="Treatment_Name" />
+                                    <TableColumn fx:id="colActionRemove" prefWidth="139.1999969482422" text="Action" />
                                 </columns>
                                  <HBox.margin>
                                     <Insets bottom="5.0" left="10.0" top="5.0" />

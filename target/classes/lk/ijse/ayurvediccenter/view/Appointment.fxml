@@ -53,7 +53,7 @@
                               <Insets left="50.0" top="10.0" />
                            </HBox.margin>
                         </Text>
-                        <DatePicker fx:id="searchByDateField" prefHeight="54.0" prefWidth="204.0" style="-fx-border-color: #BFCFBB; -fx-border-width: 2;">
+                        <DatePicker fx:id="dateField" prefHeight="54.0" prefWidth="204.0" style="-fx-border-color: #BFCFBB; -fx-border-width: 2;">
                            <HBox.margin>
                               <Insets top="10.0" />
                            </HBox.margin>
@@ -73,7 +73,7 @@
                               <Insets left="50.0" top="10.0" />
                            </HBox.margin>
                         </Text>
-                        <TextArea fx:id="searchByNameOrIdField" prefHeight="58.0" prefWidth="511.0" promptText="Search By Patient ID or First Name or Last Name" style="-fx-border-color: #BFCFBB; -fx-border-width: 2; -fx-font-family: Cambria; -fx-font-size: 18;" />
+                        <TextArea fx:id="nameOrIdField" prefHeight="58.0" prefWidth="511.0" promptText="Search By Patient ID or First Name or Last Name" style="-fx-border-color: #BFCFBB; -fx-border-width: 2; -fx-font-family: Cambria; -fx-font-size: 18;" />
                      </children>
                      <VBox.margin>
                         <Insets top="10.0" />
@@ -112,11 +112,11 @@
          <center>
             <VBox prefHeight="425.0" prefWidth="868.0" BorderPane.alignment="CENTER">
                <children>
-                  <TableView fx:id="tableAppointment" prefHeight="479.0" prefWidth="868.0">
+                  <TableView fx:id="tableAppointment" prefHeight="479.0" prefWidth="868.0" style="-fx-font-family: Cambria; -fx-font-size: 13;">
                      <columns>
                         <TableColumn fx:id="colAppId" prefWidth="60.000001549720764" text="App ID" />
-                        <TableColumn fx:id="colPId" prefWidth="64.79995727539062" text="Patient ID" />
-                        <TableColumn fx:id="colAppDate" prefWidth="124.00003051757812" text="Date" />
+                        <TableColumn fx:id="colPId" prefWidth="83.99999237060547" text="Patient ID" />
+                        <TableColumn fx:id="colAppDate" prefWidth="105.5999755859375" text="Date" />
                         <TableColumn fx:id="colName" prefWidth="156.80006408691406" text="Name" />
                         <TableColumn fx:id="colContactNum" prefWidth="123.99996948242188" text="Contact Number" />
                         <TableColumn fx:id="colAppType" prefWidth="109.33331298828125" text="App Type" />

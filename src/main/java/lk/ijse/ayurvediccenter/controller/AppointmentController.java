@@ -9,8 +9,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import lk.ijse.ayurvediccenter.App;
+import lk.ijse.ayurvediccenter.dto.TreatmentDTO;
 import lk.ijse.ayurvediccenter.dto.tm.AppPatientTM;
 import lk.ijse.ayurvediccenter.model.AppointmentModel;
 
@@ -55,7 +58,46 @@ public class AppointmentController  implements Initializable {
         colContactNum.setCellValueFactory(new PropertyValueFactory<>("contact"));
         colAppType.setCellValueFactory(new PropertyValueFactory<>("appointmentType"));
         colAppStatus.setCellValueFactory(new PropertyValueFactory<>("appointmentStatus"));
-        colAction.setCellValueFactory(new PropertyValueFactory<>("appId"));
+        colAction.setCellFactory(param -> new TableCell<>() {
+
+            private final Button btnEdit = new Button("Edit");
+            private final Button btnDelete = new Button("Delete");
+            private final HBox hBox = new HBox(10, btnEdit, btnDelete);
+
+            {
+                // 🔹 Edit button action
+                btnEdit.setOnAction(event -> {
+                    AppPatientTM appPatientTM = getTableView()
+                            .getItems()
+                            .get(getIndex());
+
+                    handleEditAppointment();
+                });
+
+                // 🔹 Delete button action
+                btnDelete.setOnAction(event -> {
+                    AppPatientTM appPatientTM = getTableView()
+                            .getItems()
+                            .get(getIndex());
+
+                    handleDeleteAppointment();
+                });
+
+                hBox.setStyle("-fx-alignment: CENTER;");
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(hBox);
+                }
+            }
+        });
+
 
 
         loadTodayAppointmentTable();
@@ -64,29 +106,29 @@ public class AppointmentController  implements Initializable {
 
     @FXML
     private void onActionAddAppointment() {
-      try{
+        try{
 
-          FXMLLoader loader = new FXMLLoader();
+            FXMLLoader loader = new FXMLLoader();
 
-          loader.setLocation(getClass().getResource("/lk/ijse/ayurvediccenter/view/AddAppointment.fxml"));
+            loader.setLocation(getClass().getResource("/lk/ijse/ayurvediccenter/view/AddAppointment.fxml"));
 
-          Parent root = loader.load();
+            Parent root = loader.load();
 
-          AddAppointmentController addController = loader.getController();
-          addController.setAppointmentController(this);
+            AddAppointmentController addController = loader.getController();
+            addController.setAppointmentController(this);
 
 
-          Stage newStage = new Stage();
-          newStage.setTitle("Add New Appointment");
-          newStage.setScene(new Scene(root));
+            Stage newStage = new Stage();
+            newStage.setTitle("Add New Appointment");
+            newStage.setScene(new Scene(root));
 
-          newStage.initModality(Modality.APPLICATION_MODAL);
+            newStage.initModality(Modality.APPLICATION_MODAL);
 
-          newStage.show();
+            newStage.show();
 
-      } catch (Exception e) {
-          e.printStackTrace();
-      }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -107,7 +149,11 @@ public class AppointmentController  implements Initializable {
         }
     }
 
+    @FXML
+    private void handleEditAppointment() {}
 
+    @FXML
+    public void  handleDeleteAppointment(){}
 
 
 

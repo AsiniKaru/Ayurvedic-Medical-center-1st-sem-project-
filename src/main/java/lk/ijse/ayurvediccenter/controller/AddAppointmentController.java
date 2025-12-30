@@ -1,3 +1,4 @@
+
 package lk.ijse.ayurvediccenter.controller;
 
 import javafx.collections.FXCollections;
@@ -9,6 +10,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import lk.ijse.ayurvediccenter.dto.*;
 import lk.ijse.ayurvediccenter.dto.tm.AppPatientTM;
 import lk.ijse.ayurvediccenter.model.AppointmentModel;
@@ -22,6 +24,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 
@@ -41,7 +44,6 @@ public class AddAppointmentController implements Initializable {
 
     @FXML private DatePicker dateField;
 
-
     @FXML private TextField pNameField;
 
     @FXML private Button saveButton;
@@ -53,8 +55,6 @@ public class AddAppointmentController implements Initializable {
     @FXML private TableColumn<?, ?> colTId;
 
     @FXML private TableColumn<?, ?> colTName;
-
-    @FXML private TableColumn<?, ?> colTPrice;
 
     @FXML private TableColumn<TreatmentDTO, Void> colActionRemove;
 
@@ -71,23 +71,21 @@ public class AddAppointmentController implements Initializable {
 
     private ObservableList<TreatmentDTO> treatmentList = FXCollections.observableArrayList();
 
-    private AppointmentController addController;
+    private AppointmentController appointmentController;
     private PatientController patientController;
 
     public void setPatientController(PatientController patientController) {
         this.patientController =patientController;
     }
-    public void setAppointmentController(AppointmentController addController) {
-        this.addController = addController;
+    public void setAppointmentController(AppointmentController appointmentController) {
+        this.appointmentController = appointmentController;
     }
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         colTId.setCellValueFactory(new PropertyValueFactory<>("treatment_id"));
         colTName.setCellValueFactory(new PropertyValueFactory<>("name"));
-        colTPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
         colActionRemove.setCellFactory(param -> new TableCell<>() {
 
             private final Button btnRemove = new Button("Remove");
@@ -122,7 +120,7 @@ public class AddAppointmentController implements Initializable {
         comboAppointmentType.getItems().addAll(
                 "Medication",
                 "Treatment",
-                "Medication & Treatment"
+                "Med & Treatment"
         );
 
         // 👇 LISTENER (IMPORTANT)
@@ -143,9 +141,9 @@ public class AddAppointmentController implements Initializable {
     public void handleSelectDoctorId(ActionEvent event) {
         try {
             String selectedDoctorId = comboDocId.getSelectionModel().getSelectedItem();
-            DoctorDTO doctorDTO = doctorModel.searchDoctor(Integer.parseInt(selectedDoctorId));
+            String doctorName = doctorModel.getDoctorName(Integer.parseInt(selectedDoctorId));
 
-            docNameField.setText(doctorDTO.getFname()+" "+doctorDTO.getLname() );
+            docNameField.setText(doctorName );
 
         }catch (Exception e){
             e.printStackTrace();
@@ -167,7 +165,6 @@ public class AddAppointmentController implements Initializable {
 
     }
 
-
     @FXML
     void handleSaveAppointment(ActionEvent event) {
         try{
@@ -180,16 +177,18 @@ public class AddAppointmentController implements Initializable {
 
 
             List<AppTreatmentDTO> appTreatmentList = new ArrayList<>();
-
-            for(TreatmentDTO treatmentType : treatmentList ){
-
-                    AppTreatmentDTO appTreatmentDTO = new AppTreatmentDTO(
-                            treatmentType.getTreatment_id(),
-                            treatmentType.getName()
+            if(!appType.equals("Medication")) {
+                for (TreatmentDTO treatmentType : treatmentList) {
+                    appTreatmentList.add(
+                            new AppTreatmentDTO(
+                                    treatmentType.getTreatment_id(),
+                                    treatmentType.getName()
+                            )
                     );
-                    appTreatmentList.add(appTreatmentDTO);
+                }
+            }
 
-                    AppointmentDTO appointmentDTO = new AppointmentDTO(
+                AppointmentDTO appointmentDTO = new AppointmentDTO(
                         Integer.parseInt(doctorId),
                         Integer.parseInt(patientId),
                         docCharges,
@@ -197,22 +196,31 @@ public class AddAppointmentController implements Initializable {
                         appType,
                         appStatus,
                         appTreatmentList
-            );
+                );
 
-            boolean isAppointmentPlaced = appointmentModel.saveAppointment(appointmentDTO);
+                boolean isAppointmentPlaced = appointmentModel.saveAppointment(appointmentDTO);
 
-            if (isAppointmentPlaced) {
-                new Alert(Alert.AlertType.INFORMATION, "Appointment Successfully Saved", ButtonType.OK).show();
-            }
+                if (isAppointmentPlaced) {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Success!");
+                    alert.setHeaderText("Appointment successfully Places");
 
-            }
+                    ButtonType buttonYes = new ButtonType("Okay");
+                        Stage currentStage = (Stage) saveButton.getScene().getWindow();
+                        currentStage.close();
+                        appointmentController.loadTodayAppointmentTable();
+
+
+                } else {
+                    new Alert(Alert.AlertType.ERROR, "Failed to update treatment!", ButtonType.OK).show();
+                }
+
 
         }catch (Exception e){
             e.printStackTrace();
             new Alert(Alert.AlertType.ERROR, "Something went wrong", ButtonType.OK).show();
         }
     }
-
 
     @FXML
     public void handleAddTreatment(ActionEvent event) {
@@ -255,8 +263,6 @@ public class AddAppointmentController implements Initializable {
 
     }
 
-
-
     public void loadTreatmentName(){
         try{
             List<TreatmentDTO> treatmentList = treatmentModel.getTreatments();
@@ -276,11 +282,9 @@ public class AddAppointmentController implements Initializable {
     @FXML
     public void handleRemoveTreatment(TreatmentDTO treatmentDTO){
 
-            tableAppTreatment.getItems().remove(treatmentDTO);
+        tableAppTreatment.getItems().remove(treatmentDTO);
 
     }
-
-
 
     public void loadDocId(){
         try {
@@ -318,7 +322,7 @@ public class AddAppointmentController implements Initializable {
                 visible();
                 break;
 
-            case "Medication & Treatment":
+            case "Med & Treatment":
                 System.out.println("Medication & Treatment selected");
                 loadTreatmentName();
                 visible();

@@ -71,8 +71,8 @@ public class DoctorModel {
         while (rs.next()) {
             DoctorDTO doctorDTO = new DoctorDTO(
                     rs.getInt("doc_id"),
-                    rs.getString("doc_name"),
-                    rs.getString("lname"),
+                    rs.getString("doc_fName"),
+                    rs.getString("doc_lName"),
                     rs.getString("address"),
                     rs.getString("contact_num"),
                     rs.getString("email"),
@@ -100,6 +100,22 @@ public class DoctorModel {
         }else {
             return 0.00;
         }
+    }
+
+//   this Method will doctor name of a specific doctor_id
+    public String getDoctorName(int id) throws SQLException {
+        ResultSet rs = CrudUtil.execute(
+                "SELECT doc_fName , doc_lName FROM Doctor WHERE doc_id=? ",
+                id
+        );
+        if (rs.next()){
+            String fName = rs.getString("doc_fName");
+            String lName = rs.getString("doc_lName");
+
+            return fName+" "+lName;
+
+        }
+        return null;
     }
 
 }
