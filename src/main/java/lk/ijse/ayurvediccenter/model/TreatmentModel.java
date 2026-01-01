@@ -124,4 +124,14 @@ public class TreatmentModel {
 
     }
 
+//    this Method will give if the treatment is already existing in the system
+    public boolean isTreatmentExists(String name) throws SQLException {
+        ResultSet rs = CrudUtil.execute(
+                "SELECT treatment_id FROM Treatment WHERE treatment_name = ?",
+                name
+        );
+        return rs.next(); // true if patient exists
+    }
+
+
 }

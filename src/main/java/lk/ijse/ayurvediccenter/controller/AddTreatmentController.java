@@ -30,6 +30,8 @@ public class AddTreatmentController {
     @FXML
     private Button saveButton;
 
+
+
     private boolean update ;
 
     int id;
@@ -45,6 +47,7 @@ public class AddTreatmentController {
 
     public void setTreatmentController(TreatmentController treatmentController){
         this.treatmentController = treatmentController;
+
     }
 
     @FXML
@@ -69,39 +72,42 @@ public class AddTreatmentController {
 
                 ////////////////////// Save Treatment ////////////////////////////
                 if(!update) {
-                    TreatmentDTO teatmentDTO = new TreatmentDTO(name, type, description, Double.parseDouble(price));
-                    boolean result = treatmentModel.saveTreatment(teatmentDTO);
+                    if(treatmentModel.isTreatmentExists(name)) {
+                        new Alert(Alert.AlertType.WARNING, "Treatment already exists!").show();
+                    } else {
+                        TreatmentDTO treatmentDTO = new TreatmentDTO(name, type, description, Double.parseDouble(price));
+                        boolean result = treatmentModel.saveTreatment(treatmentDTO);
 
-                    if (result) {
-                        treatmentController.loadTreatmentTable();
-                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                        alert.setTitle("Success!");
-                        alert.setHeaderText("Treatment successfully added. Would you like to add another Treatment?");
+                        if (result) {
+                            treatmentController.loadTreatmentTable();
+                            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                            alert.setTitle("Success!");
+                            alert.setHeaderText("Treatment successfully added. Would you like to add another Treatment?");
 
-                        ButtonType buttonYes = new ButtonType("Yes");
-                        ButtonType buttonNo = new ButtonType("No");
-                        alert.getButtonTypes().setAll(buttonYes, buttonNo);
+                            ButtonType buttonYes = new ButtonType("Yes");
+                            ButtonType buttonNo = new ButtonType("No");
+                            alert.getButtonTypes().setAll(buttonYes, buttonNo);
 
-                        Optional<ButtonType> results = alert.showAndWait();
+                            Optional<ButtonType> results = alert.showAndWait();
 
 
-                        if (results.isPresent() && results.get() == buttonYes) {
-                            cleanField();
+                            if (results.isPresent() && results.get() == buttonYes) {
+                                cleanField();
+
+
+                            } else {
+
+                                Stage currentStage = (Stage) saveButton.getScene().getWindow();
+                                currentStage.close();
+                                cleanField();
+                                treatmentController.loadTreatmentTable();
+                            }
 
 
                         } else {
-
-                            Stage currentStage = (Stage) saveButton.getScene().getWindow();
-                            currentStage.close();
-                            cleanField();
-                            treatmentController.loadTreatmentTable();
+                            new Alert(Alert.AlertType.ERROR, "Failed to save treatment!", ButtonType.OK).show();
                         }
-
-
-                    } else {
-                        new Alert(Alert.AlertType.ERROR, "Failed to save treatment!", ButtonType.OK).show();
                     }
-
                 ////////////////////// Update Treatment ////////////////////////////
                 }else{
 
@@ -147,11 +153,11 @@ public class AddTreatmentController {
             }
         }
     }
-    void setUpdate(boolean b) {
+    public void setUpdate(boolean b) {
         this.update = b;
 
     }
-    void setTextField( int tId , String tName ,String type ,  String Description , double Price) {
+    public void setTextField( int tId , String tName ,String type ,  String Description , double Price) {
 
         id = tId;
         tNameField.setText(tName);

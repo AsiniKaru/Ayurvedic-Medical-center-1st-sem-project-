@@ -219,6 +219,13 @@ public class PatientModel {
 
     }
 
-
+// this Method will check if the patient already existing in the system
+    public boolean isPatientExists (String  nic) throws SQLException {
+        ResultSet rs = CrudUtil.execute(
+                "SELECT patient_id FROM Patient WHERE patient_nic = ?",
+                nic
+        );
+        return rs.next();
+    }
 
 }

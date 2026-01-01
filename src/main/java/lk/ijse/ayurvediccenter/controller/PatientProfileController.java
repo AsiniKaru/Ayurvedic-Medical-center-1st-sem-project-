@@ -12,6 +12,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import lk.ijse.ayurvediccenter.dto.PatientDTO;
 import lk.ijse.ayurvediccenter.model.PatientModel;
+import lk.ijse.ayurvediccenter.model.enums.UserRole;
 
 import java.net.URL;
 import java.util.Optional;
@@ -19,8 +20,6 @@ import java.util.ResourceBundle;
 
 public class PatientProfileController  {
 
-    @FXML
-    public AnchorPane overviewContent;
     @FXML
     public AnchorPane profileContent;
 
@@ -53,12 +52,15 @@ public class PatientProfileController  {
 
     @FXML
     private Button deleteButton;
+    @FXML private  Button editButton;
 
     private PatientController patientController;
 
     PatientModel patientModel =  new PatientModel();
 
     private PatientDTO patientDTO;
+
+    private boolean isUpdate = true;
 
     public void initData(PatientDTO patientDTO) {
         System.out.println(patientDTO);
@@ -74,6 +76,13 @@ public class PatientProfileController  {
         dateOfBirthField.setText(String.valueOf(patientDTO.getDateOfBirth()));
         contactField.setText(patientDTO.getContact());
         pSinceField.setText(String.valueOf(patientDTO.getPatientSince()));
+
+        UserRole role = SessionController.getUserRole();
+
+        if (role != UserRole.DOCTOR) {
+            deleteButton.setVisible(false);  deleteButton.setDisable(false);
+            editButton.setVisible(false);editButton.setDisable(false);
+        }
     }
 
 
@@ -137,6 +146,9 @@ public class PatientProfileController  {
             new Alert(Alert.AlertType.ERROR, "Something went wrong!").show();
         }
 
+    }
+    void setUpdate(boolean isUpdate) {
+        this.isUpdate=isUpdate;
     }
 
 

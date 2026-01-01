@@ -307,6 +307,8 @@ public class MedicineController implements Initializable {
 
     }
 
+
+
     @FXML
     private void clearFields() {
         tIdField.clear();

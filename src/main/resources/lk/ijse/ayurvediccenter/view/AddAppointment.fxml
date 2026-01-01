@@ -22,8 +22,7 @@
    <children>
       <ImageView fitHeight="659.0" fitWidth="868.0" pickOnBounds="true">
          <image>
-            <Image url="@../image/Screenshot%202025-12-10%20191201.png" />
-         </image>
+            <Image url="@../image/backgroud_image.png" />         </image>
       </ImageView>
       <BorderPane fx:id="patientMainContent" prefHeight="659.0" prefWidth="868.0">
          <top>
@@ -88,21 +87,21 @@
                                     <Insets left="300.0" />
                                  </HBox.margin>
                               </Text>
-                              <Button fx:id="saveButton" mnemonicParsing="false" onAction="#handleSaveAppointment" prefHeight="40.0" prefWidth="143.0" style="-fx-background-color: #3E5B49; -fx-background-radius: 20;" text="Save" textFill="WHITE">
+                              <Button fx:id="resetButton" mnemonicParsing="false" onAction="#onActionReset" prefHeight="40.0" prefWidth="130.0" style="-fx-background-color: #3E5B49; -fx-background-radius: 20;" stylesheets="@../css/Button.css" text="Reset" textFill="WHITE">
+                                 <font>
+                                    <Font name="Cambria Bold" size="18.0" />
+                                 </font>
                                  <HBox.margin>
                                     <Insets left="75.0" top="5.0" />
                                  </HBox.margin>
-                                 <font>
-                                    <Font name="Cambria Bold" size="18.0" />
-                                 </font>
                               </Button>
-                              <Button fx:id="setButton" mnemonicParsing="false" onAction="#onActionReset" prefHeight="40.0" prefWidth="130.0" style="-fx-background-color: #3E5B49; -fx-background-radius: 20;" text="Reset" textFill="WHITE">
-                                 <font>
-                                    <Font name="Cambria Bold" size="18.0" />
-                                 </font>
+                              <Button fx:id="saveButton" mnemonicParsing="false" onAction="#handleSaveAppointment" prefHeight="40.0" prefWidth="143.0" style="-fx-background-color: #3E5B49; -fx-background-radius: 20;" stylesheets="@../css/Button.css" text="Save" textFill="WHITE">
                                  <HBox.margin>
                                     <Insets left="10.0" top="5.0" />
                                  </HBox.margin>
+                                 <font>
+                                    <Font name="Cambria Bold" size="18.0" />
+                                 </font>
                               </Button>
                            </children>
                            <VBox.margin>
@@ -192,7 +191,7 @@
                                     <Insets left="145.0" top="15.0" />
                                  </HBox.margin>
                               </Label>
-                              <Button fx:id="addTreatmentButton" mnemonicParsing="false" onAction="#handleAddTreatment" prefHeight="35.0" prefWidth="154.0" style="-fx-background-color: #537961; -fx-background-radius: 20;" text="Add  Treatment" textFill="WHITE">
+                              <Button fx:id="addTreatmentButton" mnemonicParsing="false" onAction="#handleAddTreatment" prefHeight="35.0" prefWidth="154.0" style="-fx-background-color: #537961; -fx-background-radius: 20;" stylesheets="@../css/Button.css" text="Add  Treatment" textFill="WHITE">
                                  <font>
                                     <Font name="Cambria Bold" size="12.0" />
                                  </font>
@@ -264,7 +263,7 @@
                                           <Insets top="10.0" />
                                        </VBox.margin>
                                     </TextField>
-                                    <DatePicker fx:id="dateField" onAction="#getDate" prefHeight="34.0" prefWidth="198.0" style="-fx-border-color: #A4C1AF;">
+                                    <DatePicker fx:id="dateField" onAction="#getDate" prefHeight="34.0" prefWidth="198.0" style="-fx-border-color: #A4C1AF; -fx-font-family: Cambria; -fx-font-size: 14;">
                                        <VBox.margin>
                                           <Insets top="15.0" />
                                        </VBox.margin>

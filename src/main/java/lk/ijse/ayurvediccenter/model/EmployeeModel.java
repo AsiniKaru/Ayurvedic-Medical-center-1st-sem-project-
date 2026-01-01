@@ -206,4 +206,14 @@ public class EmployeeModel {
         return 0;
 
     }
+
+    //  this Method check whether employee is existing in the database
+    public boolean isEmployeeExists(String contactNum , String email) throws SQLException {
+        ResultSet rs = CrudUtil.execute(
+                "SELECT emp_id FROM Employee WHERE contact_num = ? OR email = ?",
+                contactNum,
+                email
+        );
+        return rs.next(); // true if patient exists
+    }
 }

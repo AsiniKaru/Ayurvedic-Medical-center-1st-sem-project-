@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="profileContent" prefHeight="200.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.ayurvediccenter.controller.AppointmentOverviewController">
+   <children>
+      <StackPane prefHeight="549.0" prefWidth="800.0">
+         <children>
+            <ImageView fitHeight="549.0" fitWidth="832.0" opacity="0.52" pickOnBounds="true">
+               <image>
+                  <Image url="@../image/backgroud_image.png" />               </image>
+            </ImageView>
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <HBox prefHeight="58.0" prefWidth="800.0" style="-fx-border-color: #537961; -fx-border-width: 2; -fx-border-radius: 10;">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Appointment ID :">
+                           <font>
+                              <Font name="Cambria" size="24.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="15.0" top="5.0" />
+                           </HBox.margin>
+                        </Text>
+                        <Text fx:id="appIdField" strokeType="OUTSIDE" strokeWidth="0.0" text="App ID" wrappingWidth="100.7375545501709">
+                           <font>
+                              <Font name="Cambria" size="24.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="10.0" top="5.0" />
+                           </HBox.margin>
+                        </Text>
+                        <Text fx:id="pNameField" strokeType="OUTSIDE" strokeWidth="0.0" text="PName" wrappingWidth="255.9376277923584">
+                           <font>
+                              <Font name="Cambria" size="24.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="5.0" top="5.0" />
+                           </HBox.margin>
+                        </Text>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date :">
+                           <font>
+                              <Font name="Cambria" size="24.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets top="5.0" />
+                           </HBox.margin>
+                        </Text>
+                        <Text fx:id="appDateField" strokeType="OUTSIDE" strokeWidth="0.0" text="Date" wrappingWidth="123.13751792907715">
+                           <font>
+                              <Font name="Cambria" size="24.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets top="5.0" />
+                           </HBox.margin>
+                        </Text>
+                     </children>
+                     <VBox.margin>
+                        <Insets left="20.0" right="20.0" top="5.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <VBox prefHeight="491.0" prefWidth="832.0" style="-fx-border-color: #537961; -fx-border-width: 2; -fx-border-radius: 10;">
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="20.0" right="20.0" top="5.0" />
+                     </VBox.margin>
+                     <children>
+                        <VBox fx:id="diagnosisBox" prefHeight="76.0" prefWidth="787.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Add Diagnosis Syntom">
+                                 <font>
+                                    <Font name="Cambria" size="24.0" />
+                                 </font>
+                              </Text>
+                              <TextArea fx:id="diagnosisField" prefHeight="33.0" prefWidth="726.0" style="-fx-border-color: #A4C1AF; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-width: 2;" wrapText="true" />
+                           </children>
+                        </VBox>
+                        <VBox fx:id="medicineBox" managed="f" prefHeight="182.0" prefWidth="787.0" visible="false">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Add Medicine">
+                                 <font>
+                                    <Font name="Cambria" size="24.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="15.0" />
+                                 </VBox.margin>
+                              </Text>
+                              <HBox prefHeight="42.0" prefWidth="787.0">
+                                 <children>
+                                    <ComboBox fx:id="comboMedType" onAction="#loadMedicineName" prefHeight="36.0" prefWidth="190.0" style="-fx-background-color: #A4C1AF;">
+                                       <HBox.margin>
+                                          <Insets left="15.0" />
+                                       </HBox.margin>
+                                    </ComboBox>
+                                    <TextField fx:id="medQtyField" prefHeight="42.0" prefWidth="96.0" promptText="Med Qty" style="-fx-border-color: #A4C1AF; -fx-border-width: 2;">
+                                       <HBox.margin>
+                                          <Insets left="15.0" />
+                                       </HBox.margin>
+                                    </TextField>
+                                    <TextArea fx:id="medInstructionField" prefHeight="44.0" prefWidth="310.0" promptText="Instruction from medication" style="-fx-border-color: #A4C1AF; -fx-background-radius: 10; -fx-border-width: 2; -fx-border-radius: 10;">
+                                       <HBox.margin>
+                                          <Insets bottom="5.0" left="15.0" />
+                                       </HBox.margin>
+                                    </TextArea>
+                                    <Button fx:id="btnAddMedicine" mnemonicParsing="false" onAction="#handleAddMedicine" prefHeight="35.0" prefWidth="106.0" style="-fx-background-color: #537961; -fx-background-radius: 20;" stylesheets="@../css/Button.css" text="Add" textAlignment="CENTER" textFill="WHITE">
+                                       <font>
+                                          <Font name="Cambria Bold" size="18.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets left="20.0" top="5.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                              <TableView fx:id="tableMedicine" prefHeight="97.0" prefWidth="787.0" style="-fx-border-color: #A4C1AF; -fx-background-color: #537961;">
+                                 <columns>
+                                    <TableColumn fx:id="colMedId" prefWidth="121.59997248649597" text="Medicine ID" />
+                                    <TableColumn fx:id="colMedName" prefWidth="204.00001525878906" text="Medicine Name" />
+                                    <TableColumn fx:id="colMedQty" prefWidth="90.4000244140625" text="Med Qty" />
+                                    <TableColumn fx:id="colMedInstruction" prefWidth="184.79998779296875" text="Instruction" />
+                                    <TableColumn fx:id="colMedAction" prefWidth="124.0" text="Action" />
+                                 </columns>
+                                 <VBox.margin>
+                                    <Insets left="30.0" right="30.0" />
+                                 </VBox.margin>
+                              </TableView>
+                           </children>
+                        </VBox>
+                        <VBox fx:id="treatmentBox" prefHeight="170.0" prefWidth="787.0" visible="false">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Add Treatment">
+                                 <font>
+                                    <Font name="Cambria" size="24.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="15.0" />
+                                 </VBox.margin>
+                              </Text>
+                              <HBox prefHeight="42.0" prefWidth="787.0">
+                                 <children>
+                                    <ComboBox fx:id="comboTreatmentType" onAction="#loadTreatmentName" prefHeight="36.0" prefWidth="190.0" style="-fx-background-color: #A4C1AF;">
+                                       <HBox.margin>
+                                          <Insets left="15.0" />
+                                       </HBox.margin>
+                                    </ComboBox>
+                                    <Button fx:id="btnAddTreatment" mnemonicParsing="false" onAction="#handleAddTreatment" prefHeight="35.0" prefWidth="106.0" style="-fx-background-color: #537961; -fx-background-radius: 20;" stylesheets="@../css/Button.css" text="Add" textAlignment="CENTER" textFill="WHITE">
+                                       <font>
+                                          <Font name="Cambria Bold" size="18.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets bottom="5.0" left="20.0" top="4.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                              <TableView fx:id="tableTreatment" prefHeight="97.0" prefWidth="787.0" style="-fx-border-color: #A4C1AF; -fx-background-color: #537961;">
+                                 <columns>
+                                    <TableColumn fx:id="colTId" prefWidth="189.59997254610062" text="Treatment ID" />
+                                    <TableColumn fx:id="colTName" prefWidth="374.40003967285156" text="Treatment Name" />
+                                    <TableColumn fx:id="colTAction" prefWidth="159.19998779296873" text="Action" />
+                                 </columns>
+                                 <VBox.margin>
+                                    <Insets left="30.0" right="30.0" />
+                                 </VBox.margin>
+                              </TableView>
+                           </children>
+                        </VBox>
+                        <HBox prefHeight="22.0" prefWidth="787.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Next Visit Day :">
+                                 <font>
+                                    <Font name="Cambria" size="24.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="15.0" top="10.0" />
+                                 </HBox.margin>
+                              </Text>
+                              <DatePicker fx:id="dateField" style="-fx-border-color: #A4C1AF;">
+                                 <HBox.margin>
+                                    <Insets top="15.0" />
+                                 </HBox.margin>
+                              </DatePicker>
+                              <Button fx:id="saveButton" mnemonicParsing="false" onAction="#handleSavePrescription" prefHeight="46.0" prefWidth="143.0" style="-fx-background-color: #3E5B49; -fx-background-radius: 20;" stylesheets="@../css/Button.css" text="Save" textFill="WHITE">
+                                 <font>
+                                    <Font name="Cambria Bold" size="24.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="100.0" top="10.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button mnemonicParsing="false" onAction="#onActionReset" prefHeight="26.0" prefWidth="151.0" style="-fx-background-color: #3E5B49; -fx-background-radius: 20;" stylesheets="@../css/Button.css" text="Reset" textFill="WHITE">
+                                 <font>
+                                    <Font name="Cambria Bold" size="24.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="10.0" top="10.0" />
+                                 </HBox.margin>
+                              </Button>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+         </children>
+      </StackPane>
+   </children>
+</AnchorPane>

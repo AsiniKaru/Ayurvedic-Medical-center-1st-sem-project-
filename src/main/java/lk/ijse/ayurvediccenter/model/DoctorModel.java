@@ -103,7 +103,7 @@ public class DoctorModel {
     }
 
 //   this Method will doctor name of a specific doctor_id
-    public String getDoctorName(int id) throws SQLException {
+    public String getDoctorName(String id) throws SQLException {
         ResultSet rs = CrudUtil.execute(
                 "SELECT doc_fName , doc_lName FROM Doctor WHERE doc_id=? ",
                 id
@@ -116,6 +116,20 @@ public class DoctorModel {
 
         }
         return null;
+    }
+
+//  this Method will give doctor id  of a specific chanelling Id
+    public int getDocId(String id) throws SQLException {
+        ResultSet rs = CrudUtil.execute(
+                "SELECT doc_id FROM Appointment WHERE appointment_id=? ",
+                id
+        );
+        if (rs.next()){
+            int doc_id = rs.getInt("doc_id");
+            return doc_id;
+        }
+
+                return 0;
     }
 
 }

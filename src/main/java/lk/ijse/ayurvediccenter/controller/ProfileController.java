@@ -161,39 +161,44 @@ public class ProfileController implements Initializable {
             new Alert(Alert.AlertType.ERROR, "Invalid role format!", ButtonType.OK).show();
         }else {
             try{
-                System.out.println(emp_id+","+fName +","+ lName+","+address+","+contactNumber+","+email+","+role);
-                EmployeeDTO employeeDTO = new EmployeeDTO(emp_id,fName,lName,address,contactNumber,email,role);
-                boolean result = employeeModel.saveEmployee(employeeDTO);
 
-                if(result){
-                    empManagementController.loadEmployeeTable();
-                    Alert alert =new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Success!");
-                    alert.setHeaderText("Employee successfully added. Would you like to add another Employee?");
-
-                    ButtonType buttonYes = new ButtonType("Yes");
-                    ButtonType buttonNo = new ButtonType("No");
-                    alert.getButtonTypes().setAll(buttonYes, buttonNo);
-
-                    Optional<ButtonType> results = alert.showAndWait();
+                if(employeeModel.isEmployeeExists(contactNumber,email)) {
+                        new Alert(Alert.AlertType.WARNING, "Employee already exists!").show();
+                } else {
+                    System.out.println(emp_id + "," + fName + "," + lName + "," + address + "," + contactNumber + "," + email + "," + role);
+                    EmployeeDTO employeeDTO = new EmployeeDTO(emp_id, fName, lName, address, contactNumber, email, role);
+                    boolean result = employeeModel.saveEmployee(employeeDTO);
 
 
-                    if (results.isPresent() && results.get() == buttonYes) {
-                        cleanField();
+                    if (result) {
+                        empManagementController.loadEmployeeTable();
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Success!");
+                        alert.setHeaderText("Employee successfully added. Would you like to add another Employee?");
+
+                        ButtonType buttonYes = new ButtonType("Yes");
+                        ButtonType buttonNo = new ButtonType("No");
+                        alert.getButtonTypes().setAll(buttonYes, buttonNo);
+
+                        Optional<ButtonType> results = alert.showAndWait();
+
+
+                        if (results.isPresent() && results.get() == buttonYes) {
+                            cleanField();
+
+
+                        } else {
+
+                            Stage currentStage = (Stage) saveButton.getScene().getWindow();
+                            currentStage.close();
+                            cleanField();
+                            empManagementController.loadEmployeeTable();
+                        }
 
 
                     } else {
-
-                        Stage currentStage = (Stage) saveButton.getScene().getWindow();
-                        currentStage.close();
-                        cleanField();
-                        empManagementController.loadEmployeeTable();
+                        new Alert(Alert.AlertType.ERROR, "Failed to save patient!", ButtonType.OK).show();
                     }
-
-
-
-                }else {
-                    new Alert(Alert.AlertType.ERROR,"Failed to save patient!", ButtonType.OK).show();
                 }
             }catch(Exception e){
                 e.printStackTrace();

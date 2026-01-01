@@ -32,24 +32,32 @@ public class AppTreatmentModel {
     }
 
 //   this Method will give appTreatment details of a specific appointment_id
-    public List<AppTreatmentDTO> getTreatmentList(AppPatientTM appId) throws Exception{
+    public List<AppTreatmentDTO> getSelectedTreatmentList(String appId) throws Exception{
         List<AppTreatmentDTO> treatmentList = new ArrayList<>();
 
         ResultSet rs = CrudUtil.execute(
                 "SELECT * FROM App_Treatment WHERE appointment_id =?",
-                appId.getAppointmentId()
+                appId
         );
         while (rs.next()) {
             AppTreatmentDTO appTreatmentDTO = new AppTreatmentDTO(
                 rs.getInt("app_treatment_id"),
                     rs.getInt("appointment_id"),
                     rs.getInt("treatment_id"),
-                    rs.getString("date"),
-                    rs.getString("Treatment_name")
+                    rs.getString("treatment_name"),
+                    rs.getString("date")
+
             );
             treatmentList.add(appTreatmentDTO);
         }
         return treatmentList;
+    }
+
+    public boolean deleteTreatmentbyAppId(int appId) throws Exception{
+        return CrudUtil.execute(
+                "DELETE FROM App_Treatment WHERE appointment_id = ?",
+                appId
+        );
     }
 
     public boolean deleteTreatment(int appTreatmentId) throws Exception {

@@ -1,8 +1,10 @@
 package lk.ijse.ayurvediccenter.model;
 
+import javafx.fxml.FXML;
 import lk.ijse.ayurvediccenter.db.DBConnection;
 import lk.ijse.ayurvediccenter.dto.AppointmentDTO;
 import lk.ijse.ayurvediccenter.dto.tm.AppPatientTM;
+import lk.ijse.ayurvediccenter.model.enums.AppointmentStatus;
 import lk.ijse.ayurvediccenter.util.CrudUtil;
 
 import java.sql.Connection;
@@ -15,11 +17,10 @@ import java.util.List;
 public class AppointmentModel {
 
     private AppTreatmentModel appTreatmentModel = new AppTreatmentModel();
+    String today = LocalDate.now().toString();
 
 //  this Method will get the details of all the (Today)Appointment of the table
     public List<AppPatientTM> getTodayAppointments() throws SQLException {
-
-        String today = LocalDate.now().toString();
 
         ResultSet rs =
                 CrudUtil.execute(
@@ -28,8 +29,9 @@ public class AppointmentModel {
                                 "p.contact_num, a.appointment_date, a.app_statues, a.app_type " +
                                 "FROM Appointment a " +
                                 "JOIN Patient p ON a.patient_id = p.patient_id " +
-                                "WHERE a.appointment_date = ?",
-                        today
+                                "WHERE a.appointment_date = ? AND a.app_statues = ?",
+                        today,
+                        AppointmentStatus.ACTIVE.name()
                 );
         List<AppPatientTM> appointmentlist = new ArrayList<>();
 
@@ -44,8 +46,6 @@ public class AppointmentModel {
                     rs.getString("app_type")
 
             );
-
-            System.out.println(appPatientTM);
             appointmentlist.add(appPatientTM);
         }
 
@@ -88,22 +88,41 @@ public class AppointmentModel {
 
     }
 
-//   this Method will get appointment details by Appointment_id
-    public int getAppointmentById (int id)throws  SQLException {
+//   this Method will get appointment details by Patient id
+    public List<AppPatientTM> getAppointmentById (String pId)throws  SQLException {
+
         ResultSet rs =
                 CrudUtil.execute(
-                        "SELECT doc_id WHERE appointment_id = ?",
-                        id
+                        "SELECT a.appointment_id, p.patient_id, " +
+                                "CONCAT(p.patient_fName, ' ', p.patient_lName) AS patient_name, " +
+                                "p.contact_num, a.appointment_date, a.app_statues, a.app_type " +
+                                "FROM Appointment a " +
+                                "JOIN Patient p ON a.patient_id = p.patient_id " +
+                                "WHERE p.patient_id = ?",
+                        pId
                 );
+        List<AppPatientTM> appointmentlist = new ArrayList<>();
 
         while (rs.next()) {
-            int doc_id = rs.getInt("doc_id");
-            System.out.println(doc_id);
-            return doc_id;
-        }
-        return 0;
-    }
+            AppPatientTM appPatientTM = new AppPatientTM(
+                    rs.getInt("appointment_id"),
+                    rs.getInt("patient_id"),
+                    rs.getString("patient_name"),
+                    rs.getString("contact_num"),
+                    rs.getString("appointment_date"),
+                    rs.getString("app_statues"),
+                    rs.getString("app_type")
 
+            );
+
+            System.out.println(appPatientTM);
+            appointmentlist.add(appPatientTM);
+        }
+
+        return appointmentlist;
+
+
+    }
 
 //  this Method will Save a new Appointment to the Appointment Table
     public boolean saveAppointment(AppointmentDTO appointmentDTO) throws Exception {
@@ -150,6 +169,61 @@ public class AppointmentModel {
 
     }
 
+//  this Method will update the Appointment table
+    public boolean updateAppointment(int appointmentId, AppointmentDTO appointmentDTO ) throws Exception {
+            Connection conn = DBConnection.getInstance().getConnection();
+
+            try {
+                conn.setAutoCommit(false);
+
+                boolean isUpdated = CrudUtil.execute(
+                        "UPDATE Appointment SET doc_id=?, patient_id=?, doc_charges=?, appointment_date=?, app_type=?, app_statues=? WHERE appointment_id=?",
+                        appointmentDTO.getDoc_id(),
+                        appointmentDTO.getPatient_id(),
+                        appointmentDTO.getDoc_charges(),
+                        appointmentDTO.getAppointment_date(),
+                        appointmentDTO.getAppType(),
+                        appointmentDTO.getAppStatus().name(),
+                        appointmentId
+                );
+
+                if (!isUpdated) {
+                    throw new Exception("Failed to update appointment!!!!!!!!!!!!!!!");
+                }
+
+                if (appointmentDTO.getAppType().equals("Medication")) {
+
+                    appTreatmentModel.deleteTreatmentbyAppId(appointmentId);
+
+                } else {
+
+                    appTreatmentModel.deleteTreatmentbyAppId(appointmentId);
+
+                    // insert updated treatments
+                    if (appointmentDTO.getTreatmentList() != null &&
+                            !appointmentDTO.getTreatmentList().isEmpty()) {
+
+
+                        appTreatmentModel.saveAppTreatment(
+                                appointmentId,
+                                appointmentDTO.getAppointment_date(),
+                                appointmentDTO.getTreatmentList()
+                        );
+                    }
+                }
+
+                conn.commit();
+                return true;
+
+            } catch (Exception e) {
+                conn.rollback();
+                throw e;
+            } finally {
+                conn.setAutoCommit(true);
+            }
+
+    }
+
 // this Method will delete the existing appointment
     public boolean deleteAppointment(String id) throws Exception {
         boolean result =
@@ -178,5 +252,54 @@ public class AppointmentModel {
         // If table is empty
         return 1;
 
+    }
+
+// this Method will change the appointment_statue when consultation done
+    public boolean changeAppStatusToConsulted( String id) throws Exception {
+
+        boolean isConsultationDone = CrudUtil.execute(
+                "UPDATE Appointment SET app_statues = ? WHERE appointment_id = ?",
+                AppointmentStatus.CONSULTED.name(),
+                id
+        );
+                return  isConsultationDone;
+    }
+
+// this Method will give number of active appointments in today Appointment list
+    public int getNumOfActiveApp() throws SQLException {
+        ResultSet rs = CrudUtil.execute(
+                "SELECT COUNT(*) AS total_active_appointments FROM Appointment " +
+                        "WHERE appointment_date = ? " +
+                        "  AND app_statues = 'ACTIVE'",
+                today
+        );
+        if (rs.next()) {
+            Integer totalActiveApp = rs.getInt("total_active_appointments");
+            return totalActiveApp;
+        }
+        return 0;
+    }
+
+// this Method will give total number of appointments in today Appointment list
+    public int getNumOfApp() throws SQLException {
+        ResultSet rs = CrudUtil.execute(
+                "SELECT COUNT(*) AS total_appointments FROM Appointment WHERE appointment_date = ? ",
+                today
+        );
+        if (rs.next()) {
+            return rs.getInt("total_appointments");
+
+        }
+        return 0;
+    }
+
+//  this method will check patient appointment already exist
+    public boolean isAppointmentExists(String pId , String date) throws SQLException {
+        ResultSet rs = CrudUtil.execute(
+                "SELECT patient_id FROM Appointment WHERE appointment_date = ?",
+                pId,
+                date
+        );
+        return rs.next(); // true if patient exists
     }
 }

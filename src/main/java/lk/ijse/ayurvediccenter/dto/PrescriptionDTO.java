@@ -1,67 +1,99 @@
 package lk.ijse.ayurvediccenter.dto;
 
+import java.util.List;
+
 public class PrescriptionDTO {
-    private int prescription_id ;
-    private String med_name ;
-    private int dosage ;
-    private int qty ;
-    private double prescription_charges ;
+    private int prescriptionId;
+    private int appointmentId;
+    private String diagnosisDetails;
+    private String nextVisitDate;
+    List<PrescriptionMedDTO> prescriptionMeds;
+
 
     public PrescriptionDTO() {
     }
 
-    public PrescriptionDTO(String med_name, int dosage, int qty, double prescription_charges) {
-        this.med_name = med_name;
-        this.dosage = dosage;
-        this.qty = qty;
-        this.prescription_charges = prescription_charges;
+    public PrescriptionDTO(int prescriptionId) {
+        this.prescriptionId = prescriptionId;
     }
 
-    public PrescriptionDTO(int prescription_id, String med_name, int dosage, int qty, double prescription_charges) {
-        this.prescription_id = prescription_id;
-        this.med_name = med_name;
-        this.dosage = dosage;
-        this.qty = qty;
-        this.prescription_charges = prescription_charges;
+    public PrescriptionDTO(int appointmentId, String diagnosisDetails, String nextVisitDate) {
+        this.appointmentId = appointmentId;
+        this.diagnosisDetails = diagnosisDetails;
+        this.nextVisitDate = nextVisitDate;
     }
 
-    public int getPrescription_id() {
-        return prescription_id;
+    public PrescriptionDTO(int prescriptionId, int appointmentId, String diagnosisDetails, String nextVisitDate) {
+        this.prescriptionId = prescriptionId;
+        this.appointmentId = appointmentId;
+        this.diagnosisDetails = diagnosisDetails;
+        this.nextVisitDate = nextVisitDate;
     }
 
-    public void setPrescription_id(int prescription_id) {
-        this.prescription_id = prescription_id;
+    public PrescriptionDTO(int prescriptionId, int appointmentId, String diagnosisDetails, String nextVisitDate, List<PrescriptionMedDTO> prescriptionMeds) {
+        this.prescriptionId = prescriptionId;
+        this.appointmentId = appointmentId;
+        this.diagnosisDetails = diagnosisDetails;
+        this.nextVisitDate = nextVisitDate;
+        this.prescriptionMeds = prescriptionMeds;
     }
 
-    public String getMed_name() {
-        return med_name;
+
+    public PrescriptionDTO(int appointmentId, String diagnosisDetails, String nextVisitDate, List<PrescriptionMedDTO> prescriptionMeds) {
+        this.appointmentId = appointmentId;
+        this.diagnosisDetails = diagnosisDetails;
+        this.nextVisitDate = nextVisitDate;
+        this.prescriptionMeds = prescriptionMeds;
     }
 
-    public void setMed_name(String med_name) {
-        this.med_name = med_name;
+    public int getPrescriptionId() {
+        return prescriptionId;
     }
 
-    public int getDosage() {
-        return dosage;
+    public void setPrescriptionId(int prescriptionId) {
+        this.prescriptionId = prescriptionId;
     }
 
-    public void setDosage(int dosage) {
-        this.dosage = dosage;
+    public int getAppointmentId() {
+        return appointmentId;
     }
 
-    public int getQty() {
-        return qty;
+    public void setAppointmentId(int appointmentId) {
+        this.appointmentId = appointmentId;
     }
 
-    public void setQty(int qty) {
-        this.qty = qty;
+    public String getDiagnosisDetails() {
+        return diagnosisDetails;
     }
 
-    public double getPrescription_charges() {
-        return prescription_charges;
+    public void setDiagnosisDetails(String diagnosisDetails) {
+        this.diagnosisDetails = diagnosisDetails;
     }
 
-    public void setPrescription_charges(double prescription_charges) {
-        this.prescription_charges = prescription_charges;
+    public String getNextVisitDate() {
+        return nextVisitDate;
+    }
+
+    public void setNextVisitDate(String nextVisitDate) {
+        this.nextVisitDate = nextVisitDate;
+    }
+
+    public List<PrescriptionMedDTO> getPrescriptionMeds() {
+        return prescriptionMeds;
+    }
+
+    public void setPrescriptionMeds(List<PrescriptionMedDTO> prescriptionMeds) {
+        this.prescriptionMeds = prescriptionMeds;
+    }
+
+    @Override
+    public String toString() {
+        return "PrescriptionDTO{" +
+                "prescriptionId=" + prescriptionId +
+                ", appointmentId='" + appointmentId + '\'' +
+                ", diagnosisDetails='" + diagnosisDetails + '\'' +
+                ", nextVisitDate='" + nextVisitDate + '\'' +
+                ", prescriptionMeds=" + prescriptionMeds +
+                '}';
     }
 }

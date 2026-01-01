@@ -86,39 +86,44 @@ public class AddNewPatientController {
             new Alert(Alert.AlertType.ERROR, "Invalid gender format!", ButtonType.OK).show();
         }else{
             try{
-                System.out.println(fName +","+ address+","+nic+","+contactnumber+","+gender+","+dateofbirth);
-                PatientDTO patientDTO = new PatientDTO(fName ,lName , address , nic , contactnumber,gender,dateofbirth);
-                boolean result = patientModel.savePatient(patientDTO);
 
-                if(result){
-                    patientController.loadPatientTable();
-                    Alert alert =new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Success!");
-                    alert.setHeaderText("Patient successfully added. Would you like to add another patient?");
+                if(patientModel.isPatientExists(nic)) {
+                    new Alert(Alert.AlertType.WARNING, "Patient already exists!").show();
+                } else {
 
-                    ButtonType buttonYes = new ButtonType("Yes");
-                    ButtonType buttonNo = new ButtonType("No");
-                    alert.getButtonTypes().setAll(buttonYes, buttonNo);
+                    System.out.println(fName + "," + address + "," + nic + "," + contactnumber + "," + gender + "," + dateofbirth);
+                    PatientDTO patientDTO = new PatientDTO(fName, lName, address, nic, contactnumber, gender, dateofbirth);
+                    boolean result = patientModel.savePatient(patientDTO);
 
-                    Optional<ButtonType> results = alert.showAndWait();
+                    if (result) {
+                        patientController.loadPatientTable();
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Success!");
+                        alert.setHeaderText("Patient successfully added. Would you like to add another patient?");
+
+                        ButtonType buttonYes = new ButtonType("Yes");
+                        ButtonType buttonNo = new ButtonType("No");
+                        alert.getButtonTypes().setAll(buttonYes, buttonNo);
+
+                        Optional<ButtonType> results = alert.showAndWait();
 
 
-                    if (results.isPresent() && results.get() == buttonYes) {
-                        cleanField();
+                        if (results.isPresent() && results.get() == buttonYes) {
+                            cleanField();
+
+
+                        } else {
+
+                            Stage currentStage = (Stage) saveButton.getScene().getWindow();
+                            currentStage.close();
+                            cleanField();
+                            patientController.loadPatientTable();
+                        }
 
 
                     } else {
-
-                        Stage currentStage = (Stage) saveButton.getScene().getWindow();
-                        currentStage.close();
-                        cleanField();
-                        patientController.loadPatientTable();
+                        new Alert(Alert.AlertType.ERROR, "Failed to save patient!", ButtonType.OK).show();
                     }
-
-
-
-                }else {
-                    new Alert(Alert.AlertType.ERROR,"Failed to save patient!", ButtonType.OK).show();
                 }
             }catch(Exception e){
                 e.printStackTrace();

@@ -6,7 +6,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -20,12 +20,11 @@
    <children>
       <ImageView fitHeight="659.0" fitWidth="868.0" pickOnBounds="true">
          <image>
-            <Image url="@../image/Screenshot%202025-12-10%20191201.png" />
-         </image>
+            <Image url="@../image/backgroud_image.png" />         </image>
       </ImageView>
       <BorderPane fx:id="patientMainContent" prefHeight="761.0" prefWidth="868.0">
          <top>
-            <VBox prefHeight="298.0" prefWidth="868.0" BorderPane.alignment="CENTER">
+            <VBox prefHeight="266.0" prefWidth="868.0" BorderPane.alignment="CENTER">
                <children>
                   <HBox prefHeight="52.0" prefWidth="868.0">
                      <children>
@@ -58,14 +57,22 @@
                               <Insets top="10.0" />
                            </HBox.margin>
                         </DatePicker>
+                        <Button mnemonicParsing="false" onAction="#onActionSearchByDate" prefHeight="36.0" prefWidth="122.0" style="-fx-background-color: #344C3D; -fx-background-radius: 10;" text="Search" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font name="Cambria Bold" size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="10.0" top="15.0" />
+                           </HBox.margin>
+                        </Button>
                      </children>
                      <VBox.margin>
                         <Insets top="15.0" />
                      </VBox.margin>
                   </HBox>
-                  <HBox prefHeight="30.0" prefWidth="868.0">
+                  <HBox prefHeight="53.0" prefWidth="868.0">
                      <children>
-                        <Text layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search By ID or Name :" wrappingWidth="238.30784225463867">
+                        <Text layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search By Patient ID :" wrappingWidth="238.30784225463867">
                            <font>
                               <Font name="Cambria" size="24.0" />
                            </font>
@@ -73,7 +80,7 @@
                               <Insets left="50.0" top="10.0" />
                            </HBox.margin>
                         </Text>
-                        <TextArea fx:id="nameOrIdField" prefHeight="58.0" prefWidth="511.0" promptText="Search By Patient ID or First Name or Last Name" style="-fx-border-color: #BFCFBB; -fx-border-width: 2; -fx-font-family: Cambria; -fx-font-size: 18;" />
+                        <TextField fx:id="idField" onKeyPressed="#onActionSearchByPatientId" prefHeight="54.0" prefWidth="213.0" promptText="Search By Patient ID" style="-fx-border-color: #BFCFBB; -fx-border-width: 2; -fx-font-family: Cambria; -fx-font-size: 18;" />
                      </children>
                      <VBox.margin>
                         <Insets top="10.0" />
@@ -86,17 +93,17 @@
                      <children>
                         <HBox prefHeight="146.0" prefWidth="868.0">
                            <children>
-                              <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="145.0" style="-fx-background-color: BFCFBB;" text="Reset">
+                              <Button mnemonicParsing="false" onAction="#onActionReset" prefHeight="34.0" prefWidth="139.0" style="-fx-background-color: #344C3D; -fx-background-radius: 10;" text="Reset" textAlignment="CENTER" textFill="WHITE">
                                  <HBox.margin>
-                                    <Insets left="450.0" top="10.0" />
+                                    <Insets left="320.0" top="10.0" />
                                  </HBox.margin>
                                  <font>
-                                    <Font name="Cambria Bold" size="13.0" />
+                                    <Font name="Cambria Bold" size="14.0" />
                                  </font>
                               </Button>
-                              <Button mnemonicParsing="false" onAction="#onActionAddAppointment" prefHeight="24.0" prefWidth="249.0" style="-fx-background-color: #BFCFBB; -fx-border-color: black;" text="+ Add New Appointment">
+                              <Button fx:id="addAppButton" mnemonicParsing="false" onAction="#onActionAddAppointment" prefHeight="24.0" prefWidth="249.0" style="-fx-background-color: #537961;" text="+ Add New Appointment" textFill="WHITE">
                                  <HBox.margin>
-                                    <Insets top="60.0" />
+                                    <Insets left="120.0" top="40.0" />
                                  </HBox.margin>
                                  <font>
                                     <Font name="Cambria Bold" size="12.0" />
@@ -112,7 +119,7 @@
          <center>
             <VBox prefHeight="425.0" prefWidth="868.0" BorderPane.alignment="CENTER">
                <children>
-                  <TableView fx:id="tableAppointment" prefHeight="479.0" prefWidth="868.0" style="-fx-font-family: Cambria; -fx-font-size: 13;">
+                  <TableView fx:id="tableAppointment" prefHeight="495.0" prefWidth="850.0" style="-fx-font-family: Cambria; -fx-font-size: 13;" stylesheets="@../css/TableView.css">
                      <columns>
                         <TableColumn fx:id="colAppId" prefWidth="60.000001549720764" text="App ID" />
                         <TableColumn fx:id="colPId" prefWidth="83.99999237060547" text="Patient ID" />
@@ -121,7 +128,7 @@
                         <TableColumn fx:id="colContactNum" prefWidth="123.99996948242188" text="Contact Number" />
                         <TableColumn fx:id="colAppType" prefWidth="109.33331298828125" text="App Type" />
                         <TableColumn fx:id="colAppStatus" prefWidth="104.80007934570312" text="App Status" />
-                        <TableColumn fx:id="colAction" prefWidth="122.4000244140625" text="Action" />
+                        <TableColumn fx:id="colAction" prefWidth="120.0" text="Action" />
                      </columns>
                   </TableView>
                </children>

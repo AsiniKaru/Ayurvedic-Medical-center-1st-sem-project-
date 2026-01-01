@@ -14,40 +14,18 @@ import java.util.Optional;
 
 public class PatientOverviewController {
 
-    @FXML
-    public AnchorPane overviewContent;
-    @FXML
-    public AnchorPane profileContent;
-
-    @FXML
-    private Label addressField;
-
-    @FXML
-    private Label contactField;
-
-    @FXML
-    private Label dateOfBirthField;
-
-    @FXML
-    private Label fNameField;
-
-    @FXML
-    private Label genderField;
-
-    @FXML
-    private Label idField;
-
-    @FXML
-    private Label lNameField;
-
-    @FXML
-    private Label nicField;
-
-    @FXML
-    private Label pSinceField;
-
-    @FXML
-    private Button deleteButton;
+    @FXML public AnchorPane overviewContent;
+    @FXML public AnchorPane profileContent;
+    @FXML private Label addressField;
+    @FXML private Label contactField;
+    @FXML private Label dateOfBirthField;
+    @FXML private Label fNameField;
+    @FXML private Label genderField;
+    @FXML private Label idField;
+    @FXML private Label lNameField;
+    @FXML private Label nicField;
+    @FXML private Label pSinceField;
+    @FXML private Button deleteButton;
 
     private final PatientModel patientModel = new PatientModel();
 
@@ -86,6 +64,7 @@ public class PatientOverviewController {
             // pass currentDTO
             controller.initData(currentDTO);
 
+
             profileContent.getChildren().clear();
             profileContent.getChildren().add(pane);
 
@@ -99,14 +78,48 @@ public class PatientOverviewController {
 
     @FXML
     public void onActionDiagnosisHistory(ActionEvent actionEvent) {
-        System.out.println("Patient Profile diagnosis H Clicked");
-        navigateTo("/lk/ijse/ayurvediccenter/view/DiagnosisView.fxml");
+        try{
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/lk/ijse/ayurvediccenter/view/DiagnosisView.fxml"));
+            AnchorPane anchorPane = loader.load();
+
+            DiagnosisViewController controller = loader.getController();
+
+            controller.setPatientId(currentDTO.getPatientId());
+
+            profileContent.getChildren().clear();
+            anchorPane.prefWidthProperty().bind(profileContent.widthProperty());
+            anchorPane.prefHeightProperty().bind(profileContent.heightProperty());
+            profileContent.getChildren().add(anchorPane);
+
+        } catch (Exception e) {
+            new Alert(Alert.AlertType.ERROR, "Page not found", ButtonType.OK).show();
+            e.printStackTrace();
+
+        }
+
     }
 
     @FXML
     public void onActionMedicationHistory(ActionEvent actionEvent) {
-        System.out.println("Patient Profile diagnosis H Clicked");
-        navigateTo("/lk/ijse/ayurvediccenter/view/MedicationView.fxml");
+
+        try{
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/lk/ijse/ayurvediccenter/view/MedicationView.fxml"));
+            AnchorPane anchorPane = loader.load();
+
+            MedicationViewController controller = loader.getController();
+
+            controller.initData(currentDTO.getPatientId());
+
+            profileContent.getChildren().clear();
+            anchorPane.prefWidthProperty().bind(profileContent.widthProperty());
+            anchorPane.prefHeightProperty().bind(profileContent.heightProperty());
+            profileContent.getChildren().add(anchorPane);
+
+        } catch (Exception e) {
+            new Alert(Alert.AlertType.ERROR, "Page not found", ButtonType.OK).show();
+            e.printStackTrace();
+
+        }
     }
 
     @FXML
@@ -167,6 +180,29 @@ public class PatientOverviewController {
         }
 
     }
+
+        @FXML
+        public void onActionAppointmentHistory(ActionEvent actionEvent) {
+            try{
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/lk/ijse/ayurvediccenter/view/AppointmentHistory.fxml"));
+                AnchorPane anchorPane = loader.load();
+
+                AppointmentHistoryController controller = loader.getController();
+
+                controller.initData(currentDTO.getPatientId());
+
+                profileContent.getChildren().clear();
+                anchorPane.prefWidthProperty().bind(profileContent.widthProperty());
+                anchorPane.prefHeightProperty().bind(profileContent.heightProperty());
+                profileContent.getChildren().add(anchorPane);
+
+            } catch (Exception e) {
+                new Alert(Alert.AlertType.ERROR, "Page not found", ButtonType.OK).show();
+                e.printStackTrace();
+
+            }
+        }
+
 /*
 
 medicineController.loadMedicineTable();

@@ -9,14 +9,16 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import lk.ijse.ayurvediccenter.App;
-import lk.ijse.ayurvediccenter.dto.TreatmentDTO;
 import lk.ijse.ayurvediccenter.dto.tm.AppPatientTM;
 import lk.ijse.ayurvediccenter.model.AppointmentModel;
+import lk.ijse.ayurvediccenter.model.enums.UserRole;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -41,11 +43,16 @@ public class AppointmentController  implements Initializable {
 
     @FXML private TableView<AppPatientTM> tableAppointment;
 
-    @FXML private DatePicker searchByDateField;
+    @FXML private DatePicker dateField;
 
-    @FXML private TextArea searchByNameOrIdField;
+    @FXML private TextField idField;
+
+    @FXML private Button addAppButton;
 
     AppointmentModel appointmentModel = new AppointmentModel();
+
+    private final String PATIENT_ID_REGEX = "^[0-9]+$";
+    private final String PATIENT_FIRST_NAME_REGEX = "^[a-zA-Z]{3,}$";
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -71,7 +78,7 @@ public class AppointmentController  implements Initializable {
                             .getItems()
                             .get(getIndex());
 
-                    handleEditAppointment();
+                    handleEditAppointment(appPatientTM);
                 });
 
                 // 🔹 Delete button action
@@ -80,7 +87,7 @@ public class AppointmentController  implements Initializable {
                             .getItems()
                             .get(getIndex());
 
-                    handleDeleteAppointment();
+                    handleDeleteAppointment(appPatientTM);
                 });
 
                 hBox.setStyle("-fx-alignment: CENTER;");
@@ -102,6 +109,37 @@ public class AppointmentController  implements Initializable {
 
         loadTodayAppointmentTable();
 
+
+        tableAppointment.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                try {
+                    openAppointmentView(newSelection);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+
+    }
+
+    private void openAppointmentView(AppPatientTM selectedPatient) throws IOException {
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/lk/ijse/ayurvediccenter/view/AppointmentView.fxml"));
+        Parent parent = loader.load();
+
+        AppointmentViewController appointmentViewController = loader.getController();
+        appointmentViewController.initData(selectedPatient);
+        appointmentViewController.setOnConsultationComplete(this);
+
+
+        Stage stage = new Stage();
+        stage.setTitle("Appointment :  " + selectedPatient.getPatientName());
+        stage.setScene(new Scene(parent));
+
+        stage.initModality(Modality.APPLICATION_MODAL);
+
+        stage.showAndWait();
     }
 
     @FXML
@@ -116,6 +154,7 @@ public class AppointmentController  implements Initializable {
 
             AddAppointmentController addController = loader.getController();
             addController.setAppointmentController(this);
+            addController.setUpdate(false);
 
 
             Stage newStage = new Stage();
@@ -150,11 +189,113 @@ public class AppointmentController  implements Initializable {
     }
 
     @FXML
-    private void handleEditAppointment() {}
+    private void handleEditAppointment(AppPatientTM appPatientTM) {
+        try{
+
+            FXMLLoader loader = new FXMLLoader();
+
+            loader.setLocation(getClass().getResource("/lk/ijse/ayurvediccenter/view/AddAppointment.fxml"));
+
+            Parent root = loader.load();
+
+            AddAppointmentController addController = loader.getController();
+            addController.setAppointmentController(this);
+            addController.setUpdate(true);
+            addController.setAppDetails(appPatientTM);
+
+
+
+            Stage newStage = new Stage();
+            newStage.setTitle("Edit Appointment");
+            newStage.setScene(new Scene(root));
+
+            newStage.initModality(Modality.APPLICATION_MODAL);
+
+            newStage.show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
 
     @FXML
-    public void  handleDeleteAppointment(){}
+    public void  handleDeleteAppointment(AppPatientTM appPatientTM){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION,
+                "Are you sure you want to delete?",
+                ButtonType.YES, ButtonType.NO);
 
+        if (alert.showAndWait().orElse(ButtonType.NO) == ButtonType.YES) {
+            tableAppointment.getItems().remove(appPatientTM);
+
+            try{
+                boolean isDeleted = appointmentModel.deleteAppointment(String.valueOf(appPatientTM.getAppointmentId()));
+
+                if(isDeleted){
+                    new Alert(Alert.AlertType.INFORMATION, "Appointment deleted successfully!").show();
+
+                } else {
+                    new Alert(Alert.AlertType.ERROR, "Something went wrong!").show();
+
+                }
+
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @FXML
+    public void onActionSearchByDate(){
+
+        try{
+            String appDate = dateField.getValue().toString();
+
+            List<AppPatientTM> appointmentList = appointmentModel.getAppointmentsByDate(appDate);
+            ObservableList<AppPatientTM> obList = FXCollections.observableArrayList();
+            for(AppPatientTM appointmentDTO : appointmentList){
+                obList.add(appointmentDTO);
+
+            }
+            tableAppointment.setItems(obList);
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+
+    }
+
+    @FXML
+    public void onActionSearchByPatientId(KeyEvent event){
+
+        try {
+            if(event.getCode()== KeyCode.ENTER) {
+                String pId = idField.getText();
+
+                if(!pId.matches(PATIENT_ID_REGEX)){
+                    new Alert(Alert.AlertType.ERROR , "Invalid Patient ID!").show();
+                }else {
+                    List<AppPatientTM> appointmentList = appointmentModel.getAppointmentById(pId);
+                    ObservableList<AppPatientTM> obList = FXCollections.observableArrayList();
+                    for(AppPatientTM appointmentDTO : appointmentList) {
+                        obList.add(appointmentDTO);
+                    }
+                    tableAppointment.setItems(obList);
+                }
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void onActionReset(){
+        dateField.setValue(null);
+        idField.setText("");
+
+        loadTodayAppointmentTable();
+    }
 
 
 }

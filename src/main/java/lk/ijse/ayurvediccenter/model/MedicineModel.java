@@ -37,7 +37,6 @@ public class MedicineModel {
         return result;
     }
 
-
     public boolean deleteMedicine(String id) throws SQLException {
         boolean result =
                 CrudUtil.execute(
@@ -90,8 +89,6 @@ public class MedicineModel {
         }
     }
 
-
-
     public List<MedicineDTO> getMedicine() throws SQLException {
 
         ResultSet rs =
@@ -102,19 +99,72 @@ public class MedicineModel {
         List<MedicineDTO> medicineList = new ArrayList<>();
 
         while (rs.next()) {
-            MedicineDTO medicineeDTO = new MedicineDTO(
+            MedicineDTO medicineDTO = new MedicineDTO(
                     rs.getInt("med_id"),
                     rs.getString("med_name"),
                     rs.getString("description"),
                     rs.getInt("stock_qty"),
                     rs.getDouble("unit_price")
             );
-            System.out.println(medicineeDTO);
-            medicineList.add(medicineeDTO);
+            System.out.println(medicineDTO);
+            medicineList.add(medicineDTO);
         }
 
         return medicineList;
 
     }
 
+
+//    this Method will get Total number of medQty
+    public int getTotalMedQty() throws SQLException {
+        ResultSet rs =
+                CrudUtil.execute(
+                        "SELECT SUM(stock_qty) AS total_quantity FROM Medicine"
+                );
+
+        if (rs.next()){
+            int medQty = rs.getInt("total_quantity");
+
+
+            return medQty ;
+        }else {
+            return 0;
+        }
+    }
+
+//    this Method will get number of medicines items that qty below 50
+    public int getLowMedQty() throws SQLException {
+        String sql = "SELECT COUNT(med_id) AS total_quantity FROM Medicine WHERE stock_qty < 50";
+        ResultSet rs = CrudUtil.execute(sql);
+
+        if (rs.next()){
+            int medQty = rs.getInt("total_quantity");
+
+            return medQty ;
+        }else {
+            return 0;
+        }
+    }
+
+// this Method will decrease med qty the medicine according to the prescription
+    public boolean decreaseMedQty (int medId , int qty)throws SQLException{
+
+        boolean isUpdated = CrudUtil.execute(
+                "UPDATE Medicine SET stock_qty=stock_qty-? WHERE med_id =?",
+                qty,
+                medId
+        );
+        return isUpdated;
+
+    }
+
+//    this Method will check whether medicine is existing in the database
+    public boolean isMedExists(String medName) throws SQLException {
+        ResultSet rs = CrudUtil.execute(
+                "SELECT med_id FROM Medicine WHERE med_name = ?",
+                medName
+        );
+        return rs.next(); // true if patient exists
+    }
 }
+

@@ -4,6 +4,7 @@ package lk.ijse.ayurvediccenter.model;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import lk.ijse.ayurvediccenter.dto.LoginDTO;
+import lk.ijse.ayurvediccenter.model.enums.UserRole;
 import lk.ijse.ayurvediccenter.util.CrudUtil;
 
 public class LoginModel {
@@ -12,7 +13,7 @@ public class LoginModel {
         
         ResultSet rs  = 
                CrudUtil.execute(
-               "SELECT user_id , username , password FROM `User` WHERE username = ?" ,
+               "SELECT user_id , username , password ,role  FROM `User` WHERE username = ?" ,
                username
                );
           
@@ -21,13 +22,14 @@ public class LoginModel {
             int userId = rs.getInt("user_id");
             username = rs.getString("username");
             String realPassword = rs.getString("password");
+            String userRole = rs.getString("role");
 
             
             if(!password.equals(realPassword)){
                         return null;
             }
 
-            return  new  LoginDTO(userId ,username, realPassword);
+            return  new  LoginDTO(userId ,username, realPassword, UserRole.valueOf(userRole.toUpperCase()));
             
         }else{
             return null;

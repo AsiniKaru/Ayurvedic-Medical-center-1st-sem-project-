@@ -14,7 +14,12 @@ public class TreatmentDTO {
         this.treatment_id = treatment_id;
     }
 
-    public TreatmentDTO(String name, String type ,  String description, double price) {
+    public TreatmentDTO(int treatment_id, String name) {
+        this.treatment_id = treatment_id;
+        this.name = name;
+    }
+
+    public TreatmentDTO(String name, String type , String description, double price) {
         this.name = name;
         this.price = price;
         this.description = description;

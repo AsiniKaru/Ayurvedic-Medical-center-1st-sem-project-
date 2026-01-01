@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+
+<AnchorPane prefHeight="200.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.ayurvediccenter.controller.AppointmentHistoryController">
+   <children>
+      <StackPane prefHeight="549.0" prefWidth="800.0">
+         <children>
+            <ImageView fitHeight="548.0" fitWidth="800.0" opacity="0.52" pickOnBounds="true">
+               <image>
+                  <Image url="@../image/1475_generated.jpg" />
+               </image>
+            </ImageView>
+         </children>
+      </StackPane>
+      <BorderPane prefHeight="550.0" prefWidth="800.0">
+         <top>
+            <HBox prefHeight="50.0" prefWidth="800.0" BorderPane.alignment="CENTER" />
+         </top>
+         <center>
+            <TableView fx:id="tableAppHistory" prefHeight="500.0" prefWidth="561.0" style="-fx-background-color: #E1EAE4; -fx-border-color: #537961;" stylesheets="@../css/TableView.css" BorderPane.alignment="CENTER">
+               <columns>
+                  <TableColumn fx:id="colAppId" minWidth="0.0" prefWidth="68.80001831054688" text="App ID" />
+                  <TableColumn fx:id="colAppDate" minWidth="0.0" prefWidth="74.40005493164062" text="Date" />
+                  <TableColumn fx:id="colAppType" prefWidth="94.4000244140625" text="App Type" />
+                  <TableColumn fx:id="colAppStatus" prefWidth="84.79998779296875" text="App Status" />
+                  <TableColumn fx:id="colDocCharges" prefWidth="77.5999755859375" text="Doc Charges" />
+                  <TableColumn fx:id="colMedCharges" prefWidth="89.60003662109375" text="Med Charges" />
+                  <TableColumn fx:id="colTreatmentCharges" prefWidth="118.4000244140625" text="Treatment Charges" />
+                  <TableColumn fx:id="colTotalCharges" prefWidth="94.40008544921875" text="Total" />
+                  <TableColumn fx:id="colNextVisit" prefWidth="92.7999267578125" text="Next Visit Date" />
+               </columns>
+            </TableView>
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>

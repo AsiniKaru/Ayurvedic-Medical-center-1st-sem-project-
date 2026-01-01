@@ -16,6 +16,7 @@ import lk.ijse.ayurvediccenter.dto.DoctorDTO;
 import lk.ijse.ayurvediccenter.dto.EmployeeDTO;
 import lk.ijse.ayurvediccenter.model.DoctorModel;
 import lk.ijse.ayurvediccenter.model.EmployeeModel;
+import lk.ijse.ayurvediccenter.model.enums.UserRole;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -173,7 +174,16 @@ public class SettingController implements Initializable {
     }
 
     @FXML
-    public void onActionEmployeeManage(){ navigateTo("/lk/ijse/ayurvediccenter/view/EmpManagement.fxml"); }
+    public void onActionEmployeeManage(){
+        UserRole role = SessionController.getUserRole();
+
+        if (role != UserRole.RECEPTIONIST) {
+            new Alert(Alert.AlertType.ERROR, "Access Denied!").show();
+            return;
+        }
+
+        navigateTo("/lk/ijse/ayurvediccenter/view/EmpManagement.fxml");
+    }
 
     @FXML
     public void onActionPrivacyPolicy(){ navigateTo("/lk/ijse/ayurvediccenter/view/PrivacyPolicy.fxml"); }

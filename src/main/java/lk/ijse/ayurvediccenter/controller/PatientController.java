@@ -263,65 +263,27 @@ public class PatientController implements Initializable {
         nameField.clear();
     }
 
-    public void handleAddAppointment(PatientDTO patientDTO) {
-        try{
-            FXMLLoader loader = new FXMLLoader();
-
-            loader.setLocation(getClass().getResource("/lk/ijse/ayurvediccenter/view/AddAppointment.fxml"));
-
+    private void handleAddAppointment(PatientDTO patientDTO) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/lk/ijse/ayurvediccenter/view/AddAppointment.fxml"));
             Parent root = loader.load();
 
             AddAppointmentController addController = loader.getController();
-            addController.setPatientController(this);
 
+            addController.setAppController(this);
 
-            Stage newStage = new Stage();
-            newStage.setTitle("Add New Appointment");
-            newStage.setScene(new Scene(root));
+            addController.setPatientDetails(patientDTO);
+            addController.setUpdate(false);
+            addController.setPatientUpdate(true);
 
-            newStage.initModality(Modality.APPLICATION_MODAL);
+            Stage stage = new Stage();
+            stage.setTitle("Add Appointment for " + patientDTO.getFirstName());
+            stage.setScene(new Scene(root));
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.show();
 
-            newStage.show();
-
-        } catch(
-        Exception e)
-
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
-}
-
-
-
-
-////    @FXML
-////    public void onActionPatientDashboard(ActionEvent actionEvent) {
-////        navigateTo("/lk/ijse/ayurvediccenter/view/.fxml");
-////    }
-//
-//    @FXML
-//    public void onActionAddNewPatient(ActionEvent actionEvent) {
-//        navigateTo("/lk/ijse/ayurvediccenter/view/AddNewPatient.fxml");
-//    }
-//
-//    @FXML
-//    public void onActionEditPatient(ActionEvent actionEvent) {
-//        navigateTo("/lk/ijse/ayurvediccenter/view/EditPatient.fxml");
-//    }
-//
-//    @FXML
-//    public void navigateTo(String path) {
-//        try {
-//            patientMainContent.getChildren().clear();
-//            AnchorPane anchorPane = FXMLLoader.load(getClass().getResource(path));
-//            anchorPane.prefWidthProperty().bind(patientMainContent.widthProperty());
-//            anchorPane.prefHeightProperty().bind(patientMainContent.heightProperty());
-//            patientMainContent.getChildren().add(anchorPane);
-//        } catch (Exception e) {
-//            new Alert(Alert.AlertType.ERROR, "Page not found", ButtonType.OK).show();
-//            e.printStackTrace();
-//        }
-//    }
-//
-//
+    }
 }

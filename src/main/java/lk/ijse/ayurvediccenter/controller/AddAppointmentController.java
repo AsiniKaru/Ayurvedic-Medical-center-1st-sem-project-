@@ -13,10 +13,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import lk.ijse.ayurvediccenter.dto.*;
 import lk.ijse.ayurvediccenter.dto.tm.AppPatientTM;
-import lk.ijse.ayurvediccenter.model.AppointmentModel;
-import lk.ijse.ayurvediccenter.model.DoctorModel;
-import lk.ijse.ayurvediccenter.model.PatientModel;
-import lk.ijse.ayurvediccenter.model.TreatmentModel;
+import lk.ijse.ayurvediccenter.model.*;
 import lk.ijse.ayurvediccenter.model.enums.AppointmentStatus;
 
 import java.net.URL;
@@ -64,21 +61,32 @@ public class AddAppointmentController implements Initializable {
 
     @FXML private Label lblTreatmentType;
 
+    @FXML private Button resetButton;
+
     private PatientModel patientModel =  new PatientModel();
     private AppointmentModel appointmentModel = new AppointmentModel();
     private TreatmentModel treatmentModel = new TreatmentModel();
     private DoctorModel doctorModel = new DoctorModel();
+    private AppTreatmentModel  appTreatmentModel = new AppTreatmentModel();
 
     private ObservableList<TreatmentDTO> treatmentList = FXCollections.observableArrayList();
 
     private AppointmentController appointmentController;
     private PatientController patientController;
 
-    public void setPatientController(PatientController patientController) {
-        this.patientController =patientController;
-    }
+   private boolean update;
+   private boolean isPatientAdd = false;
+
+   public void setAppController(PatientController patientController) {
+       this.patientController = patientController;
+       resetButton.setDisable(true);
+       resetButton.setVisible(false);
+   }
+
     public void setAppointmentController(AppointmentController appointmentController) {
         this.appointmentController = appointmentController;
+        resetButton.setVisible(false);
+
     }
 
     @Override
@@ -141,7 +149,7 @@ public class AddAppointmentController implements Initializable {
     public void handleSelectDoctorId(ActionEvent event) {
         try {
             String selectedDoctorId = comboDocId.getSelectionModel().getSelectedItem();
-            String doctorName = doctorModel.getDoctorName(Integer.parseInt(selectedDoctorId));
+            String doctorName = doctorModel.getDoctorName(selectedDoctorId);
 
             docNameField.setText(doctorName );
 
@@ -166,27 +174,27 @@ public class AddAppointmentController implements Initializable {
     }
 
     @FXML
-    void handleSaveAppointment(ActionEvent event) {
+    void handleSaveAppointment( ) {
         try{
-            String doctorId = comboDocId.getSelectionModel().getSelectedItem();
-            String patientId = comboPatientId.getSelectionModel().getSelectedItem();
-            String appDate = dateField.getValue().toString();
-            double docCharges = doctorModel.getDoctorCharges(Integer.parseInt(doctorId));
-            AppointmentStatus appStatus = AppointmentStatus.ACTIVE;
-            String appType = comboAppointmentType.getSelectionModel().getSelectedItem();
+                String doctorId = comboDocId.getSelectionModel().getSelectedItem();
+                String patientId = comboPatientId.getSelectionModel().getSelectedItem();
+                String appDate = dateField.getValue().toString();
+                double docCharges = doctorModel.getDoctorCharges(Integer.parseInt(doctorId));
+                AppointmentStatus appStatus = AppointmentStatus.ACTIVE;
+                String appType = comboAppointmentType.getSelectionModel().getSelectedItem();
 
 
-            List<AppTreatmentDTO> appTreatmentList = new ArrayList<>();
-            if(!appType.equals("Medication")) {
-                for (TreatmentDTO treatmentType : treatmentList) {
-                    appTreatmentList.add(
-                            new AppTreatmentDTO(
-                                    treatmentType.getTreatment_id(),
-                                    treatmentType.getName()
-                            )
-                    );
+                List<AppTreatmentDTO> appTreatmentList = new ArrayList<>();
+                if(!appType.equals("Medication")) {
+                    for (TreatmentDTO treatmentType : treatmentList) {
+                        appTreatmentList.add(
+                                new AppTreatmentDTO(
+                                        treatmentType.getTreatment_id(),
+                                        treatmentType.getName()
+                                )
+                        );
+                    }
                 }
-            }
 
                 AppointmentDTO appointmentDTO = new AppointmentDTO(
                         Integer.parseInt(doctorId),
@@ -198,23 +206,72 @@ public class AddAppointmentController implements Initializable {
                         appTreatmentList
                 );
 
-                boolean isAppointmentPlaced = appointmentModel.saveAppointment(appointmentDTO);
+            if(!update){
+                if(appointmentModel.isAppointmentExists(patientId ,appDate)) {
+                    new Alert(Alert.AlertType.WARNING, "Appointment already exists!").show();
+                } else {
+                    ////////////////// ADD Appointment ///////////////////////////////
+                    boolean isAppointmentPlaced = appointmentModel.saveAppointment(appointmentDTO);
 
-                if (isAppointmentPlaced) {
+                    if (isAppointmentPlaced) {
+                        if (!isPatientAdd) {
+                            appointmentController.loadTodayAppointmentTable();
+                        }
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Success!");
+                        alert.setHeaderText("Appointment successfully Placed");
+
+                        ButtonType buttonYes = new ButtonType("Okay");
+                        alert.getButtonTypes().setAll(buttonYes);
+
+                        Optional<ButtonType> results = alert.showAndWait();
+
+
+                        if (results.isPresent() && results.get() == buttonYes) {
+                            Stage currentStage = (Stage) saveButton.getScene().getWindow();
+                            currentStage.close();
+                            onActionReset();
+
+                        }
+                    }
+                }
+            }else{
+                ////////////////// UPDATE Appointment ///////////////////////////////
+                int appId = Integer.parseInt(appIDField.getText());
+                System.out.println(appId);
+                boolean isAppointmentUpdated = appointmentModel.updateAppointment( appId,appointmentDTO);
+
+                if (isAppointmentUpdated) {
+
+                    if(!isPatientAdd){
+                        appointmentController.loadTodayAppointmentTable();
+                    }
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Success!");
-                    alert.setHeaderText("Appointment successfully Places");
+                    alert.setHeaderText("Appointment successfully Updated. Would you like to make another change?");
 
-                    ButtonType buttonYes = new ButtonType("Okay");
+                    ButtonType buttonYes = new ButtonType("Yes");
+                    ButtonType buttonNo = new ButtonType("No");
+                    alert.getButtonTypes().setAll(buttonYes, buttonNo);
+
+                    Optional<ButtonType> results = alert.showAndWait();
+
+
+                    if (results.isPresent() && results.get() == buttonYes) {
+
+
+
+                    } else {
+
                         Stage currentStage = (Stage) saveButton.getScene().getWindow();
                         currentStage.close();
-                        appointmentController.loadTodayAppointmentTable();
-
-
-                } else {
-                    new Alert(Alert.AlertType.ERROR, "Failed to update treatment!", ButtonType.OK).show();
+                        onActionReset();
+                        if(!isPatientAdd){
+                            appointmentController.loadTodayAppointmentTable();
+                        }
+                    }
                 }
-
+            }
 
         }catch (Exception e){
             e.printStackTrace();
@@ -358,20 +415,77 @@ public class AddAppointmentController implements Initializable {
     }
 
     @FXML
-    private void onActionReset(){
-        comboPatientId.setValue(null);
-        pNameField.clear();
-        contactField.clear();
+    public void onActionReset(){
 
-        comboAppointmentType.setValue(null);
-        comboDocId.setValue(null);
-        docNameField.clear();
-        dateField.setValue(null);
+            comboPatientId.setValue(null);
+            pNameField.clear();
+            contactField.clear();
 
-        comboTreatmentType.setValue(null);
-        treatmentList.clear();
-        tableAppTreatment.refresh();
-        invisible();
+            comboAppointmentType.setValue(null);
+            comboDocId.setValue(null);
+            docNameField.clear();
+            dateField.setValue(null);
 
+            comboTreatmentType.setValue(null);
+            treatmentList.clear();
+            tableAppTreatment.refresh();
+            invisible();
+    }
+
+    public void setUpdate(boolean b) {
+        this.update = b;
+
+    }
+
+    public void setPatientUpdate(boolean isPatientAdd){
+       this.isPatientAdd =isPatientAdd;
+
+    }
+
+    public void setAppDetails(AppPatientTM appPatientTM) {
+        try{
+
+            appIDField.setText(String.valueOf(appPatientTM.getAppointmentId()));
+            String appId = appIDField.getText();
+
+            comboPatientId.setValue(String.valueOf(appPatientTM.getPatientId()));
+            pNameField.setText(String.valueOf(appPatientTM.getPatientName()));
+            contactField.setText(String.valueOf(appPatientTM.getContact()));
+
+            comboAppointmentType.setValue(String.valueOf(appPatientTM.getAppointmentType()));
+
+            int docId =doctorModel.getDocId(appId);
+            comboDocId.setValue(String.valueOf(docId));
+            docNameField.setText(doctorModel.getDoctorName(String.valueOf(docId)));
+
+            dateField.setValue(LocalDate.parse(appPatientTM.getAppointmentDate()));
+
+            treatmentList.clear();
+
+            if(!appPatientTM.getAppointmentType().equals("Medication")){
+                visible();
+                List<AppTreatmentDTO> tList =appTreatmentModel.getSelectedTreatmentList(appId);
+
+                for(AppTreatmentDTO appTreatmentDTO : tList){
+                    treatmentList.add(new TreatmentDTO(
+                                    appTreatmentDTO.getTreatmentId(),
+                                    appTreatmentDTO.getTreatmentName()
+                    ));
+
+                }
+
+                tableAppTreatment.setItems(treatmentList);
+
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
+    public void setPatientDetails(PatientDTO  patientDTO) {
+        comboPatientId.setValue(String.valueOf(patientDTO.getPatientId()));
+        pNameField.setText(patientDTO.getFirstName()+" "+patientDTO.getLastName());
+        contactField.setText(patientDTO.getContact());
     }
 }

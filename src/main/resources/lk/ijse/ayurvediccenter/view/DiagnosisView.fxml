@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
@@ -10,9 +8,8 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="200.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="200.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.ayurvediccenter.controller.DiagnosisViewController">
    <children>
       <StackPane prefHeight="549.0" prefWidth="800.0">
          <children>
@@ -25,25 +22,14 @@
       </StackPane>
       <BorderPane prefHeight="550.0" prefWidth="800.0">
          <top>
-            <HBox prefHeight="50.0" prefWidth="800.0" BorderPane.alignment="CENTER">
-               <children>
-                  <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="186.0" style="-fx-background-color: #BFCFBB;" text="+ Add Diagnosis Note">
-                     <HBox.margin>
-                        <Insets left="580.0" top="10.0" />
-                     </HBox.margin>
-                     <font>
-                        <Font name="Bodoni MT" size="14.0" />
-                     </font>
-                  </Button>
-               </children>
-            </HBox>
+            <HBox prefHeight="50.0" prefWidth="800.0" BorderPane.alignment="CENTER" />
          </top>
          <center>
-            <TableView prefHeight="459.0" prefWidth="800.0" BorderPane.alignment="CENTER">
+            <TableView fx:id="tableDiagnosisHistory" prefHeight="500.0" prefWidth="493.0" style="-fx-background-color: #E1EAE4; -fx-border-color: #537961;" stylesheets="@../css/TableView.css" BorderPane.alignment="CENTER">
               <columns>
-                <TableColumn prefWidth="96.80001831054688" text="Date" />
-                <TableColumn minWidth="0.0" prefWidth="548.8000183105469" text="Diagosis Note" />
-                  <TableColumn minWidth="0.0" prefWidth="152.79998779296875" text="Action" />
+                <TableColumn fx:id="colAppDate" prefWidth="148.0" text="Appointment Date" />
+                <TableColumn fx:id="colAppId" minWidth="0.0" prefWidth="208.7999267578125" text="Appointment ID" />
+                  <TableColumn fx:id="colDiagnosisNote" prefWidth="442.4000244140625" text="Diagnosis Syntom Note" />
               </columns>
             </TableView>
          </center>

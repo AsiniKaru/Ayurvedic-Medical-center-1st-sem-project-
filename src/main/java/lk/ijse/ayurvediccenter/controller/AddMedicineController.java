@@ -67,38 +67,42 @@ public class AddMedicineController {
 
                         ////////////////////// Save Medicine ////////////////////////////
                         if (!update) {
-                            MedicineDTO medicineDTO = new MedicineDTO(name, description, Integer.parseInt(qty), Double.parseDouble(price));
-                            boolean result = medicineModel.saveMedicine(medicineDTO);
+                            if(medicineModel.isMedExists(name)) {
+                                new Alert(Alert.AlertType.WARNING, "Medicine already exists!").show();
+                            } else {
+                                MedicineDTO medicineDTO = new MedicineDTO(name, description, Integer.parseInt(qty), Double.parseDouble(price));
+                                boolean result = medicineModel.saveMedicine(medicineDTO);
 
-                            if (result) {
-                                medicineController.loadMedicineTable();
-                                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                                alert.setTitle("Success!");
-                                alert.setHeaderText("Medicine successfully added. Would you like to add another Medicine?");
+                                if (result) {
+                                    medicineController.loadMedicineTable();
+                                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                                    alert.setTitle("Success!");
+                                    alert.setHeaderText("Medicine successfully added. Would you like to add another Medicine?");
 
-                                ButtonType buttonYes = new ButtonType("Yes");
-                                ButtonType buttonNo = new ButtonType("No");
-                                alert.getButtonTypes().setAll(buttonYes, buttonNo);
+                                    ButtonType buttonYes = new ButtonType("Yes");
+                                    ButtonType buttonNo = new ButtonType("No");
+                                    alert.getButtonTypes().setAll(buttonYes, buttonNo);
 
-                                Optional<ButtonType> results = alert.showAndWait();
+                                    Optional<ButtonType> results = alert.showAndWait();
 
 
-                                if (results.isPresent() && results.get() == buttonYes) {
-                                    cleanField();
+                                    if (results.isPresent() && results.get() == buttonYes) {
+                                        cleanField();
+
+
+                                    } else {
+
+                                        Stage currentStage = (Stage) saveButton.getScene().getWindow();
+                                        currentStage.close();
+                                        cleanField();
+                                        medicineController.loadMedicineTable();
+                                    }
 
 
                                 } else {
-
-                                    Stage currentStage = (Stage) saveButton.getScene().getWindow();
-                                    currentStage.close();
-                                    cleanField();
-                                    medicineController.loadMedicineTable();
+                                    new Alert(Alert.AlertType.ERROR, "Failed to save Medicine!", ButtonType.OK).show();
                                 }
-
-                            } else {
-                                new Alert(Alert.AlertType.ERROR, "Failed to save Medicine!", ButtonType.OK).show();
                             }
-
                             ////////////////////// Update Medicine ////////////////////////////
                         } else {
                             MedicineDTO medicineDTO = new MedicineDTO(id, name, description, Integer.parseInt(qty), Double.parseDouble(price));

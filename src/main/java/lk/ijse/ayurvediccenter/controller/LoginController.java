@@ -36,9 +36,11 @@ public class LoginController {
         
             if(loginDTO != null){
                     LoginController.userId = loginDTO.getUserId();
-                    System.out.println(userId);
 
-                        App.setRoot("UserView");
+                    SessionController.setUser(loginDTO.getUserId(), loginDTO.getRole());
+
+
+                App.setRoot("UserView");
 
             }else{
                 new Alert(Alert.AlertType.ERROR , "Invalid Username or Password!").show();

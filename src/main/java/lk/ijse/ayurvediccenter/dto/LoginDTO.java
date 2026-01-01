@@ -2,10 +2,13 @@
 
 package lk.ijse.ayurvediccenter.dto;
 
+import lk.ijse.ayurvediccenter.model.enums.UserRole;
+
 public class LoginDTO {
     private int userId;
     private String username;
     private String password;
+    private UserRole role;
 
     public LoginDTO() {
     }
@@ -27,6 +30,13 @@ public class LoginDTO {
         this.userId = userId;
         this.username = username;
         this.password = password;
+    }
+
+    public LoginDTO(int userId, String username,String password, UserRole role) {
+        this.userId = userId;
+        this.username = username;
+        this.password = password;
+        this.role = role;
     }
 
     public String getUsername() {
@@ -52,6 +62,8 @@ public class LoginDTO {
     public void setUserId(int userId) {
         this.userId = userId;
     }
+
+    public UserRole getRole() { return role; }
 
     @Override
     public String toString() {

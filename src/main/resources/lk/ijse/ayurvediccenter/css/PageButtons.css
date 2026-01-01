@@ -1,0 +1,12 @@
+.button {
+    -fx-background-color: #3E5B49;
+    -fx-text-fill: #3E5B49;
+    -fx-border-color: #3E5B49;
+    -fx-border-width: 2px;
+    -fx-font-weight: bold;
+}
+
+.button.active {
+    -fx-background-color: #3E5B49;
+    -fx-text-fill: #000000;
+}
