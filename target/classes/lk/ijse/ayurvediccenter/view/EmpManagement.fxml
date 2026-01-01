@@ -80,15 +80,15 @@
                   </HBox>
                   <HBox prefHeight="99.0" prefWidth="868.0">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#loadEmployeeTable" prefHeight="26.0" prefWidth="145.0" style="-fx-background-color: BFCFBB;" text="Reset">
+                        <Button mnemonicParsing="false" onAction="#loadEmployeeTable" prefHeight="34.0" prefWidth="146.0" style="-fx-background-color: #344C3D; -fx-background-radius: 10;" text="Reset" textFill="WHITE">
                            <HBox.margin>
-                              <Insets left="450.0" top="10.0" />
+                              <Insets left="450.0" top="5.0" />
                            </HBox.margin>
                            <font>
                               <Font name="Cambria Bold" size="13.0" />
                            </font>
                         </Button>
-                        <Button fx:id="btnAddEmployee" mnemonicParsing="false" onAction="#handleAddEmployee" prefHeight="24.0" prefWidth="249.0" style="-fx-background-color: #BFCFBB; -fx-border-color: black;" text="+ Add New Employee">
+                        <Button fx:id="btnAddEmployee" mnemonicParsing="false" onAction="#handleAddEmployee" prefHeight="30.0" prefWidth="250.0" style="-fx-background-color: #537961; -fx-background-radius: 10;" text="+ Add New Employee" textFill="WHITE">
                            <HBox.margin>
                               <Insets top="60.0" />
                            </HBox.margin>

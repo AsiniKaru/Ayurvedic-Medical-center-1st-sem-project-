@@ -22,9 +22,9 @@
 <BorderPane fx:id="ancUserView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1100.0" style="-fx-background-color: #F3F8F4;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.ayurvediccenter.controller.UserViewController">
 
     <left>
-        <VBox prefHeight="750.0" prefWidth="240.0" style="-fx-background-color: #BDDBB2; -fx-background-radius: 0 30 30 0;" BorderPane.alignment="CENTER">
+        <VBox prefHeight="750.0" prefWidth="240.0" style="-fx-background-color: #3E5B49; -fx-background-radius: 0 30 30 0;" BorderPane.alignment="CENTER">
             <children>
-                <VBox alignment="CENTER" prefHeight="166.0" prefWidth="240.0" spacing="10.0">
+                <VBox alignment="CENTER" prefHeight="220.0" prefWidth="243.0" spacing="10.0" style="-fx-background-color: #A4C1AF;">
                     <children>
                         <ImageView fitHeight="194.0" fitWidth="214.0" pickOnBounds="true">
                             <image>
@@ -38,9 +38,9 @@
                     </padding>
                 </VBox>
 
-                <VBox prefHeight="389.0" prefWidth="243.0" spacing="10.0">
+                <VBox prefHeight="397.0" prefWidth="243.0" spacing="10.0">
                     <children>
-                        <Button fx:id="dashboardField" alignment="BASELINE_LEFT" graphicTextGap="15.0" mnemonicParsing="false" onAction="#onActionDashboard" prefHeight="45.0" prefWidth="220.0" style="-fx-background-color: transparent;" text="Dashboard">
+                        <Button fx:id="dashboardField" alignment="BASELINE_LEFT" graphicTextGap="15.0" mnemonicParsing="false" onAction="#onActionDashboard" prefHeight="45.0" prefWidth="220.0" style="-fx-background-color: transparent;" text="Dashboard" textFill="WHITE">
                             <padding>
                                 <Insets left="30.0" />
                             </padding>
@@ -48,7 +48,7 @@
                                 <Font name="Bodoni MT" size="24.0" />
                             </font>
                         </Button>
-                        <Button alignment="BASELINE_LEFT" graphicTextGap="15.0" mnemonicParsing="false" onAction="#onActionAppointment" prefHeight="45.0" prefWidth="220.0" style="-fx-background-color: transparent;" text="Appointment">
+                        <Button alignment="BASELINE_LEFT" graphicTextGap="15.0" mnemonicParsing="false" onAction="#onActionAppointment" prefHeight="45.0" prefWidth="220.0" style="-fx-background-color: transparent;" text="Appointment" textFill="WHITE">
                             <padding>
                                 <Insets left="30.0" />
                             </padding>
@@ -56,7 +56,7 @@
                                 <Font name="Bodoni MT" size="24.0" />
                             </font>
                         </Button>
-                        <Button alignment="BASELINE_LEFT" graphicTextGap="15.0" mnemonicParsing="false" onAction="#onActionPatients" prefHeight="45.0" prefWidth="220.0" style="-fx-background-color: transparent;" text="Patients">
+                        <Button alignment="BASELINE_LEFT" graphicTextGap="15.0" mnemonicParsing="false" onAction="#onActionPatients" prefHeight="45.0" prefWidth="220.0" style="-fx-background-color: transparent;" text="Patients" textFill="WHITE">
                             <padding>
                                 <Insets left="30.0" />
                             </padding>
@@ -64,7 +64,7 @@
                                 <Font name="Bodoni MT" size="24.0" />
                             </font>
                         </Button>
-                        <Button alignment="BASELINE_LEFT" graphicTextGap="15.0" mnemonicParsing="false" onAction="#onActionTreatments" prefHeight="45.0" prefWidth="220.0" style="-fx-background-color: transparent;" text="Treatments">
+                        <Button alignment="BASELINE_LEFT" graphicTextGap="15.0" mnemonicParsing="false" onAction="#onActionTreatments" prefHeight="45.0" prefWidth="220.0" style="-fx-background-color: transparent;" text="Treatments" textFill="WHITE">
                             <padding>
                                 <Insets left="30.0" />
                             </padding>
@@ -72,7 +72,7 @@
                                 <Font name="Bodoni MT" size="24.0" />
                             </font>
                         </Button>
-                        <Button alignment="BASELINE_LEFT" graphicTextGap="15.0" mnemonicParsing="false" onAction="#onActionMedicine" prefHeight="45.0" prefWidth="220.0" style="-fx-background-color: transparent;" text="Medicine">
+                        <Button alignment="BASELINE_LEFT" graphicTextGap="15.0" mnemonicParsing="false" onAction="#onActionMedicine" prefHeight="45.0" prefWidth="220.0" style="-fx-background-color: transparent;" text="Medicine" textFill="WHITE">
                             <padding>
                                 <Insets left="30.0" />
                             </padding>
@@ -80,7 +80,7 @@
                                 <Font name="Bodoni MT" size="24.0" />
                             </font>
                         </Button>
-                        <Button alignment="BASELINE_LEFT" graphicTextGap="15.0" mnemonicParsing="false" onAction="#onActionReports" prefHeight="45.0" prefWidth="220.0" style="-fx-background-color: transparent;" text="Reports">
+                        <Button alignment="BASELINE_LEFT" graphicTextGap="15.0" mnemonicParsing="false" onAction="#onActionReports" prefHeight="45.0" prefWidth="220.0" style="-fx-background-color: transparent;" text="Reports" textFill="WHITE">
                             <padding>
                                 <Insets left="30.0" />
                             </padding>
@@ -96,7 +96,7 @@
 
                 <VBox alignment="BOTTOM_CENTER" prefHeight="134.0" prefWidth="243.0" VBox.vgrow="ALWAYS">
                     <children>
-                        <Button mnemonicParsing="false" onAction="#onActionLogout" prefHeight="38.0" prefWidth="180.0" style="-fx-background-color: #A0CB90; -fx-background-radius: 20;" text="Log Out">
+                        <Button mnemonicParsing="false" onAction="#onActionLogout" prefHeight="38.0" prefWidth="180.0" style="-fx-background-color: #293D31; -fx-background-radius: 15;" text="Log Out" textFill="WHITE">
                             <font>
                                 <Font name="System Bold" size="14.0" />
                             </font>
@@ -104,7 +104,7 @@
                                 <Insets bottom="10.0" />
                             </VBox.margin>
                         </Button>
-                  <Button mnemonicParsing="false" onAction="#onActionSetting" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: #A0CB90; -fx-background-radius: 20;" text="Settings ">
+                  <Button mnemonicParsing="false" onAction="#onActionSetting" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: #293D31; -fx-background-radius: 15;" text="Settings " textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -191,12 +191,12 @@
                                     <font>
                                         <Font name="Bodoni MT" size="18.0" />
                                     </font></Label>
-                                <Label text="450" textFill="#2e7d32">
+                                <Label fx:id="medQtyField" text="450" textFill="#2e7d32">
                                     <font>
                                         <Font name="System Bold" size="30.0" />
                                     </font>
                                 </Label>
-                                <Label text="Low stock: 5 items" textFill="#e53935">
+                                <Label fx:id="lowMedField" text="Low stock: 5 items" textFill="#e53935">
                                     <font>
                                         <Font size="12.0" />
                                     </font>
@@ -212,11 +212,16 @@
                                     <font>
                                         <Font name="Bodoni MT" size="18.0" />
                                     </font></Label>
-                                <Label prefHeight="49.0" prefWidth="129.0" text="Rs. 45k" textFill="#2e7d32">
+                                <Label fx:id="activeAppField" prefHeight="49.0" prefWidth="129.0" text="10" textFill="#2e7d32">
                                     <font>
                                         <Font name="System Bold" size="30.0" />
                                     </font>
                                 </Label>
+                        <Label fx:id="totalNumAppField" text="Total num of Appointment ">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
                             </children>
                         </VBox>
                     </children>
@@ -269,7 +274,7 @@
                                                         <Insets />
                                                     </HBox.margin>
                                                 </Label>
-                                                <Button mnemonicParsing="false" style="-fx-background-color: transparent; -fx-border-color: #2E7D32; -fx-border-radius: 5;" text="View All" textFill="#2e7d32" />
+                                                <Button mnemonicParsing="false" onAction="#onActonAppointment" style="-fx-background-color: transparent; -fx-border-color: #2E7D32; -fx-border-radius: 5;" text="View All" textFill="#2e7d32" />
                                             </children>
                                             <VBox.margin>
                                                 <Insets />
@@ -278,10 +283,10 @@
                                                 <Insets left="10.0" top="15.0" />
                                             </padding>
                                         </HBox>
-                                        <TableView prefHeight="403.0" prefWidth="362.0">
+                                        <TableView fx:id="tableAppList" prefHeight="403.0" prefWidth="362.0" stylesheets="@../css/TableView.css">
                                             <columns>
-                                                <TableColumn prefWidth="109.59991443157196" text="Patient ID" />
-                                                <TableColumn prefWidth="252.0001220703125" text="Patient Name" />
+                                                <TableColumn fx:id="colAppId" prefWidth="122.4000186920166" text="Appointment ID" />
+                                                <TableColumn fx:id="colPName" prefWidth="240.0" text="Patient Name" />
                                             </columns>
                                             <VBox.margin>
                                                 <Insets left="10.0" right="10.0" />

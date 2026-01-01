@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
@@ -10,9 +8,8 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="200.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="200.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.ayurvediccenter.controller.MedicationViewController">
    <children>
       <StackPane prefHeight="549.0" prefWidth="800.0">
          <children>
@@ -25,27 +22,16 @@
       </StackPane>
       <BorderPane prefHeight="550.0" prefWidth="800.0">
          <top>
-            <HBox prefHeight="50.0" prefWidth="800.0" BorderPane.alignment="CENTER">
-               <children>
-                  <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="186.0" style="-fx-background-color: #BFCFBB;" text="+ Add Madication Note">
-                     <HBox.margin>
-                        <Insets left="580.0" top="10.0" />
-                     </HBox.margin>
-                     <font>
-                        <Font name="Bodoni MT" size="14.0" />
-                     </font>
-                  </Button>
-               </children>
-            </HBox>
+            <HBox prefHeight="50.0" prefWidth="800.0" BorderPane.alignment="CENTER" />
          </top>
          <center>
-            <TableView prefHeight="500.0" prefWidth="561.0" BorderPane.alignment="CENTER">
+            <TableView fx:id="tableMedHistory" prefHeight="500.0" prefWidth="561.0" stylesheets="@../css/TableView.css" BorderPane.alignment="CENTER">
                <columns>
-                  <TableColumn prefWidth="96.80001831054688" text="Date" />
-                  <TableColumn minWidth="0.0" prefWidth="133.60000610351562" text="Medicine ID" />
-                  <TableColumn minWidth="0.0" prefWidth="157.5999755859375" text="Medicine Name" />
-                  <TableColumn prefWidth="242.39996337890625" text="Medicine Instruction" />
-                  <TableColumn prefWidth="167.20001220703125" text="Action" />
+                  <TableColumn fx:id="colAppDate" minWidth="0.0" prefWidth="111.20001220703125" text="Date" />
+                  <TableColumn fx:id="colAppId" minWidth="0.0" prefWidth="117.60003662109375" text="Appointment ID" />
+                  <TableColumn fx:id="colMedName" prefWidth="180.79998779296875" text="Medicine Name" />
+                  <TableColumn fx:id="colMedQty" prefWidth="151.99993896484375" text="Medicine Qty" />
+                  <TableColumn fx:id="colMedInstruction" prefWidth="237.60003662109375" text="Medicine Instruction" />
                </columns>
             </TableView>
          </center>

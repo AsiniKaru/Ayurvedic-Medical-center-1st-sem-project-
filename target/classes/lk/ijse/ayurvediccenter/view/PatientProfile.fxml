@@ -24,7 +24,7 @@
       </StackPane>
       <HBox prefHeight="50.0" prefWidth="800.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#onActionEditPatient" prefHeight="26.0" prefWidth="90.0" style="-fx-background-color: #BFCFBB;" text="Edit">
+            <Button fx:id="editButton" mnemonicParsing="false" onAction="#onActionEditPatient" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #344C3D; -fx-background-radius: 10;" text="Edit" textFill="WHITE">
                <HBox.margin>
                   <Insets left="580.0" top="10.0" />
                </HBox.margin>
@@ -32,7 +32,7 @@
                   <Font name="Bodoni MT" size="14.0" />
                </font>
             </Button>
-            <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#onActionDeletePatient" prefWidth="90.0" style="-fx-background-color: #BFCFBB;" text="Delete">
+            <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#onActionDeletePatient" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #344C3D; -fx-background-radius: 10;" text="Delete" textFill="WHITE">
                <HBox.margin>
                   <Insets left="10.0" top="10.0" />
                </HBox.margin>

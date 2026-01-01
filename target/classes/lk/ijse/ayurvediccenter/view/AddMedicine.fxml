@@ -16,8 +16,7 @@
    <children>
       <ImageView fitHeight="659.0" fitWidth="868.0" pickOnBounds="true">
          <image>
-            <Image url="@../image/Screenshot%202025-12-10%20191201.png" />
-         </image>
+            <Image url="@../image/backgroud_image.png" />         </image>
       </ImageView>
       <BorderPane fx:id="patientMainContent" prefHeight="659.0" prefWidth="868.0">
          <top>
@@ -120,7 +119,7 @@
                   </HBox>
                   <HBox prefHeight="82.0" prefWidth="868.0">
                      <children>
-                        <Button fx:id="saveButton" mnemonicParsing="false" onAction="#handleSaveMedicine" prefHeight="46.0" prefWidth="130.0" style="-fx-background-color: #BFCFBB;" text="Save">
+                        <Button fx:id="saveButton" mnemonicParsing="false" onAction="#handleSaveMedicine" prefHeight="46.0" prefWidth="130.0" style="-fx-background-color: #344C3D; -fx-background-radius: 10;" text="Save" textFill="WHITE">
                            <HBox.margin>
                               <Insets left="380.0" />
                            </HBox.margin>
@@ -128,7 +127,7 @@
                               <Font name="Cambria Bold" size="24.0" />
                            </font>
                         </Button>
-                        <Button mnemonicParsing="false" onAction="#cleanField" prefHeight="46.0" prefWidth="130.0" style="-fx-background-color: #BFCFBB;" text="Reset">
+                        <Button mnemonicParsing="false" onAction="#cleanField" prefHeight="46.0" prefWidth="130.0" style="-fx-background-color: #344C3D; -fx-background-radius: 10;" text="Reset" textFill="WHITE">
                            <font>
                               <Font name="Cambria Bold" size="24.0" />
                            </font>
