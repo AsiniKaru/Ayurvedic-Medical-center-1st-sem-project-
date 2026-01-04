@@ -1,0 +1,14 @@
+.button {
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #FFFFFF;
+    -fx-border-color: transparent;
+    -fx-border-style: 10;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+
+.button:pressed {
+    -fx-background-color: #67987A;
+    -fx-text-fill: #000000;
+}

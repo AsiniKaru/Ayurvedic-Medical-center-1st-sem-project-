@@ -1,0 +1,124 @@
+<!-- Created with Jaspersoft Studio version 7.0.3.final using JasperReports Library version 7.0.3-41034ca841d452f3305ba55b9042260aaa1ab5dd  -->
+<jasperReport name="transaction" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4e4ccd7d-f823-4232-a519-8664a9b91dc7">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="MYSQL-AYURVEDIC_CENTER"/>
+	<query language="SQL"><![CDATA[SELECT * FROM Appointment]]></query>
+	<field name="appointment_id" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="appointment_id"/>
+		<property name="com.jaspersoft.studio.field.label" value="appointment_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="Appointment"/>
+	</field>
+	<field name="doc_id" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="doc_id"/>
+		<property name="com.jaspersoft.studio.field.label" value="doc_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="Appointment"/>
+	</field>
+	<field name="patient_id" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="patient_id"/>
+		<property name="com.jaspersoft.studio.field.label" value="patient_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="Appointment"/>
+	</field>
+	<field name="appointment_date" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="appointment_date"/>
+		<property name="com.jaspersoft.studio.field.label" value="appointment_date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="Appointment"/>
+	</field>
+	<field name="doc_charges" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="doc_charges"/>
+		<property name="com.jaspersoft.studio.field.label" value="doc_charges"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="Appointment"/>
+	</field>
+	<field name="treatment_charges" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="treatment_charges"/>
+		<property name="com.jaspersoft.studio.field.label" value="treatment_charges"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="Appointment"/>
+	</field>
+	<field name="prescription_charges" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="prescription_charges"/>
+		<property name="com.jaspersoft.studio.field.label" value="prescription_charges"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="Appointment"/>
+	</field>
+	<field name="total_charges" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="total_charges"/>
+		<property name="com.jaspersoft.studio.field.label" value="total_charges"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="Appointment"/>
+	</field>
+	<field name="app_statues" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="app_statues"/>
+		<property name="com.jaspersoft.studio.field.label" value="app_statues"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="Appointment"/>
+	</field>
+	<field name="app_type" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="app_type"/>
+		<property name="com.jaspersoft.studio.field.label" value="app_type"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="Appointment"/>
+	</field>
+	<background splitType="Stretch"/>
+	<title height="88" splitType="Stretch">
+		<element kind="image" uuid="437a5fac-3364-4289-8ea9-854df01040dc" x="224" y="-13" width="114" height="76">
+			<expression><![CDATA["D:/IJSE/Sem 01/DB Programming/Final Project/mileStones/modern-medical-and-health-care-center-ayurvedic-logo-design-illustration-free-vector.jpg"]]></expression>
+			<property name="com.jaspersoft.studio.unit.x" value="px"/>
+		</element>
+		<element kind="staticText" uuid="be064891-c079-436d-8118-2e826966e4e6" x="180" y="63" width="201" height="21" fontName="Nirmala UI Semilight" fontSize="14.0" bold="true" hTextAlign="Center">
+			<text><![CDATA[ හෙළ ඔසු වෙද ගෙදර]]></text>
+			<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+		</element>
+	</title>
+	<pageHeader height="57" splitType="Stretch">
+		<element kind="staticText" uuid="dfafe0d7-2c3b-485a-b99c-5da229255dce" x="141" y="4" width="280" height="26" forecolor="#11420F" fontSize="19.0" bold="true" hTextAlign="Center">
+			<text><![CDATA[Transaction Summery Report]]></text>
+		</element>
+		<element kind="textField" uuid="1578c444-3c86-4088-9132-a7314497dd0f" x="231" y="34" width="100" height="16" fontSize="12.0" bold="true" hTextAlign="Center">
+			<expression><![CDATA[$F{appointment_date}]]></expression>
+		</element>
+	</pageHeader>
+	<columnHeader height="48" splitType="Stretch">
+		<element kind="staticText" uuid="f2ef4c54-c859-418c-aca3-d7f668b460bd" x="0" y="5" width="70" height="25" fontSize="13.0" hTextAlign="Center">
+			<text><![CDATA[App ID]]></text>
+		</element>
+		<element kind="staticText" uuid="4c603e74-6ed0-47ca-ba48-5cebf7b2250e" x="70" y="5" width="84" height="25" fontSize="13.0" hTextAlign="Center">
+			<text><![CDATA[Patient ID]]></text>
+		</element>
+		<element kind="staticText" uuid="9d6b5ead-d83f-42b1-a1bd-eea2854fcb01" x="154" y="3" width="100" height="35" fontSize="13.0" hTextAlign="Center">
+			<paragraph lineSpacing="Single" lineSpacingSize="0.0"/>
+			<text><![CDATA[Appointment Type]]></text>
+		</element>
+		<element kind="staticText" uuid="458c5a24-2d10-4671-9283-8cc93fe6fb3a" x="353" y="5" width="100" height="25" fontSize="13.0" hTextAlign="Center">
+			<text><![CDATA[Treatment Charges]]></text>
+		</element>
+		<element kind="staticText" uuid="e1508f6c-9207-4d4e-818b-944c95e849af" x="453" y="5" width="102" height="25" fontSize="13.0" hTextAlign="Center">
+			<text><![CDATA[Total Charges]]></text>
+		</element>
+		<element kind="staticText" uuid="94076150-1b31-4cb7-8ab9-df59cc585acb" x="254" y="4" width="99" height="33" fontSize="13.0" hTextAlign="Center">
+			<text><![CDATA[Appointment Status]]></text>
+		</element>
+		<element kind="line" uuid="1baf6c07-46f7-41f2-9c46-a49e1879b046" x="-20" y="41" width="595" height="1">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+	</columnHeader>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<element kind="textField" uuid="ec76f8da-c90c-4d2a-8b37-14baac6d63f1" x="0" y="4" width="70" height="15" hTextAlign="Center">
+				<expression><![CDATA[$F{appointment_id}]]></expression>
+			</element>
+			<element kind="textField" uuid="c905e9b9-b77d-44cc-853f-9c109e7325da" x="70" y="4" width="84" height="15" hTextAlign="Center">
+				<expression><![CDATA[$F{patient_id}]]></expression>
+			</element>
+			<element kind="textField" uuid="55108eca-9aa4-4e61-a733-fff56b9d7da3" x="154" y="4" width="100" height="15" hTextAlign="Center">
+				<expression><![CDATA[$F{app_type}]]></expression>
+			</element>
+			<element kind="textField" uuid="4ecb43b7-ede2-461a-8d92-eb33e70884f1" x="454" y="4" width="91" height="15" hTextAlign="Right">
+				<expression><![CDATA[$F{total_charges}]]></expression>
+			</element>
+			<element kind="textField" uuid="cbcc58a1-474f-4743-a44a-ecf49f33763c" x="254" y="4" width="100" height="15" hTextAlign="Center">
+				<expression><![CDATA[$F{app_statues}]]></expression>
+			</element>
+			<element kind="textField" uuid="b99e0d3a-36b0-492a-8180-88e52d9fb6df" x="354" y="4" width="100" height="15" hTextAlign="Center">
+				<expression><![CDATA[$F{treatment_charges}]]></expression>
+			</element>
+		</band>
+	</detail>
+	<columnFooter height="45" splitType="Stretch"/>
+	<pageFooter height="54" splitType="Stretch"/>
+	<summary height="42" splitType="Stretch"/>
+</jasperReport>
