@@ -4,16 +4,24 @@ import lk.ijse.ayurvediccenter.db.DBConnection;
 import lk.ijse.ayurvediccenter.dto.PrescriptionDTO;
 import lk.ijse.ayurvediccenter.dto.PrescriptionMedDTO;
 import lk.ijse.ayurvediccenter.util.CrudUtil;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.view.JasperViewer;
+
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class PrescriptionModel {
 
     private AppointmentModel appointmentModel = new AppointmentModel();
     private MedicineModel medicineModel = new MedicineModel();
 
+//   this will update the medicine inventory and app Status after doctor consultation
     public boolean consultationDone(PrescriptionDTO prescriptionDTO) throws Exception {
         Connection conn = DBConnection.getInstance().getConnection();
 
@@ -85,9 +93,7 @@ public class PrescriptionModel {
 
     }
 
-
-
-//    this Method will update the medicine inventory after medicine issued through the system
+//    this Method will update the medicine inventory after medicine issued through the system (Transaction)
     public boolean updatePrescriptionMed(int id , List<PrescriptionMedDTO>  medList) throws Exception {
         for (PrescriptionMedDTO prescriptionMedDTO : medList) {
             if( CrudUtil.execute(
@@ -116,7 +122,22 @@ public class PrescriptionModel {
 
 
 // this Method will give the bill to be charge
-    public void getBill (){
+    public void getBill (int appointmentId)throws JRException, SQLException  {
+
+
+        Connection conn = DBConnection.getInstance().getConnection();
+        //Step 01
+        InputStream reportObject = getClass().getResourceAsStream("/lk/ijse/ayurvediccenter/reports/prescription.jrxml");
+        //Step 02
+        JasperReport jr = JasperCompileManager.compileReport(reportObject);
+        //Step 03
+        Map<String, Object> params = new HashMap<>();
+
+        params.put("APP_ID", appointmentId);
+
+        JasperPrint jp = JasperFillManager.fillReport(jr,params,conn);
+        //Step 04
+        JasperViewer.viewReport(jp,false);
 
     }
 }

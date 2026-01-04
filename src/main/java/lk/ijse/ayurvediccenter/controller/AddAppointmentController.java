@@ -200,6 +200,8 @@ public class AddAppointmentController implements Initializable {
                     }
                 }
 
+
+
                 AppointmentDTO appointmentDTO = new AppointmentDTO(
                         Integer.parseInt(doctorId),
                         Integer.parseInt(patientId),
@@ -366,7 +368,7 @@ public class AddAppointmentController implements Initializable {
     public void getDate(ActionEvent event) {
         LocalDate appDate = dateField.getValue();
         if (appDate == null) {
-            new Alert(Alert.AlertType.WARNING, "Please select a date!").show();
+            new Alert(Alert.AlertType.CONFIRMATION, "Please select a date!").show();
             return;
         }
         String dateFormat = appDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));

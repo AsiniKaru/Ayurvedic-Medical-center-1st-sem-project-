@@ -70,7 +70,6 @@ public class UserViewController implements Initializable {
         colPName.setCellValueFactory(new PropertyValueFactory<>("patientName"));
 
         loadTodayAppointmentTable();
-        loadChart();
 
     }
 
@@ -122,33 +121,6 @@ public class UserViewController implements Initializable {
             tableAppList.setItems(obList);
 
         }catch(Exception e){
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
-    private void loadChart() {
-        try {
-            ResultSet rs = CrudUtil.execute(
-                    "SELECT appointment_date, SUM(total_charges) AS revenue " +
-                            "FROM Appointment GROUP BY appointment_date"
-            );
-
-            XYChart.Series<String, Number> series = new XYChart.Series<>();
-            series.setName("Daily Revenue");
-
-            while (rs.next()) {
-                series.getData().add(
-                        new XYChart.Data<>(
-                                rs.getString("appointment_date"),
-                                rs.getDouble("revenue")
-                        )
-                );
-            }
-
-            barChart.getData().add(series);
-
-        } catch (Exception e) {
             e.printStackTrace();
         }
     }

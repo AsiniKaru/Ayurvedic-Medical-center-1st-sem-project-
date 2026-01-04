@@ -14,6 +14,7 @@ import lk.ijse.ayurvediccenter.dto.tm.AppMedicationTM;
 import lk.ijse.ayurvediccenter.dto.tm.MedBillTM;
 import lk.ijse.ayurvediccenter.model.AppMedicationModel;
 import lk.ijse.ayurvediccenter.model.AppointmentModel;
+import lk.ijse.ayurvediccenter.model.PrescriptionModel;
 import lk.ijse.ayurvediccenter.model.TreatmentModel;
 
 import java.sql.SQLException;
@@ -43,6 +44,7 @@ public class PaymentController {
     AppMedicationModel appMedicationModel = new AppMedicationModel();
     TreatmentModel treatmentModel = new TreatmentModel();
     AppointmentModel  appointmentModel = new AppointmentModel();
+    PrescriptionModel prescriptionModel = new PrescriptionModel();
 
     double totalDocCharges;
     double totalMedicineTotal;
@@ -157,6 +159,15 @@ public class PaymentController {
             }
         }catch (Exception e){
             e.printStackTrace();
+        }
+    }
+
+    public void printBill(){
+        try{
+            prescriptionModel.getBill(appId);
+        } catch (Exception e) {
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "Something went wrong!", ButtonType.OK).show();
         }
     }
 

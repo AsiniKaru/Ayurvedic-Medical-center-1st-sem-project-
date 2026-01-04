@@ -6,20 +6,27 @@ import net.sf.jasperreports.view.JasperViewer;
 
 import java.io.InputStream;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ReportModel {
 
-    public void printTSReport() throws JRException , SQLException {
+    public void printTSReport(String appDate) throws JRException , SQLException {
 
         Connection conn = DBConnection.getInstance().getConnection();
-
+        //Step 01
         InputStream reportObject = getClass().getResourceAsStream("/lk/ijse/ayurvediccenter/reports/transaction.jrxml");
-
+        //Step 02
         JasperReport jr = JasperCompileManager.compileReport(reportObject);
+        //Step 03
+        Map<String, Object> params = new HashMap<>();
 
-        JasperPrint jp = JasperFillManager.fillReport(jr,null,conn);
+        params.put("APP_DATE", java.sql.Date.valueOf(appDate));
 
+        JasperPrint jp = JasperFillManager.fillReport(jr,params,conn);
+        //Step 04
         JasperViewer.viewReport(jp,false);
     }
 }

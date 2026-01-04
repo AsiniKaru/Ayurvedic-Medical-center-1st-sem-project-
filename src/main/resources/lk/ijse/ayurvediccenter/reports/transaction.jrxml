@@ -2,7 +2,65 @@
 <jasperReport name="transaction" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4e4ccd7d-f823-4232-a519-8664a9b91dc7">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="MYSQL-AYURVEDIC_CENTER"/>
-	<query language="SQL"><![CDATA[SELECT * FROM Appointment]]></query>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="368"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="623"/>
+	<dataset name="Dataset1" uuid="f7a8ed88-acfa-4883-95bf-7fc83f5f8830">
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="MYSQL-AYURVEDIC_CENTER"/>
+		<query language="SQL"><![CDATA[SELECT * FROM Appointment]]></query>
+		<field name="appointment_id" class="java.lang.Integer">
+			<property name="com.jaspersoft.studio.field.name" value="appointment_id"/>
+			<property name="com.jaspersoft.studio.field.label" value="appointment_id"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="Appointment"/>
+		</field>
+		<field name="doc_id" class="java.lang.Integer">
+			<property name="com.jaspersoft.studio.field.name" value="doc_id"/>
+			<property name="com.jaspersoft.studio.field.label" value="doc_id"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="Appointment"/>
+		</field>
+		<field name="patient_id" class="java.lang.Integer">
+			<property name="com.jaspersoft.studio.field.name" value="patient_id"/>
+			<property name="com.jaspersoft.studio.field.label" value="patient_id"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="Appointment"/>
+		</field>
+		<field name="appointment_date" class="java.sql.Date">
+			<property name="com.jaspersoft.studio.field.name" value="appointment_date"/>
+			<property name="com.jaspersoft.studio.field.label" value="appointment_date"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="Appointment"/>
+		</field>
+		<field name="doc_charges" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.name" value="doc_charges"/>
+			<property name="com.jaspersoft.studio.field.label" value="doc_charges"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="Appointment"/>
+		</field>
+		<field name="treatment_charges" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.name" value="treatment_charges"/>
+			<property name="com.jaspersoft.studio.field.label" value="treatment_charges"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="Appointment"/>
+		</field>
+		<field name="prescription_charges" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.name" value="prescription_charges"/>
+			<property name="com.jaspersoft.studio.field.label" value="prescription_charges"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="Appointment"/>
+		</field>
+		<field name="total_charges" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.name" value="total_charges"/>
+			<property name="com.jaspersoft.studio.field.label" value="total_charges"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="Appointment"/>
+		</field>
+		<field name="app_statues" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="app_statues"/>
+			<property name="com.jaspersoft.studio.field.label" value="app_statues"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="Appointment"/>
+		</field>
+		<field name="app_type" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="app_type"/>
+			<property name="com.jaspersoft.studio.field.label" value="app_type"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="Appointment"/>
+		</field>
+	</dataset>
+	<parameter name="APP_DATE" class="java.sql.Date"/>
+	<query language="SQL"><![CDATA[SELECT * FROM Appointment WHERE appointment_date = $P{APP_DATE}]]></query>
 	<field name="appointment_id" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.name" value="appointment_id"/>
 		<property name="com.jaspersoft.studio.field.label" value="appointment_id"/>
@@ -38,11 +96,6 @@
 		<property name="com.jaspersoft.studio.field.label" value="prescription_charges"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="Appointment"/>
 	</field>
-	<field name="total_charges" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.name" value="total_charges"/>
-		<property name="com.jaspersoft.studio.field.label" value="total_charges"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="Appointment"/>
-	</field>
 	<field name="app_statues" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="app_statues"/>
 		<property name="com.jaspersoft.studio.field.label" value="app_statues"/>
@@ -53,72 +106,225 @@
 		<property name="com.jaspersoft.studio.field.label" value="app_type"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="Appointment"/>
 	</field>
-	<background splitType="Stretch"/>
-	<title height="88" splitType="Stretch">
-		<element kind="image" uuid="437a5fac-3364-4289-8ea9-854df01040dc" x="224" y="-13" width="114" height="76">
+	<field name="total_charges" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="total_charges"/>
+		<property name="com.jaspersoft.studio.field.label" value="total_charges"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="Appointment"/>
+	</field>
+	<variable name="txtSummeryTotal" calculation="Sum" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{total_charges}]]></expression>
+	</variable>
+	<variable name="Treatment_Total" calculation="Sum" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{treatment_charges}]]></expression>
+	</variable>
+	<variable name="Medicine_Total" calculation="Sum" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{prescription_charges}]]></expression>
+	</variable>
+	<variable name="Doctor_Chgs_Total" calculation="Sum" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{doc_charges}]]></expression>
+	</variable>
+	<background height="802" splitType="Stretch">
+		<element kind="frame" uuid="56c0c87f-d43c-4353-a49e-8547ab9baae9" x="-11" y="2" width="572" height="791">
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+			<box>
+				<pen lineWidth="1.75"/>
+			</box>
+		</element>
+		<element kind="line" uuid="3abd802b-9d56-4bc1-a201-8dd2d4a2edf3" x="386" y="801" width="160" height="1">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+		<element kind="line" uuid="38132f4c-b978-475b-8541-76b58018ecee" x="310" y="801" width="160" height="1">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+		<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+	</background>
+	<title height="96" splitType="Stretch">
+		<element kind="image" uuid="437a5fac-3364-4289-8ea9-854df01040dc" x="224" y="4" width="114" height="76">
 			<expression><![CDATA["D:/IJSE/Sem 01/DB Programming/Final Project/mileStones/modern-medical-and-health-care-center-ayurvedic-logo-design-illustration-free-vector.jpg"]]></expression>
 			<property name="com.jaspersoft.studio.unit.x" value="px"/>
 		</element>
-		<element kind="staticText" uuid="be064891-c079-436d-8118-2e826966e4e6" x="180" y="63" width="201" height="21" fontName="Nirmala UI Semilight" fontSize="14.0" bold="true" hTextAlign="Center">
+		<element kind="staticText" uuid="be064891-c079-436d-8118-2e826966e4e6" x="180" y="72" width="201" height="21" fontName="Nirmala UI Semilight" fontSize="14.0" bold="true" hTextAlign="Center">
 			<text><![CDATA[ හෙළ ඔසු වෙද ගෙදර]]></text>
 			<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 		</element>
 	</title>
-	<pageHeader height="57" splitType="Stretch">
-		<element kind="staticText" uuid="dfafe0d7-2c3b-485a-b99c-5da229255dce" x="141" y="4" width="280" height="26" forecolor="#11420F" fontSize="19.0" bold="true" hTextAlign="Center">
+	<pageHeader height="46" splitType="Stretch">
+		<element kind="staticText" uuid="dfafe0d7-2c3b-485a-b99c-5da229255dce" x="141" y="2" width="280" height="26" forecolor="#11420F" fontSize="19.0" bold="true" hTextAlign="Center">
 			<text><![CDATA[Transaction Summery Report]]></text>
 		</element>
-		<element kind="textField" uuid="1578c444-3c86-4088-9132-a7314497dd0f" x="231" y="34" width="100" height="16" fontSize="12.0" bold="true" hTextAlign="Center">
+		<element kind="textField" uuid="1578c444-3c86-4088-9132-a7314497dd0f" x="231" y="28" width="100" height="16" fontSize="12.0" bold="true" hTextAlign="Center">
 			<expression><![CDATA[$F{appointment_date}]]></expression>
 		</element>
 	</pageHeader>
-	<columnHeader height="48" splitType="Stretch">
-		<element kind="staticText" uuid="f2ef4c54-c859-418c-aca3-d7f668b460bd" x="0" y="5" width="70" height="25" fontSize="13.0" hTextAlign="Center">
+	<columnHeader height="40" splitType="Stretch">
+		<element kind="staticText" uuid="f2ef4c54-c859-418c-aca3-d7f668b460bd" x="5" y="7" width="49" height="33" fontSize="13.0" bold="true" hTextAlign="Center">
 			<text><![CDATA[App ID]]></text>
+			<box>
+				<pen lineWidth="0.75"/>
+			</box>
 		</element>
-		<element kind="staticText" uuid="4c603e74-6ed0-47ca-ba48-5cebf7b2250e" x="70" y="5" width="84" height="25" fontSize="13.0" hTextAlign="Center">
+		<element kind="staticText" uuid="4c603e74-6ed0-47ca-ba48-5cebf7b2250e" x="54" y="7" width="57" height="33" fontSize="13.0" bold="true" hTextAlign="Center">
 			<text><![CDATA[Patient ID]]></text>
+			<box>
+				<pen lineWidth="0.75"/>
+			</box>
 		</element>
-		<element kind="staticText" uuid="9d6b5ead-d83f-42b1-a1bd-eea2854fcb01" x="154" y="3" width="100" height="35" fontSize="13.0" hTextAlign="Center">
+		<element kind="staticText" uuid="9d6b5ead-d83f-42b1-a1bd-eea2854fcb01" x="111" y="7" width="59" height="33" fontSize="13.0" bold="true" hTextAlign="Center">
 			<paragraph lineSpacing="Single" lineSpacingSize="0.0"/>
-			<text><![CDATA[Appointment Type]]></text>
+			<text><![CDATA[App Type]]></text>
+			<box>
+				<pen lineWidth="0.75"/>
+			</box>
 		</element>
-		<element kind="staticText" uuid="458c5a24-2d10-4671-9283-8cc93fe6fb3a" x="353" y="5" width="100" height="25" fontSize="13.0" hTextAlign="Center">
+		<element kind="staticText" uuid="458c5a24-2d10-4671-9283-8cc93fe6fb3a" x="381" y="7" width="89" height="33" fontSize="13.0" bold="true" hTextAlign="Center">
 			<text><![CDATA[Treatment Charges]]></text>
+			<box>
+				<pen lineWidth="0.75"/>
+			</box>
 		</element>
-		<element kind="staticText" uuid="e1508f6c-9207-4d4e-818b-944c95e849af" x="453" y="5" width="102" height="25" fontSize="13.0" hTextAlign="Center">
+		<element kind="staticText" uuid="e1508f6c-9207-4d4e-818b-944c95e849af" x="470" y="7" width="76" height="33" fontSize="13.0" bold="true" hTextAlign="Center">
 			<text><![CDATA[Total Charges]]></text>
+			<box>
+				<pen lineWidth="0.75"/>
+			</box>
 		</element>
-		<element kind="staticText" uuid="94076150-1b31-4cb7-8ab9-df59cc585acb" x="254" y="4" width="99" height="33" fontSize="13.0" hTextAlign="Center">
-			<text><![CDATA[Appointment Status]]></text>
+		<element kind="staticText" uuid="94076150-1b31-4cb7-8ab9-df59cc585acb" x="170" y="7" width="64" height="33" fontSize="13.0" bold="true" hTextAlign="Center">
+			<text><![CDATA[App Status]]></text>
+			<box>
+				<pen lineWidth="0.75"/>
+			</box>
 		</element>
-		<element kind="line" uuid="1baf6c07-46f7-41f2-9c46-a49e1879b046" x="-20" y="41" width="595" height="1">
-			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		<element kind="staticText" uuid="caece567-6e4b-4abf-939c-b7c1136b5475" x="300" y="7" width="81" height="33" fontSize="13.0" bold="true" hTextAlign="Center">
+			<text><![CDATA[Medicine Charges]]></text>
+			<box>
+				<pen lineWidth="0.75"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="03930fb2-8ad1-4ef1-a96a-454d57c36d42" x="234" y="7" width="66" height="33" fontSize="13.0" bold="true" hTextAlign="Center">
+			<text><![CDATA[Doctor Charges]]></text>
+			<box>
+				<pen lineWidth="0.75"/>
+			</box>
 		</element>
 	</columnHeader>
 	<detail>
-		<band height="22" splitType="Stretch">
-			<element kind="textField" uuid="ec76f8da-c90c-4d2a-8b37-14baac6d63f1" x="0" y="4" width="70" height="15" hTextAlign="Center">
+		<band height="16" splitType="Stretch">
+			<element kind="textField" uuid="ec76f8da-c90c-4d2a-8b37-14baac6d63f1" x="5" y="0" width="49" height="16" hTextAlign="Center">
 				<expression><![CDATA[$F{appointment_id}]]></expression>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
 			</element>
-			<element kind="textField" uuid="c905e9b9-b77d-44cc-853f-9c109e7325da" x="70" y="4" width="84" height="15" hTextAlign="Center">
+			<element kind="textField" uuid="c905e9b9-b77d-44cc-853f-9c109e7325da" x="54" y="0" width="57" height="16" hTextAlign="Center">
 				<expression><![CDATA[$F{patient_id}]]></expression>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
 			</element>
-			<element kind="textField" uuid="55108eca-9aa4-4e61-a733-fff56b9d7da3" x="154" y="4" width="100" height="15" hTextAlign="Center">
+			<element kind="textField" uuid="55108eca-9aa4-4e61-a733-fff56b9d7da3" x="111" y="0" width="59" height="16" hTextAlign="Center">
 				<expression><![CDATA[$F{app_type}]]></expression>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
 			</element>
-			<element kind="textField" uuid="4ecb43b7-ede2-461a-8d92-eb33e70884f1" x="454" y="4" width="91" height="15" hTextAlign="Right">
-				<expression><![CDATA[$F{total_charges}]]></expression>
-			</element>
-			<element kind="textField" uuid="cbcc58a1-474f-4743-a44a-ecf49f33763c" x="254" y="4" width="100" height="15" hTextAlign="Center">
+			<element kind="textField" uuid="4ecb43b7-ede2-461a-8d92-eb33e70884f1" x="170" y="0" width="64" height="16" hTextAlign="Center">
 				<expression><![CDATA[$F{app_statues}]]></expression>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
 			</element>
-			<element kind="textField" uuid="b99e0d3a-36b0-492a-8180-88e52d9fb6df" x="354" y="4" width="100" height="15" hTextAlign="Center">
+			<element kind="textField" uuid="cbcc58a1-474f-4743-a44a-ecf49f33763c" x="300" y="0" width="81" height="16" hTextAlign="Center">
+				<expression><![CDATA[$F{prescription_charges}]]></expression>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="b99e0d3a-36b0-492a-8180-88e52d9fb6df" x="381" y="0" width="89" height="16" hTextAlign="Center">
 				<expression><![CDATA[$F{treatment_charges}]]></expression>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
 			</element>
+			<element kind="textField" uuid="a573d14c-3af4-4379-8b7a-fb19634c2e02" x="470" y="0" width="76" height="16" hTextAlign="Right">
+				<expression><![CDATA[$F{total_charges}]]></expression>
+				<box rightPadding="12">
+					<pen lineWidth="0.75"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="88a73782-efdf-4e9d-88f3-e7648cd921fa" x="234" y="0" width="66" height="16" hTextAlign="Center">
+				<expression><![CDATA[$F{doc_charges}]]></expression>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
+			</element>
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
 		</band>
 	</detail>
-	<columnFooter height="45" splitType="Stretch"/>
-	<pageFooter height="54" splitType="Stretch"/>
-	<summary height="42" splitType="Stretch"/>
+	<pageFooter height="40">
+		<element kind="textField" uuid="3ef3d311-3b60-43ba-92c1-78ca9c2eee10" x="348" y="5" width="100" height="30" hTextAlign="Right">
+			<expression><![CDATA["Page " + $V{PAGE_NUMBER}]]></expression>
+		</element>
+		<element kind="textField" uuid="274fa2d4-42c4-4cf1-be61-597c0cbb009e" x="448" y="4" width="100" height="30" evaluationTime="Report" hTextAlign="Left">
+			<expression><![CDATA[" of " + $V{PAGE_NUMBER}]]></expression>
+		</element>
+	</pageFooter>
+	<summary height="184" splitType="Stretch">
+		<element kind="staticText" uuid="4016ab77-60e6-4475-b4fe-79cc69df50fa" x="20" y="11" width="170" height="20" fontSize="13.0" bold="true">
+			<text><![CDATA[Total  Appointments         :]]></text>
+		</element>
+		<element kind="staticText" uuid="646af019-8d93-44a8-893f-3ee4fc65a88d" x="200" y="11" width="60" height="20">
+			<text><![CDATA[Static Text]]></text>
+		</element>
+		<element kind="staticText" uuid="ca7e1649-c466-41ff-ac26-fe9f924006e1" x="20" y="31" width="170" height="20" fontSize="13.0" bold="true">
+			<text><![CDATA[Complete Appointments  :]]></text>
+		</element>
+		<element kind="staticText" uuid="7c59e7e8-2c76-45e7-acfa-27d6d855d9d2" x="200" y="31" width="60" height="20">
+			<text><![CDATA[Static Text]]></text>
+		</element>
+		<element kind="staticText" uuid="e0864de5-7e61-4564-9caa-82762c3f9186" x="20" y="51" width="170" height="20" fontSize="13.0" bold="true">
+			<text><![CDATA[Cancelled  Appointments :]]></text>
+		</element>
+		<element kind="staticText" uuid="bca0cbe7-0c4b-47a8-b130-04b4fd848eb8" x="200" y="51" width="60" height="20">
+			<text><![CDATA[Static Text]]></text>
+		</element>
+		<element kind="staticText" uuid="17ec701d-7a5d-41d8-bab9-4b9ddb8faf15" x="291" y="11" width="128" height="20" fontSize="13.0" bold="true">
+			<text><![CDATA[Treatment Income :]]></text>
+		</element>
+		<element kind="staticText" uuid="c7433ecd-b973-4114-9239-30168e290338" x="291" y="31" width="128" height="20" fontSize="13.0" bold="true">
+			<text><![CDATA[Medicine Income   :]]></text>
+		</element>
+		<element kind="staticText" uuid="7438a848-db48-433b-ac81-9503629f1d92" x="291" y="51" width="128" height="20" fontSize="13.0" bold="true">
+			<text><![CDATA[Doctor Charges     :]]></text>
+		</element>
+		<element kind="line" uuid="feb79dd5-fd77-46fb-b6a3-863a84c87d59" x="290" y="72" width="200" height="1">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+		<element kind="staticText" uuid="978932ca-c7b5-46ef-92c0-f2620f8f682f" x="291" y="76" width="128" height="20" fontSize="13.0" bold="true">
+			<text><![CDATA[Net Total Income :]]></text>
+		</element>
+		<element kind="textField" uuid="5d15093a-3f46-4f60-81a2-5ea4e8e1c0e9" x="419" y="76" width="90" height="20" linkType="None" linkTarget="Self" bold="true">
+			<expression><![CDATA[$F{total_charges}]]></expression>
+		</element>
+		<element kind="staticText" uuid="08caa997-a6a7-46d7-8160-354eb92aec9c" x="25" y="154" width="150" height="30" hTextAlign="Center">
+			<text><![CDATA[Prepared By ]]></text>
+		</element>
+		<element kind="staticText" uuid="0c3163d1-6ec4-4b77-a1a6-02ec0f62dc55" x="325" y="154" width="150" height="30" hTextAlign="Center">
+			<text><![CDATA[Approved By]]></text>
+		</element>
+		<element kind="textField" uuid="8a6b8d15-7d78-4ce8-9f3d-2e91308587b9" x="419" y="11" width="100" height="20" bold="true">
+			<expression><![CDATA[$V{Treatment_Total}]]></expression>
+		</element>
+		<element kind="textField" uuid="5574b5c3-83f2-4e4b-97c2-d5a1df47b3ac" x="419" y="31" width="100" height="20" bold="true">
+			<expression><![CDATA[$V{Medicine_Total}]]></expression>
+		</element>
+		<element kind="textField" uuid="cf97371d-3f7e-4912-86b2-c237e336c4f8" x="419" y="50" width="111" height="20" bold="true">
+			<expression><![CDATA[$V{Doctor_Chgs_Total}]]></expression>
+		</element>
+		<element kind="line" uuid="5db62c99-fe10-43e9-b5c8-1f28cb1d0e11" x="19" y="150" width="161" height="1">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+		<element kind="line" uuid="c4f35fd2-d28d-4997-bbc4-f4d2af5243e5" x="320" y="150" width="161" height="1">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+	</summary>
 </jasperReport>

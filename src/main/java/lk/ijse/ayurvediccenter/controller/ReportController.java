@@ -20,7 +20,8 @@ public class ReportController {
     @FXML
     private void generateTSR(ActionEvent event) {
         try{
-            reportModel.printTSReport();
+            String date = dateField.getValue().toString();
+            reportModel.printTSReport(date);
         } catch (Exception e) {
             e.printStackTrace();
             new Alert(Alert.AlertType.ERROR, "Something went wrong!", ButtonType.OK).show();
