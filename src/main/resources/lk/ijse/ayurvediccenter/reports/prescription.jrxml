@@ -1,0 +1,312 @@
+<!-- Created with Jaspersoft Studio version 7.0.3.final using JasperReports Library version 7.0.3-41034ca841d452f3305ba55b9042260aaa1ab5dd  -->
+<jasperReport name="prescription" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f66b69f4-cc34-4434-ac01-0137ef2b4242">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="MYSQL-AYURVEDIC_CENTER"/>
+	<parameter name="patient_id" class="java.lang.Integer"/>
+	<query language="SQL"><![CDATA[SELECT
+    a.appointment_id   AS app_id,
+    CONCAT(p.patient_fName, ' ', p.patient_lName) AS patient_name,
+    a.appointment_date AS appointmet_date,
+    
+    pm.medicine_name AS medicine_name,
+    pm.medicine_qty   AS medicine_qty,
+    m.unit_price  AS medicine_price,
+
+    t.treatment_name   AS treatment_name,
+    t.treatment_charges   AS treatment_price,
+
+    d.doc_charges   AS doctor_charges,
+    pr.next_visit_date   AS next_visit_date
+
+FROM Appointment a
+
+JOIN Patient p 
+    ON a.patient_id = p.patient_id
+
+LEFT JOIN Prescription pr 
+    ON a.appointment_id = pr.appointment_id
+
+LEFT JOIN Prescription_Med pm 
+    ON pr.prescription_id = pm.prescription_id
+
+LEFT JOIN Medicine m 
+    ON pm.med_id = m.med_id
+
+LEFT JOIN App_Treatment at 
+    ON a.appointment_id = at.appointment_id
+
+LEFT JOIN Treatment t 
+    ON at.treatment_id = t.treatment_id
+
+JOIN Doctor d 
+    ON a.doc_id = d.doc_id
+]]></query>
+	<field name="app_id" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="appointment_id"/>
+		<property name="com.jaspersoft.studio.field.label" value="app_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="Appointment"/>
+	</field>
+	<field name="patient_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="patient_name"/>
+		<property name="com.jaspersoft.studio.field.label" value="patient_name"/>
+	</field>
+	<field name="appointmet_date" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="appointment_date"/>
+		<property name="com.jaspersoft.studio.field.label" value="appointmet_date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="Appointment"/>
+	</field>
+	<field name="medicine_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="medicine_name"/>
+		<property name="com.jaspersoft.studio.field.label" value="medicine_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="Prescription_Med"/>
+	</field>
+	<field name="medicine_qty" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="medicine_qty"/>
+		<property name="com.jaspersoft.studio.field.label" value="medicine_qty"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="Prescription_Med"/>
+	</field>
+	<field name="medicine_price" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="unit_price"/>
+		<property name="com.jaspersoft.studio.field.label" value="medicine_price"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="Medicine"/>
+	</field>
+	<field name="treatment_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="treatment_name"/>
+		<property name="com.jaspersoft.studio.field.label" value="treatment_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="Treatment"/>
+	</field>
+	<field name="treatment_price" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="treatment_charges"/>
+		<property name="com.jaspersoft.studio.field.label" value="treatment_price"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="Treatment"/>
+	</field>
+	<field name="doctor_charges" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="doc_charges"/>
+		<property name="com.jaspersoft.studio.field.label" value="doctor_charges"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="Doctor"/>
+	</field>
+	<field name="next_visit_date" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="next_visit_date"/>
+		<property name="com.jaspersoft.studio.field.label" value="next_visit_date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="Prescription"/>
+	</field>
+	<background height="802" splitType="Stretch">
+		<element kind="frame" uuid="b7338e70-4cd8-47de-87a5-e47c7c9295d9" x="0" y="-4" width="554" height="804">
+			<box>
+				<pen lineWidth="0.75"/>
+			</box>
+		</element>
+		<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+	</background>
+	<title height="84" splitType="Stretch">
+		<element kind="image" uuid="d3d0953d-d7be-4289-b415-f9b57b2a876b" x="10" y="4" width="114" height="76">
+			<expression><![CDATA["D:/IJSE/Sem 01/DB Programming/Final Project/mileStones/modern-medical-and-health-care-center-ayurvedic-logo-design-illustration-free-vector.jpg"]]></expression>
+			<property name="com.jaspersoft.studio.unit.x" value="px"/>
+		</element>
+		<element kind="staticText" uuid="b3244a67-c643-47f0-a50e-9b7e5f9d707e" x="150" y="10" width="219" height="30" fontName="Nirmala UI Semilight" fontSize="16.0" bold="true" hTextAlign="Center">
+			<text><![CDATA[ හෙළ ඔසු වෙද ගෙදර]]></text>
+			<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+		</element>
+		<element kind="staticText" uuid="5b798fea-200e-4cd4-875e-3db9ec7fb5e6" x="181" y="36" width="201" height="21" fontSize="12.0">
+			<text><![CDATA[no : 35A Kanampitiya road , Galle]]></text>
+		</element>
+		<element kind="staticText" uuid="18840c19-c375-43a0-9d25-4d1d639d798e" x="181" y="57" width="201" height="21" fontSize="12.0">
+			<text><![CDATA[contact - 0773510948]]></text>
+		</element>
+	</title>
+	<pageHeader height="82" splitType="Stretch">
+		<element kind="staticText" uuid="86383f31-742c-41e3-9ac4-f5090a84a4b7" x="141" y="4" width="280" height="26" forecolor="#11420F" fontSize="19.0" bold="true" hTextAlign="Center">
+			<text><![CDATA[Prescription Invoice]]></text>
+		</element>
+		<element kind="line" uuid="73dab261-6e55-4c6b-b9ac-20b8d45cb900" x="2" y="-4" width="551" height="1">
+			<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+		<element kind="staticText" uuid="97ea6720-5c8d-46de-84de-4070b9ffa514" x="10" y="30" width="70" height="20" fontSize="13.0" hTextAlign="Left">
+			<text><![CDATA[Invoice ID :]]></text>
+		</element>
+		<element kind="textField" uuid="28676ff5-dd3f-48fa-889c-a6889e4e9797" x="80" y="30" width="80" height="20" vTextAlign="Middle">
+			<expression><![CDATA[$F{app_id}]]></expression>
+		</element>
+		<element kind="staticText" uuid="5606cc6a-41bc-4372-974f-d0639b58536f" x="350" y="30" width="43" height="20" fontSize="13.0" hTextAlign="Left">
+			<text><![CDATA[Date :]]></text>
+		</element>
+		<element kind="textField" uuid="cec44566-25e6-440a-bff8-e33498d5e977" x="392" y="30" width="109" height="20">
+			<expression><![CDATA[$F{appointmet_date}]]></expression>
+		</element>
+		<element kind="staticText" uuid="e846da29-9624-4343-aa5c-ed60c96887ed" x="10" y="55" width="43" height="20" fontSize="13.0" hTextAlign="Left">
+			<text><![CDATA[Name : ]]></text>
+		</element>
+		<element kind="textField" uuid="00f9d307-0de0-4ab2-8901-4fc2bc75a0e1" x="53" y="55" width="109" height="20" vTextAlign="Middle">
+			<expression><![CDATA[$F{patient_name}]]></expression>
+		</element>
+		<element kind="staticText" uuid="4c124950-94a8-40c8-9682-520f24aecc6a" x="350" y="55" width="100" height="20" fontSize="13.0" hTextAlign="Left">
+			<text><![CDATA[Next Visit Date :]]></text>
+		</element>
+		<element kind="textField" uuid="7741b592-b552-4145-bac7-38e5ef29b642" x="450" y="55" width="109" height="20" forecolor="#4D8256" bold="true">
+			<expression><![CDATA[$F{appointmet_date}]]></expression>
+		</element>
+		<element kind="line" uuid="e77f5754-d517-4184-b34d-69993c08deaa" x="3" y="79" width="551" height="1">
+			<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+	</pageHeader>
+	<columnHeader height="45" splitType="Stretch">
+		<element kind="staticText" uuid="f27df9bb-5a47-4b1c-a779-3c8451ca9bf6" x="57" y="3" width="140" height="20" fontSize="12.0" bold="true" underline="true" hTextAlign="Center">
+			<text><![CDATA[Medicaton]]></text>
+		</element>
+		<element kind="staticText" uuid="fa3f36e3-f403-4ea1-9995-f4bd31119bb2" x="8" y="23" width="72" height="20" hTextAlign="Center">
+			<text><![CDATA[Medicine Name]]></text>
+			<box>
+				<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="19286ec0-7ff4-4d8a-9c2f-947e044847eb" x="80" y="23" width="30" height="20" hTextAlign="Center">
+			<text><![CDATA[Qty]]></text>
+			<box>
+				<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="cd656fc4-4a07-424f-af20-fadda721bb0a" x="110" y="23" width="50" height="20" hTextAlign="Center">
+			<text><![CDATA[Unit Price]]></text>
+			<box>
+				<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="defba7bc-78aa-470e-aa61-5f01b80ee278" x="160" y="23" width="60" height="20" hTextAlign="Center">
+			<text><![CDATA[Total Price]]></text>
+			<box>
+				<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="150f1ea4-63c2-4bda-b0b2-dc987f083f19" x="371" y="3" width="140" height="20" fontSize="12.0" bold="true" underline="true" hTextAlign="Center">
+			<text><![CDATA[Treatment ]]></text>
+		</element>
+		<element kind="staticText" uuid="889c2b27-7ba6-4539-ab3a-4fa256d4b2a3" x="350" y="23" width="100" height="20" hTextAlign="Center">
+			<text><![CDATA[Treatment Name]]></text>
+			<box>
+				<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="c289ccdb-bd72-45a2-8834-e83820212ef4" x="450" y="23" width="84" height="20" hTextAlign="Center">
+			<text><![CDATA[Total Price]]></text>
+			<box>
+				<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<element kind="textField" uuid="4d05f772-a717-4ece-8e38-ca6255d49195" x="8" y="0" width="72" height="20" hTextAlign="Left" vTextAlign="Middle">
+				<expression><![CDATA[$F{medicine_name}]]></expression>
+				<box leftPadding="5">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="484fe3e4-c383-418f-bfe1-eedbbe275c88" x="80" y="0" width="30" height="20" vTextAlign="Middle">
+				<expression><![CDATA[$F{medicine_qty}]]></expression>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="9c9affdc-78f8-4e2e-a18c-0edfe6da163b" x="110" y="0" width="50" height="20" vTextAlign="Middle">
+				<expression><![CDATA["Text Field"]]></expression>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="619153a3-769c-47a6-b675-38e0676f7732" x="160" y="0" width="60" height="20" hTextAlign="Right" vTextAlign="Middle">
+				<expression><![CDATA[$F{medicine_price}]]></expression>
+				<box rightPadding="5">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="988ae6a4-88ce-41e5-80d4-c625e0476e40" x="350" y="1" width="100" height="20" hTextAlign="Left" vTextAlign="Middle">
+				<expression><![CDATA[$F{treatment_name}]]></expression>
+				<box leftPadding="5">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="dc7ec05a-7c3a-4019-8437-e2504e31a5de" x="450" y="1" width="84" height="20" hTextAlign="Right" vTextAlign="Middle">
+				<expression><![CDATA[$F{treatment_price}]]></expression>
+				<box rightPadding="5">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+		</band>
+	</detail>
+	<lastPageFooter height="149">
+		<element kind="staticText" uuid="b2b449ba-2deb-4296-a282-c8f90d0daf2a" x="284" y="3" width="130" height="20" fontSize="14.0" bold="true">
+			<text><![CDATA[Doctor Charges : ]]></text>
+		</element>
+		<element kind="textField" uuid="077570ef-6015-40a1-badd-feffb954de82" x="414" y="3" width="110" height="20">
+			<expression><![CDATA[$F{doctor_charges}]]></expression>
+		</element>
+		<element kind="staticText" uuid="59b24d6a-064a-4bd1-9dfe-d0145cc72cdf" x="284" y="23" width="130" height="20" fontSize="14.0" bold="true">
+			<text><![CDATA[Medicine Total   :]]></text>
+		</element>
+		<element kind="textField" uuid="011fa1c1-fdb0-4912-b54d-aabca40c47b6" x="414" y="23" width="110" height="20">
+			<expression><![CDATA["Text Field"]]></expression>
+		</element>
+		<element kind="staticText" uuid="0977acae-baa3-444d-b68d-107722c1b888" x="284" y="43" width="130" height="20" fontSize="14.0" bold="true">
+			<text><![CDATA[Treatment Total :]]></text>
+		</element>
+		<element kind="line" uuid="4b869fdc-39cd-4b8d-8709-5a110356056a" x="275" y="63" width="260" height="1">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+		<element kind="textField" uuid="eaad86fb-4490-4844-b287-dec36f2785f5" x="414" y="43" width="110" height="20">
+			<expression><![CDATA["Text Field"]]></expression>
+		</element>
+		<element kind="staticText" uuid="6af7bd80-35a5-4a04-9075-9c2853316461" x="335" y="66" width="78" height="26" fontSize="19.0" bold="true">
+			<text><![CDATA[Total  :]]></text>
+		</element>
+		<element kind="textField" uuid="db0b168f-e197-4cb4-af09-852107a008f2" x="414" y="67" width="120" height="24">
+			<expression><![CDATA["Text Field"]]></expression>
+		</element>
+		<element kind="staticText" uuid="0efa5f65-14f4-4c05-9dc1-ef2665f996d1" x="51" y="120" width="460" height="20" fontName="Nirmala UI Semilight" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[හෙළ ඔසු වෙද ගෙදර වෙත පැමිණි ඔබට ස්තුතියි. ඔබට නිදුක් නිරෝගී සුවය ලැබේවා!]]></text>
+		</element>
+		<element kind="staticText" uuid="d0051c94-eeda-491d-bc74-12c53721785a" x="38" y="71" width="160" height="20">
+			<text><![CDATA[Charges Collected]]></text>
+		</element>
+		<element kind="line" uuid="57ee13a9-f653-4d0d-95f8-1d351f1473e4" x="20" y="66" width="150" height="1">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+	</lastPageFooter>
+</jasperReport>
