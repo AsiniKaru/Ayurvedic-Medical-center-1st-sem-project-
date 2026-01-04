@@ -23,7 +23,7 @@
       </ImageView>
       <BorderPane fx:id="patientMainContent" prefHeight="761.0" prefWidth="868.0">
          <top>
-            <VBox prefHeight="287.0" prefWidth="868.0" BorderPane.alignment="CENTER">
+            <VBox prefHeight="260.0" prefWidth="868.0" BorderPane.alignment="CENTER">
                <children>
                   <HBox prefHeight="43.0" prefWidth="868.0">
                      <children>
@@ -87,9 +87,9 @@
                               <Font name="Cambria Bold" size="13.0" />
                            </font>
                         </Button>
-                        <Button mnemonicParsing="false" onAction="#onActionAddPatient" prefHeight="30.0" prefWidth="250.0" style="-fx-background-radius: 10; -fx-background-color: #537961;" text="+ Add New Patient" textFill="WHITE">
+                        <Button mnemonicParsing="false" onAction="#onActionAddPatient" prefHeight="24.0" prefWidth="250.0" style="-fx-background-color: #537961;" text="+ Add New Patient" textFill="WHITE">
                            <HBox.margin>
-                              <Insets top="60.0" />
+                              <Insets top="55.0" />
                            </HBox.margin>
                            <font>
                               <Font name="Cambria Bold" size="12.0" />
@@ -106,7 +106,7 @@
          <center>
             <VBox prefHeight="425.0" prefWidth="868.0" BorderPane.alignment="CENTER">
                <children>
-                  <TableView fx:id="tablePatient" prefHeight="489.0" prefWidth="868.0" stylesheets="@../css/TableView.css">
+                  <TableView fx:id="tablePatient" prefHeight="522.0" prefWidth="868.0" stylesheets="@../css/TableView.css">
                      <columns>
                         <TableColumn fx:id="colId" prefWidth="83.20000910758972" text="Patient ID" />
                         <TableColumn fx:id="colFName" prefWidth="170.0" text="First Name" />

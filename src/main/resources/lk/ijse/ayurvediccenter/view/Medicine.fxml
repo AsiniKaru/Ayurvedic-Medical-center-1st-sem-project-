@@ -23,7 +23,7 @@
       </ImageView>
       <BorderPane fx:id="patientMainContent" prefHeight="761.0" prefWidth="868.0">
          <top>
-            <VBox prefHeight="298.0" prefWidth="868.0" BorderPane.alignment="CENTER">
+            <VBox prefHeight="260.0" prefWidth="868.0" BorderPane.alignment="CENTER">
                <children>
                   <HBox prefHeight="52.0" prefWidth="868.0">
                      <children>
@@ -41,7 +41,7 @@
                         </HBox>
                      </children>
                   </HBox>
-                  <HBox prefHeight="49.0" prefWidth="868.0">
+                  <HBox prefHeight="52.0" prefWidth="868.0">
                      <children>
                         <Text layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Medicine ID :" wrappingWidth="237.50785446166992">
                            <font>
@@ -51,7 +51,10 @@
                               <Insets left="50.0" top="10.0" />
                            </HBox.margin>
                         </Text>
-                        <TextField fx:id="tIdField" onKeyPressed="#handleSearchById" prefHeight="51.0" prefWidth="511.0" promptText="Search By Medicine ID" style="-fx-border-color: #BFCFBB; -fx-border-width: 2; -fx-font-family: Cambria; -fx-font-size: 18;" />
+                        <TextField fx:id="tIdField" onKeyPressed="#handleSearchById" prefHeight="80.0" prefWidth="516.0" promptText="Search By Medicine ID" style="-fx-border-color: #BFCFBB; -fx-border-width: 2; -fx-font-family: Cambria; -fx-font-size: 18;">
+                           <font>
+                              <Font name="Cambria" size="18.0" />
+                           </font></TextField>
                      </children>
                      <VBox.margin>
                         <Insets top="15.0" />
@@ -67,7 +70,10 @@
                               <Insets left="50.0" top="10.0" />
                            </HBox.margin>
                         </Text>
-                        <TextField fx:id="tNameField" onKeyPressed="#handleSearchByName" prefHeight="51.0" prefWidth="511.0" promptText="Search By Medicine Name" style="-fx-border-color: #BFCFBB; -fx-border-width: 2; -fx-font-family: Cambria; -fx-font-size: 18;" />
+                        <TextField fx:id="tNameField" onKeyPressed="#handleSearchByName" prefHeight="51.0" prefWidth="511.0" promptText="Search By Medicine Name" style="-fx-border-color: #BFCFBB; -fx-border-width: 2; -fx-font-family: Cambria; -fx-font-size: 18;">
+                           <font>
+                              <Font name="Cambria" size="18.0" />
+                           </font></TextField>
                      </children>
                      <VBox.margin>
                         <Insets top="10.0" />
@@ -78,9 +84,9 @@
                         <Insets />
                      </VBox.margin>
                      <children>
-                        <HBox prefHeight="102.0" prefWidth="868.0">
+                        <HBox prefHeight="99.0" prefWidth="868.0">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#loadMedicineTable" prefHeight="31.0" prefWidth="146.0" style="-fx-background-radius: 10; -fx-background-color: #344C3D;" stylesheets="@../css/Button.css" text="Reset" textFill="WHITE">
+                              <Button mnemonicParsing="false" onAction="#loadMedicineTable" prefHeight="32.0" prefWidth="146.0" style="-fx-background-radius: 10; -fx-background-color: #344C3D;" stylesheets="@../css/Button.css" text="Reset" textFill="WHITE">
                                  <HBox.margin>
                                     <Insets left="450.0" top="5.0" />
                                  </HBox.margin>
@@ -88,9 +94,9 @@
                                     <Font name="Cambria Bold" size="13.0" />
                                  </font>
                               </Button>
-                              <Button mnemonicParsing="false" onAction="#onActionAddMedicine" prefHeight="32.0" prefWidth="250.0" style="-fx-background-radius: 10; -fx-background-color: #537961;" stylesheets="@../css/Button.css" text="+ Add New Medicine" textFill="WHITE">
+                              <Button mnemonicParsing="false" onAction="#onActionAddMedicine" prefHeight="24.0" prefWidth="250.0" style="-fx-background-color: #537961;" stylesheets="@../css/Button.css" text="+ Add New Medicine" textFill="WHITE">
                                  <HBox.margin>
-                                    <Insets top="60.0" />
+                                    <Insets top="58.0" />
                                  </HBox.margin>
                                  <font>
                                     <Font name="Cambria Bold" size="12.0" />

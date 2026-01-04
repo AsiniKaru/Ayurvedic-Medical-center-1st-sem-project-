@@ -8,6 +8,7 @@ import lk.ijse.ayurvediccenter.model.enums.AppointmentStatus;
 import lk.ijse.ayurvediccenter.util.CrudUtil;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -29,7 +30,7 @@ public class AppointmentModel {
                                 "p.contact_num, a.appointment_date, a.app_statues, a.app_type " +
                                 "FROM Appointment a " +
                                 "JOIN Patient p ON a.patient_id = p.patient_id " +
-                                "WHERE a.appointment_date = ? AND a.app_statues = ?",
+                                "WHERE a.appointment_date = ? AND a.app_statues = ? ",
                         today,
                         AppointmentStatus.ACTIVE.name()
                 );
@@ -80,7 +81,6 @@ public class AppointmentModel {
 
             );
 
-            System.out.println(appPatientTM);
             appointmentlist.add(appPatientTM);
         }
 
@@ -115,7 +115,6 @@ public class AppointmentModel {
 
             );
 
-            System.out.println(appPatientTM);
             appointmentlist.add(appPatientTM);
         }
 
@@ -126,50 +125,72 @@ public class AppointmentModel {
 
 //  this Method will Save a new Appointment to the Appointment Table
     public boolean saveAppointment(AppointmentDTO appointmentDTO) throws Exception {
-        Connection conn = DBConnection.getInstance().getConnection();
+    Connection conn = DBConnection.getInstance().getConnection();
 
-        try{
-            conn.setAutoCommit(false);
-            boolean isAppointmentPlaced  = CrudUtil.execute(
-                    "INSERT INTO Appointment (doc_id , patient_id ,doc_charges , appointment_date ,app_type , app_statues ) VALUES (?,?,?,?,?,?)",
-                    appointmentDTO.getDoc_id(),
-                    appointmentDTO.getPatient_id(),
-                    appointmentDTO.getDoc_charges(),
+    try {
+        conn.setAutoCommit(false);
+
+        ////////////////// check if the Appointment is already exist under a specific patient_id ///////////////////////
+        boolean exists = isAppointmentExists(
+                appointmentDTO.getPatient_id(),
+                appointmentDTO.getAppointment_date()
+        );
+
+        if (exists) {
+            throw new Exception("This patient already has an appointment for this date."); // if appointment already exist
+        }
+
+        ////////////////////////////////////////////// place the Appointment //////////////////////////////////////////
+        boolean isAppointmentPlaced = CrudUtil.execute(
+                "INSERT INTO Appointment (doc_id, patient_id, doc_charges, appointment_date, app_type, app_statues) " +
+                        "VALUES (?,?,?,?,?,?)",
+                appointmentDTO.getDoc_id(),
+                appointmentDTO.getPatient_id(),
+                appointmentDTO.getDoc_charges(),
+                appointmentDTO.getAppointment_date(),
+                appointmentDTO.getAppType(),
+                appointmentDTO.getAppStatus().name()
+        );
+
+        if (!isAppointmentPlaced) {
+            throw new Exception("Failed to place appointment");
+        }
+
+        /////////////////////////////// Get last Appointment ID ///////////////////////////////////////////////////////
+        ResultSet rs = CrudUtil.execute(
+                "SELECT appointment_id FROM Appointment ORDER BY appointment_id DESC LIMIT 1"
+        );
+
+        if (!rs.next()) {
+            throw new Exception("Failed to retrieve appointment ID");
+        }
+
+        int appointmentId = rs.getInt("appointment_id");
+
+        /////////////////////////// check if the appointment type == Medication ///////////////////////////////////////
+        if (!appointmentDTO.getAppType().equals("Medication")
+                && appointmentDTO.getTreatmentList() != null
+                && !appointmentDTO.getTreatmentList().isEmpty()) {
+
+            appTreatmentModel.saveAppTreatment(
+                    appointmentId,
                     appointmentDTO.getAppointment_date(),
-                    appointmentDTO.getAppType(),
-                    appointmentDTO.getAppStatus().name()
-
+                    appointmentDTO.getTreatmentList()
             );
-            if (isAppointmentPlaced) {
-                ResultSet rs = CrudUtil.execute("SELECT appointment_id FROM Appointment ORDER BY appointment_id DESC LIMIT 1 ");
-                if (rs.next()) {
-                    int appointmentId = rs.getInt("appointment_id");
+        }
 
-                    if (!appointmentDTO.getAppType().equals("Medication")
-                            && appointmentDTO.getTreatmentList() != null
-                            && !appointmentDTO.getTreatmentList().isEmpty()) {
-                        appTreatmentModel.saveAppTreatment(appointmentId, appointmentDTO.getAppointment_date(), appointmentDTO.getTreatmentList());
-                    }
-                }else{
-                    throw new Exception("Something went wrong when finding the Appointment id");
-                }
-            }else{
-                throw new Exception("Something went wrong when place the Appointment ");
+        conn.commit();
+        return true;
 
-            }
-            conn.commit();
-            return true;
-
-        }catch(Exception e){
-            conn.rollback();
-            throw e;
-        } finally {
+    } catch (Exception e) {
+        conn.rollback();
+        throw e;
+    } finally {
         conn.setAutoCommit(true);
-         }
-
     }
+}
 
-//  this Method will update the Appointment table
+    //  this Method will update the Appointment table
     public boolean updateAppointment(int appointmentId, AppointmentDTO appointmentDTO ) throws Exception {
             Connection conn = DBConnection.getInstance().getConnection();
 
@@ -294,12 +315,69 @@ public class AppointmentModel {
     }
 
 //  this method will check patient appointment already exist
-    public boolean isAppointmentExists(String pId , String date) throws SQLException {
+    public boolean isAppointmentExists(int pId , String date) throws SQLException {
         ResultSet rs = CrudUtil.execute(
-                "SELECT patient_id FROM Appointment WHERE appointment_date = ?",
-                pId,
-                date
+                "SELECT patient_id FROM Appointment WHERE appointment_date = ? AND patient_id =?",
+                date,
+                pId
+
         );
         return rs.next(); // true if patient exists
+    }
+
+//    this Method will give the Doctor charges of a specific patientId
+    public double getDocCharges(int patientId , int appId)throws SQLException{
+        ResultSet rs = CrudUtil.execute(
+                "SELECT doc_charges FROM Appointment WHERE patient_id = ? AND appointment_id= ?",
+                patientId,
+                appId
+        );
+        if (rs.next()) {
+            return rs.getDouble("doc_charges");
+        }
+        return 0;
+    }
+
+//  this Method will collect the charges and change the status to Complete
+    public boolean chgsCollect(int appId ,double totalDocCharges ,double totalMedicineTotal ,double totalTreatmentTotal ,double totalCharges) throws SQLException{
+        Connection conn = DBConnection.getInstance().getConnection();
+
+        try{
+            conn.setAutoCommit(false);
+
+            /////////////////// Update the Appointment table //////////////////////
+
+            boolean isChgCollected = CrudUtil.execute(
+                    "UPDATE Appointment SET doc_charges=? ,treatment_charges =? ,prescription_charges =? ,total_charges=?, WHERE appointment_id = ?  ",
+                    totalDocCharges,
+                    totalTreatmentTotal,
+                    totalMedicineTotal,
+                    totalCharges,
+                    appId
+            );
+            if(!isChgCollected){
+
+                conn.rollback();
+                throw new Exception("Something went wrong when charges were collected");
+
+            }
+            boolean updateStatus = CrudUtil.execute(
+                    "UPDATE Appointment SET  app_statues =? WHERE appointment_id = ?",
+                    AppointmentStatus.COMPLETED.name(),
+                    appId
+            );
+            if(!updateStatus){
+                conn.rollback();
+                throw new Exception("Something went wrong when updating status");
+            }
+            conn.commit();
+            return true;
+
+        }catch(Exception e){
+            conn.rollback();
+        }finally {
+            conn.setAutoCommit(true);
+        }
+        return false;
     }
 }

@@ -19,6 +19,7 @@ import lk.ijse.ayurvediccenter.model.MedicineModel;
 import lk.ijse.ayurvediccenter.model.PatientModel;
 import lk.ijse.ayurvediccenter.model.PrescriptionModel;
 import lk.ijse.ayurvediccenter.model.TreatmentModel;
+import lk.ijse.ayurvediccenter.model.enums.UserRole;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -72,6 +73,12 @@ public class AppointmentViewController {
         @FXML private VBox medicineBox;
 
         @FXML private VBox treatmentBox;
+
+        @FXML private Button btnAddMedicine;
+
+        @FXML private Button btnAddTreatment;
+
+        @FXML private Button resetButton;
 
 
         TreatmentModel treatmentModel = new TreatmentModel();
@@ -206,6 +213,16 @@ public class AppointmentViewController {
                         }
                 });
 
+                UserRole role = SessionController.getUserRole();
+
+                if (role != UserRole.DOCTOR) {
+                        saveButton.setDisable(true); saveButton.setVisible(false);
+                        resetButton.setDisable(true); resetButton.setVisible(false);
+                        btnAddMedicine.setDisable(true); btnAddMedicine.setVisible(false);
+                        btnAddTreatment.setDisable(true); btnAddTreatment.setVisible(false);
+                        return;
+                }
+
         }
 
 
@@ -246,25 +263,20 @@ public class AppointmentViewController {
         @FXML
         public void handleAddMedicine(ActionEvent event) {
                 try {
-                        System.out.println("Handling add medicine");
                         if ((comboMedType.getValue() == null)||(medQtyField.getText() == null)||(medInstructionField.getText() == null)) {
                                 new Alert(Alert.AlertType.ERROR,"Medicine Field incomplete!",ButtonType.OK).show();
-                                System.out.println("Handling add medicine 1 ");
 
                         } else{
-                                System.out.println("Handling add medicine 2 ");
 
 
                                 String medName = comboMedType.getSelectionModel().getSelectedItem();
 
                                 MedicineDTO medicineDTO = medicineModel.searchTreatmentByName(medName);
-                                        System.out.println(medicineDTO);
 
                                 String medId = String.valueOf(medicineDTO.getMed_id());
                                 String medQty = medQtyField.getText();
                                 String medInstruction = medInstructionField.getText();
 
-                                System.out.println(medName +","+ medId +","+ medQty +","+ medInstruction);
 
                                 PrescriptionMedDTO prescriptionMedDTO = new PrescriptionMedDTO(
                                         Integer.parseInt(medId),
@@ -272,7 +284,6 @@ public class AppointmentViewController {
                                         Integer.parseInt(medQty),
                                         medInstruction
                                 );
-                                System.out.println(prescriptionMedDTO);
                                 prescriptionList.add(prescriptionMedDTO);
                                 tableMedicine.setItems(prescriptionList);
                                 addResetMedField();
@@ -390,7 +401,6 @@ public class AppointmentViewController {
 
                         DiagnosisViewController controller = loader.getController();
                         controller.setPatientId(patientId);
-                        System.out.println(patientId);
 
                         profileContent.getChildren().clear();
                         anchorPane.prefWidthProperty().bind(profileContent.widthProperty());
@@ -473,6 +483,30 @@ public class AppointmentViewController {
 
                 }
 
+        }
+
+        @FXML
+        public void onActionPayment(){
+                try{
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/lk/ijse/ayurvediccenter/view/Payment.fxml"));
+                        AnchorPane anchorPane = loader.load();
+
+                        PaymentController controller = loader.getController();
+
+                        int appId = Integer.parseInt(appIdField.getText());
+                        controller.initData(String.valueOf(patientId),appId);
+
+
+                        profileContent.getChildren().clear();
+                        anchorPane.prefWidthProperty().bind(profileContent.widthProperty());
+                        anchorPane.prefHeightProperty().bind(profileContent.heightProperty());
+                        profileContent.getChildren().add(anchorPane);
+
+                } catch (Exception e) {
+                        new Alert(Alert.AlertType.ERROR, "Page not found", ButtonType.OK).show();
+                        e.printStackTrace();
+
+                }
         }
 
         @FXML

@@ -2,6 +2,7 @@ package lk.ijse.ayurvediccenter.model;
 
 import lk.ijse.ayurvediccenter.dto.tm.AppMedicationTM;
 import lk.ijse.ayurvediccenter.dto.tm.AppPrescriptionTM;
+import lk.ijse.ayurvediccenter.dto.tm.MedBillTM;
 import lk.ijse.ayurvediccenter.util.CrudUtil;
 
 import java.sql.ResultSet;
@@ -36,4 +37,30 @@ public class AppMedicationModel {
         }
         return medicationList;
     }
+
+
+    public List<MedBillTM> getMedPrice(String patientId,int appId) throws SQLException {
+        ResultSet rs = CrudUtil.execute(
+                "SELECT m.med_id AS med_id, m.med_name AS med_name, " +
+                        "m.unit_price AS unit_price, pm.medicine_qty AS medicine_qty " +
+                        "FROM Appointment a " +
+                        "JOIN Prescription pr ON a.appointment_id = pr.appointment_id " +
+                        "JOIN Prescription_Med pm ON pr.prescription_id = pm.prescription_id " +
+                        "JOIN Medicine m ON pm.med_id = m.med_id " +
+                        "WHERE a.patient_id = ?",
+                patientId
+        );
+        List<MedBillTM> medicationList = new ArrayList<>();
+        while (rs.next()) {
+            MedBillTM medBillTM = new MedBillTM(
+                    rs.getInt("med_id"),
+                    rs.getString("med_name"),
+                    rs.getDouble("unit_price"),
+                    rs.getInt("medicine_qty")
+            );
+            medicationList.add(medBillTM);
+        }
+        return medicationList;
+    }
+
 }

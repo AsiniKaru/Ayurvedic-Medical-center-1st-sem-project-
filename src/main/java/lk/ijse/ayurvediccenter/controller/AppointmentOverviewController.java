@@ -18,6 +18,7 @@ import lk.ijse.ayurvediccenter.model.MedicineModel;
 import lk.ijse.ayurvediccenter.model.PatientModel;
 import lk.ijse.ayurvediccenter.model.PrescriptionModel;
 import lk.ijse.ayurvediccenter.model.TreatmentModel;
+import lk.ijse.ayurvediccenter.model.enums.UserRole;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -71,6 +72,12 @@ public class AppointmentOverviewController {
     @FXML private VBox medicineBox;
 
     @FXML private VBox treatmentBox;
+
+    @FXML private Button btnAddMedicine;
+
+    @FXML private Button btnAddTreatment;
+
+    @FXML private Button resetButton;
 
 
     TreatmentModel treatmentModel = new TreatmentModel();
@@ -202,6 +209,16 @@ public class AppointmentOverviewController {
                 }
             }
         });
+
+        UserRole role = SessionController.getUserRole();
+
+        if (role != UserRole.DOCTOR) {
+            saveButton.setDisable(true); saveButton.setVisible(false);
+            resetButton.setDisable(true); resetButton.setVisible(false);
+            btnAddMedicine.setDisable(true); btnAddMedicine.setVisible(false);
+            btnAddTreatment.setDisable(true); btnAddTreatment.setVisible(false);
+            return;
+        }
 
     }
 

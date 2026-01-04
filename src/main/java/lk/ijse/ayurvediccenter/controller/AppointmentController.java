@@ -20,6 +20,7 @@ import lk.ijse.ayurvediccenter.model.enums.UserRole;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -72,7 +73,7 @@ public class AppointmentController  implements Initializable {
             private final HBox hBox = new HBox(10, btnEdit, btnDelete);
 
             {
-                // 🔹 Edit button action
+                //  Edit button action
                 btnEdit.setOnAction(event -> {
                     AppPatientTM appPatientTM = getTableView()
                             .getItems()
@@ -81,7 +82,7 @@ public class AppointmentController  implements Initializable {
                     handleEditAppointment(appPatientTM);
                 });
 
-                // 🔹 Delete button action
+                //  Delete button action
                 btnDelete.setOnAction(event -> {
                     AppPatientTM appPatientTM = getTableView()
                             .getItems()
@@ -121,6 +122,17 @@ public class AppointmentController  implements Initializable {
         });
 
 
+        UserRole role = SessionController.getUserRole();
+
+        if (role != UserRole.RECEPTIONIST) {
+            colAction.setVisible(false);
+            colAction.setPrefWidth(0);
+            colAction.setMinWidth(0);
+            colAction.setMaxWidth(0);
+
+
+            return;
+        }
     }
 
     private void openAppointmentView(AppPatientTM selectedPatient) throws IOException {
@@ -174,7 +186,16 @@ public class AppointmentController  implements Initializable {
     @FXML
     public void loadTodayAppointmentTable(){
         try{
-            List<AppPatientTM> appointmentList = appointmentModel.getTodayAppointments();
+            UserRole role = SessionController.getUserRole();
+
+            List<AppPatientTM> appointmentList ;
+            if (role != UserRole.RECEPTIONIST) {
+                appointmentList = appointmentModel.getTodayAppointments();
+            } else {
+                String date = LocalDate.now().toString();
+                appointmentList = appointmentModel.getAppointmentsByDate(date);
+            }
+
 
             ObservableList<AppPatientTM> obList = FXCollections.observableArrayList();
 

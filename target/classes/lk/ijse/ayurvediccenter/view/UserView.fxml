@@ -128,7 +128,7 @@
                     <children>
                         <ImageView fitHeight="752.0" fitWidth="864.0" pickOnBounds="true" smooth="true">
                             <image>
-                                <Image url="@../image/Screenshot%202025-12-10%20191201.png" />
+                                <Image url="@../image/backgroud_image.png" />
                             </image>
                         </ImageView>
                     </children>
@@ -249,7 +249,7 @@
                                                 <Insets left="10.0" top="15.0" />
                                             </padding>
                                         </HBox>
-                                        <BarChart prefHeight="409.0" prefWidth="382.0">
+                                        <BarChart fx:id="barChart" prefHeight="409.0" prefWidth="382.0">
                                             <xAxis>
                                                 <CategoryAxis side="BOTTOM" />
                                             </xAxis>
@@ -283,7 +283,7 @@
                                                 <Insets left="10.0" top="15.0" />
                                             </padding>
                                         </HBox>
-                                        <TableView fx:id="tableAppList" prefHeight="403.0" prefWidth="362.0" stylesheets="@../css/TableView.css">
+                                        <TableView fx:id="tableAppList" prefHeight="403.0" prefWidth="362.0" style="-fx-border-color: #537961; -fx-background-color: #E1EAE4;" stylesheets="@../css/TableView.css">
                                             <columns>
                                                 <TableColumn fx:id="colAppId" prefWidth="122.4000186920166" text="Appointment ID" />
                                                 <TableColumn fx:id="colPName" prefWidth="240.0" text="Patient Name" />

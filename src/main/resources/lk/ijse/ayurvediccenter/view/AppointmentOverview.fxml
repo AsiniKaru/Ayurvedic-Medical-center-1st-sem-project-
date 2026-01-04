@@ -17,7 +17,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="profileContent" prefHeight="200.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.ayurvediccenter.controller.AppointmentOverviewController">
+<AnchorPane fx:id="profileContent" prefHeight="200.0" prefWidth="832.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.ayurvediccenter.controller.AppointmentOverviewController">
    <children>
       <StackPane prefHeight="549.0" prefWidth="800.0">
          <children>
@@ -116,7 +116,7 @@
                                           <Insets bottom="5.0" left="15.0" />
                                        </HBox.margin>
                                     </TextArea>
-                                    <Button fx:id="btnAddMedicine" mnemonicParsing="false" onAction="#handleAddMedicine" prefHeight="35.0" prefWidth="106.0" style="-fx-background-color: #537961; -fx-background-radius: 20;" stylesheets="@../css/Button.css" text="Add" textAlignment="CENTER" textFill="WHITE">
+                                    <Button fx:id="btnAddMedicine" mnemonicParsing="false" onAction="#handleAddMedicine" prefHeight="35.0" prefWidth="106.0" style="-fx-background-color: #537961; -fx-background-radius: 20;" text="Add" textAlignment="CENTER" textFill="WHITE">
                                        <font>
                                           <Font name="Cambria Bold" size="18.0" />
                                        </font>
@@ -157,7 +157,7 @@
                                           <Insets left="15.0" />
                                        </HBox.margin>
                                     </ComboBox>
-                                    <Button fx:id="btnAddTreatment" mnemonicParsing="false" onAction="#handleAddTreatment" prefHeight="35.0" prefWidth="106.0" style="-fx-background-color: #537961; -fx-background-radius: 20;" stylesheets="@../css/Button.css" text="Add" textAlignment="CENTER" textFill="WHITE">
+                                    <Button fx:id="btnAddTreatment" mnemonicParsing="false" onAction="#handleAddTreatment" prefHeight="35.0" prefWidth="106.0" style="-fx-background-color: #537961; -fx-background-radius: 20;" text="Add" textAlignment="CENTER" textFill="WHITE">
                                        <font>
                                           <Font name="Cambria Bold" size="18.0" />
                                        </font>
@@ -194,7 +194,7 @@
                                     <Insets top="15.0" />
                                  </HBox.margin>
                               </DatePicker>
-                              <Button fx:id="saveButton" mnemonicParsing="false" onAction="#handleSavePrescription" prefHeight="46.0" prefWidth="143.0" style="-fx-background-color: #3E5B49; -fx-background-radius: 20;" stylesheets="@../css/Button.css" text="Save" textFill="WHITE">
+                              <Button fx:id="saveButton" mnemonicParsing="false" onAction="#handleSavePrescription" prefHeight="46.0" prefWidth="143.0" style="-fx-background-color: #3E5B49; -fx-background-radius: 20;" text="Save" textFill="WHITE">
                                  <font>
                                     <Font name="Cambria Bold" size="24.0" />
                                  </font>
@@ -202,7 +202,7 @@
                                     <Insets left="100.0" top="10.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button mnemonicParsing="false" onAction="#onActionReset" prefHeight="26.0" prefWidth="151.0" style="-fx-background-color: #3E5B49; -fx-background-radius: 20;" stylesheets="@../css/Button.css" text="Reset" textFill="WHITE">
+                              <Button fx:id="resetButton" mnemonicParsing="false" onAction="#onActionReset" prefHeight="26.0" prefWidth="151.0" style="-fx-background-color: #3E5B49; -fx-background-radius: 20;" text="Reset" textFill="WHITE">
                                  <font>
                                     <Font name="Cambria Bold" size="24.0" />
                                  </font>

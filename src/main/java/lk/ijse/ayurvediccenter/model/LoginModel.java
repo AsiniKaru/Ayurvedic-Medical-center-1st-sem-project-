@@ -10,30 +10,33 @@ import lk.ijse.ayurvediccenter.util.CrudUtil;
 public class LoginModel {
     
     public LoginDTO verifyUser( String username, String password) throws SQLException{
-        
-        ResultSet rs  = 
-               CrudUtil.execute(
-               "SELECT user_id , username , password ,role  FROM `User` WHERE username = ?" ,
-               username
-               );
-          
-       
-        if(rs.next()){
-            int userId = rs.getInt("user_id");
-            username = rs.getString("username");
-            String realPassword = rs.getString("password");
-            String userRole = rs.getString("role");
 
-            
-            if(!password.equals(realPassword)){
-                        return null;
-            }
+        ResultSet rs = CrudUtil.execute(
+                "SELECT u.user_id, u.username, u.password, u.emp_id, u.doc_id, e.role " +
+                        "FROM User u " +
+                        "LEFT JOIN Employee e ON u.emp_id = e.emp_id " +
+                        "WHERE u.username = ?",
+                username
+        );
 
-            return  new  LoginDTO(userId ,username, realPassword, UserRole.valueOf(userRole.toUpperCase()));
-            
-        }else{
-            return null;
+        if (!rs.next()) return null;
+
+        if (!password.equals(rs.getString("password"))) return null;
+
+        UserRole role;
+        if (rs.getInt("doc_id") != 0) {
+            role = UserRole.DOCTOR;
         }
+        else {
+            role = UserRole.valueOf(rs.getString("role").toUpperCase());
+        }
+
+        return new LoginDTO(
+                rs.getInt("user_id"),
+                rs.getString("username"),
+                rs.getString("password"),
+                role
+        );
     }
 
 

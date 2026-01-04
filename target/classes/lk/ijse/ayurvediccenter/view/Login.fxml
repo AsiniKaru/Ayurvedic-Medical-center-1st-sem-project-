@@ -71,18 +71,18 @@
                                                 <Font name="Times New Roman" size="24.0" />
                                              </font>
                                           </Text>
-                                          <TextField fx:id="usernameField" cache="true" layoutX="151.0" layoutY="62.0" prefHeight="40.0" prefWidth="288.0" style="-fx-border-color: BFD784; -fx-background-color: F5F9EC; -fx-font-style: Black;">
+                                          <TextField fx:id="usernameField" cache="true" layoutX="151.0" layoutY="62.0" prefHeight="40.0" prefWidth="288.0" style="-fx-border-color: #BFD784; -fx-background-color: #F5F9EC;">
                                              <font>
                                                 <Font name="Calibri" size="14.0" />
                                              </font>
                                           </TextField>
-                                          <PasswordField fx:id="passwordField" layoutX="151.0" layoutY="138.0" prefHeight="40.0" prefWidth="288.0" style="-fx-border-color: BFD784; -fx-background-color: F5F9EC;" />
-                                          <Button layoutX="304.0" layoutY="240.0" mnemonicParsing="false" onAction="#reset" prefHeight="40.0" prefWidth="90.0" style="-fx-background-color: #C7D2AB; -fx-border-color: Black;" text="RESET">
+                                          <PasswordField fx:id="passwordField" layoutX="151.0" layoutY="138.0" prefHeight="40.0" prefWidth="288.0" style="-fx-border-color: #BFD784; -fx-background-color: #F5F9EC;" />
+                                          <Button layoutX="304.0" layoutY="240.0" mnemonicParsing="false" onAction="#reset" prefHeight="40.0" prefWidth="90.0" style="-fx-background-color: #C7D2AB; -fx-border-color: #000000;" text="RESET">
                                              <font>
                                                 <Font name="Bodoni MT" size="16.0" />
                                              </font>
                                           </Button>
-                                          <Button layoutX="154.0" layoutY="240.0" mnemonicParsing="false" onAction="#login" prefHeight="40.0" prefWidth="90.0" style="-fx-background-color: #C7D2AB; -fx-border-color: black;" text="LOGIN">
+                                          <Button layoutX="154.0" layoutY="240.0" mnemonicParsing="false" onAction="#login" prefHeight="40.0" prefWidth="90.0" style="-fx-background-color: #C7D2AB; -fx-border-color: #000000;" text="LOGIN">
                                              <font>
                                                 <Font name="Bodoni MT Bold" size="16.0" />
                                              </font>

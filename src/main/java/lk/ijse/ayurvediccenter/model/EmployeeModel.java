@@ -58,7 +58,7 @@ public class EmployeeModel {
                 }
     }
 
-//    this Method will give logged user whether a Doctor or a employee
+//    this Method will give logged user whether a Doctor or an employee
     public boolean getEmpState() throws SQLException {
         ResultSet rs =
                 CrudUtil.execute(
@@ -214,6 +214,6 @@ public class EmployeeModel {
                 contactNum,
                 email
         );
-        return rs.next(); // true if patient exists
+        return rs.next();
     }
 }

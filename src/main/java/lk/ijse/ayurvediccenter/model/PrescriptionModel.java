@@ -3,13 +3,9 @@ package lk.ijse.ayurvediccenter.model;
 import lk.ijse.ayurvediccenter.db.DBConnection;
 import lk.ijse.ayurvediccenter.dto.PrescriptionDTO;
 import lk.ijse.ayurvediccenter.dto.PrescriptionMedDTO;
-import lk.ijse.ayurvediccenter.dto.tm.AppPatientTM;
-import lk.ijse.ayurvediccenter.model.enums.AppointmentStatus;
 import lk.ijse.ayurvediccenter.util.CrudUtil;
-
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -89,10 +85,9 @@ public class PrescriptionModel {
 
     }
 
-//    public List<PrescriptionDTO> getPrescription(int patientId) throws Exception {
-//
-//    }
 
+
+//    this Method will update the medicine inventory after medicine issued through the system
     public boolean updatePrescriptionMed(int id , List<PrescriptionMedDTO>  medList) throws Exception {
         for (PrescriptionMedDTO prescriptionMedDTO : medList) {
             if( CrudUtil.execute(
@@ -105,12 +100,12 @@ public class PrescriptionModel {
             )){
                 if(!medicineModel.decreaseMedQty(prescriptionMedDTO.getMedId() , prescriptionMedDTO.getMedQty())){
 
-                    throw new Exception("SomethingWent Wrong decreasing the med qty");
+                    throw new Exception("Something Went Wrong decreasing the med qty");
                 }
 
             }else{
 
-                throw new Exception("SomethingWent Whent wrong inserting data into order table");
+                throw new Exception("SomethingWent Went wrong inserting data into order table");
 
             }
         }
@@ -118,4 +113,10 @@ public class PrescriptionModel {
 
     }
 
+
+
+// this Method will give the bill to be charge
+    public void getBill (){
+
+    }
 }

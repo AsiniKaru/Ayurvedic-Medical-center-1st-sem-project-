@@ -25,7 +25,7 @@
             <HBox prefHeight="50.0" prefWidth="800.0" BorderPane.alignment="CENTER" />
          </top>
          <center>
-            <TableView fx:id="tableDiagnosisHistory" prefHeight="500.0" prefWidth="493.0" stylesheets="@../css/TableView.css" BorderPane.alignment="CENTER">
+            <TableView fx:id="tableDiagnosisHistory" prefHeight="500.0" prefWidth="493.0" style="-fx-background-color: #E1EAE4; -fx-border-color: #537961;" stylesheets="@../css/TableView.css" BorderPane.alignment="CENTER">
               <columns>
                 <TableColumn fx:id="colAppDate" prefWidth="148.0" text="Appointment Date" />
                 <TableColumn fx:id="colAppId" minWidth="0.0" prefWidth="208.7999267578125" text="Appointment ID" />

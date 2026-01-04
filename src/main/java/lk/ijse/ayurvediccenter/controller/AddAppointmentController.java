@@ -85,7 +85,6 @@ public class AddAppointmentController implements Initializable {
 
     public void setAppointmentController(AppointmentController appointmentController) {
         this.appointmentController = appointmentController;
-        resetButton.setVisible(false);
 
     }
 
@@ -161,16 +160,21 @@ public class AddAppointmentController implements Initializable {
 
     @FXML
     public void handleSelectPatientId(ActionEvent event) {
-        try{
+        try {
             String selectedPatientId = comboPatientId.getSelectionModel().getSelectedItem();
+            if (selectedPatientId == null) return; // nothing selected
+
             PatientDTO patientDTO = patientModel.searchPatient(selectedPatientId);
+            if (patientDTO == null) {
+                new Alert(Alert.AlertType.WARNING, "Patient not found!").show();
+                return;
+            }
 
             pNameField.setText(patientDTO.getFirstName()+" "+patientDTO.getLastName());
             contactField.setText(patientDTO.getContact());
-        }catch (Exception e){
+        } catch (Exception e){
             e.printStackTrace();
         }
-
     }
 
     @FXML
@@ -207,7 +211,7 @@ public class AddAppointmentController implements Initializable {
                 );
 
             if(!update){
-                if(appointmentModel.isAppointmentExists(patientId ,appDate)) {
+                if(appointmentModel.isAppointmentExists(Integer.parseInt(patientId) ,appDate)) {
                     new Alert(Alert.AlertType.WARNING, "Appointment already exists!").show();
                 } else {
                     ////////////////// ADD Appointment ///////////////////////////////
@@ -318,6 +322,8 @@ public class AddAppointmentController implements Initializable {
             e.printStackTrace();
         }
 
+
+
     }
 
     public void loadTreatmentName(){
@@ -359,6 +365,10 @@ public class AddAppointmentController implements Initializable {
 
     public void getDate(ActionEvent event) {
         LocalDate appDate = dateField.getValue();
+        if (appDate == null) {
+            new Alert(Alert.AlertType.WARNING, "Please select a date!").show();
+            return;
+        }
         String dateFormat = appDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         System.out.println(dateFormat);
     }

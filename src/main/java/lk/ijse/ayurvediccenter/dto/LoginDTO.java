@@ -26,6 +26,11 @@ public class LoginDTO {
         this.password = password;
     }
 
+    public LoginDTO(int userId, UserRole role) {
+        this.userId = userId;
+        this.role = role;
+    }
+
     public LoginDTO(int userId, String username, String password) {
         this.userId = userId;
         this.username = username;

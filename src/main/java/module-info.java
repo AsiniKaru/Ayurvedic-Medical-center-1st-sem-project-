@@ -4,6 +4,8 @@ module lk.ijse.ayurvediccenter {
     requires java.base;
     requires java.sql;
     requires java.desktop;
+    requires net.sf.jasperreports.core;
+
 
     opens lk.ijse.ayurvediccenter to javafx.fxml;
     opens lk.ijse.ayurvediccenter.controller to javafx.fxml;

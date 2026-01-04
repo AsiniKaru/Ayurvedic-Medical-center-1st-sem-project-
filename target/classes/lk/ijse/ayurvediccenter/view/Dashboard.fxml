@@ -178,7 +178,7 @@
                                         <Insets left="10.0" top="15.0" />
                                     </padding>
                                 </HBox>
-                                <TableView fx:id="tableAppList" prefHeight="403.0" prefWidth="362.0" stylesheets="@../css/TableView.css">
+                                <TableView fx:id="tableAppList" prefHeight="403.0" prefWidth="362.0" style="-fx-background-color: #E1EAE4; -fx-border-color: #537961;" stylesheets="@../css/TableView.css">
                                     <columns>
                                         <TableColumn fx:id="colAppId" prefWidth="109.59991443157196" text="Patient ID" />
                                         <TableColumn fx:id="colPName" prefWidth="252.0001220703125" text="Patient Name" />

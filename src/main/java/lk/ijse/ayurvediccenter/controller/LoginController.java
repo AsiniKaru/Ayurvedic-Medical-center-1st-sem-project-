@@ -50,6 +50,7 @@ public class LoginController {
         }catch(Exception e){
                 
             e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR , "Something went wrong!").show();
         }
     }
     

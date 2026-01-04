@@ -172,7 +172,7 @@
                   </HBox>
                   <HBox prefHeight="30.0" prefWidth="868.0">
                      <children>
-                        <Button fx:id="saveButton" mnemonicParsing="false" onAction="#handleSavePatient" prefHeight="46.0" prefWidth="130.0" style="-fx-background-color: #344C3D; -fx-background-radius: 10;" stylesheets="@../css/Button.css" text="Save" textFill="WHITE">
+                        <Button fx:id="saveButton" mnemonicParsing="false" onAction="#handleSavePatient" prefHeight="46.0" prefWidth="130.0" style="-fx-background-color: #344C3D; -fx-background-radius: 10;" text="Save" textFill="WHITE">
                            <HBox.margin>
                               <Insets left="380.0" />
                            </HBox.margin>
@@ -180,7 +180,7 @@
                               <Font name="Cambria Bold" size="24.0" />
                            </font>
                         </Button>
-                        <Button mnemonicParsing="false" onAction="#cleanField" prefHeight="46.0" prefWidth="130.0" style="-fx-background-color: #344C3D; -fx-background-radius: 10;" stylesheets="@../css/Button.css" text="Reset" textFill="WHITE">
+                        <Button mnemonicParsing="false" onAction="#cleanField" prefHeight="46.0" prefWidth="130.0" style="-fx-background-color: #344C3D; -fx-background-radius: 10;" text="Reset" textFill="WHITE">
                            <font>
                               <Font name="Cambria Bold" size="24.0" />
                            </font>

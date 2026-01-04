@@ -186,8 +186,11 @@ public class SettingController implements Initializable {
     }
 
     @FXML
-    public void onActionPrivacyPolicy(){ navigateTo("/lk/ijse/ayurvediccenter/view/PrivacyPolicy.fxml"); }
+    public void onActionPrivatePolicy(){
+        navigateTo("/lk/ijse/ayurvediccenter/view/Policy.fxml");
+    }
 
+    
     @FXML
     public void onActionDashboard(){
 

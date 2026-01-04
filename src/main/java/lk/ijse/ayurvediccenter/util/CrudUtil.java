@@ -8,7 +8,8 @@ import java.sql.SQLException;
 import lk.ijse.ayurvediccenter.db.DBConnection;
 
 public class CrudUtil {
-    public static <T> T execute(String sql , Object... obj) throws SQLException{
+    public static <T> T
+    execute(String sql , Object... obj) throws SQLException{
         Connection conn = DBConnection.getInstance().getConnection();
         
         PreparedStatement ptsm = conn.prepareStatement(sql);
