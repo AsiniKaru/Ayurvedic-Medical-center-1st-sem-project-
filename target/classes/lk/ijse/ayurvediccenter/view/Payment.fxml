@@ -144,7 +144,7 @@
                               <Font name="Cambria Bold" size="24.0" />
                            </font>
                         </Button>
-                        <Button mnemonicParsing="false" prefHeight="46.0" prefWidth="130.0" style="-fx-background-color: #344C3D; -fx-background-radius: 10;" text="Print" textFill="WHITE">
+                        <Button mnemonicParsing="false" onAction="#printBill" prefHeight="46.0" prefWidth="130.0" style="-fx-background-color: #344C3D; -fx-background-radius: 10;" text="Print" textFill="WHITE">
                            <font>
                               <Font name="Cambria Bold" size="24.0" />
                            </font>
