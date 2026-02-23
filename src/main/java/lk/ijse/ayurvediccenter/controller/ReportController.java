@@ -6,7 +6,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
-import lk.ijse.ayurvediccenter.model.ReportModel;
+import lk.ijse.ayurvediccenter.util.report.Report;
 
 public class ReportController {
     @FXML
@@ -15,7 +15,7 @@ public class ReportController {
     @FXML
     private DatePicker dateField;
 
-    ReportModel reportModel = new ReportModel();
+    Report reportModel = new Report();
 
     @FXML
     private void generateTSR(ActionEvent event) {

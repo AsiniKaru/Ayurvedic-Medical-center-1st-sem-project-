@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
+import lk.ijse.ayurvediccenter.dao.custom.impl.TreatmentDAOImpl;
 import lk.ijse.ayurvediccenter.dto.TreatmentDTO;
 import lk.ijse.ayurvediccenter.model.TreatmentModel;
 
@@ -44,6 +45,7 @@ public class AddTreatmentController {
     private final String TREATMENT_PRICE_REGEX = "^\\d+(\\.\\d{1,2})?$";
 
     TreatmentModel treatmentModel = new TreatmentModel();
+    TreatmentDAOImpl treatmentDAOImpl = new TreatmentDAOImpl();
 
     public void setTreatmentController(TreatmentController treatmentController){
         this.treatmentController = treatmentController;
@@ -72,11 +74,11 @@ public class AddTreatmentController {
 
                 ////////////////////// Save Treatment ////////////////////////////
                 if(!update) {
-                    if(treatmentModel.isTreatmentExists(name)) {
+                    if(treatmentDAOImpl.isTreatmentExists(name)) {
                         new Alert(Alert.AlertType.WARNING, "Treatment already exists!").show();
                     } else {
                         TreatmentDTO treatmentDTO = new TreatmentDTO(name, type, description, Double.parseDouble(price));
-                        boolean result = treatmentModel.saveTreatment(treatmentDTO);
+                        boolean result = treatmentDAOImpl.saveTreatment(treatmentDTO);
 
                         if (result) {
                             treatmentController.loadTreatmentTable();
@@ -112,7 +114,7 @@ public class AddTreatmentController {
                 }else{
 
                     TreatmentDTO treatmentDTO = new TreatmentDTO(id , name, type, description, Double.parseDouble(price));
-                    boolean result = treatmentModel.updateTreatment(treatmentDTO);
+                    boolean result = treatmentDAOImpl.updateTreatment(treatmentDTO);
 
                     if (result) {
                         treatmentController.loadTreatmentTable();

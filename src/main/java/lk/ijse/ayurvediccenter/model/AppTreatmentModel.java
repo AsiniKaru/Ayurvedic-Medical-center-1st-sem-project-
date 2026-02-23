@@ -11,7 +11,7 @@ import java.util.List;
 
 public class AppTreatmentModel {
 
-    public boolean saveAppTreatment(int appointmentId, String appointmentDate, List<AppTreatmentDTO> treatmentList) throws Exception{
+  /*  public boolean saveAppTreatment(int appointmentId, String appointmentDate, List<AppTreatmentDTO> treatmentList) throws Exception{
 
         for (AppTreatmentDTO appTreatmentDTO : treatmentList) {
 
@@ -29,10 +29,10 @@ public class AppTreatmentModel {
         }
 
         return true;
-    }
+    } */
 
 //   this Method will give appTreatment details of a specific appointment_id
-    public List<AppTreatmentDTO> getSelectedTreatmentList(String appId) throws Exception{
+ /*   public List<AppTreatmentDTO> getSelectedTreatmentList(String appId) throws Exception{
         List<AppTreatmentDTO> treatmentList = new ArrayList<>();
 
         ResultSet rs = CrudUtil.execute(
@@ -51,23 +51,23 @@ public class AppTreatmentModel {
             treatmentList.add(appTreatmentDTO);
         }
         return treatmentList;
-    }
+    }*/
 
-    public boolean deleteTreatmentbyAppId(int appId) throws Exception{
+ /*   public boolean deleteTreatmentbyAppId(int appId) throws Exception{
         return CrudUtil.execute(
                 "DELETE FROM App_Treatment WHERE appointment_id = ?",
                 appId
         );
-    }
+    }*/
 
-    public boolean deleteTreatment(int appTreatmentId) throws Exception {
+  /*  public boolean deleteTreatment(int appTreatmentId) throws Exception {
         return CrudUtil.execute(
                 "DELETE FROM App_Treatment WHERE app_treatment_id = ?",
                 appTreatmentId
         );
-    }
+    }*/
 
-    public boolean updateTreatment(AppTreatmentDTO treatment) throws Exception {
+   /* public boolean updateTreatment(AppTreatmentDTO treatment) throws Exception {
         return CrudUtil.execute(
                 "UPDATE App_Treatment SET treatment_id=?, date=?, Treatment_name=? WHERE app_treatment_id=?",
                 treatment.getTreatmentId(),
@@ -75,7 +75,7 @@ public class AppTreatmentModel {
                 treatment.getTreatmentName(),
                 treatment.getAppTreatmentId()
         );
-    }
+    } */
 
 }
 

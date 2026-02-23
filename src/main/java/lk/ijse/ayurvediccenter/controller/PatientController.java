@@ -15,6 +15,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import lk.ijse.ayurvediccenter.dao.custom.impl.PatientDAOImpl;
 import lk.ijse.ayurvediccenter.dto.PatientDTO;
 import lk.ijse.ayurvediccenter.dto.TreatmentDTO;
 import lk.ijse.ayurvediccenter.model.PatientModel;
@@ -67,6 +68,7 @@ public class PatientController implements Initializable {
 
 
     PatientModel patientModel = new PatientModel();
+    PatientDAOImpl patientDAOImpl = new PatientDAOImpl();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -125,7 +127,7 @@ public class PatientController implements Initializable {
     @FXML
     public void loadPatientTable() {
         try {
-            List<PatientDTO> patientList = patientModel.getPatients();
+            List<PatientDTO> patientList = patientDAOImpl.getPatients();
 
             ObservableList<PatientDTO> obList = FXCollections.observableArrayList();
 
@@ -196,7 +198,7 @@ public class PatientController implements Initializable {
 
                 } else {
 
-                    PatientDTO patientDTO = patientModel.searchPatient(id);
+                    PatientDTO patientDTO = patientDAOImpl.searchPatient(id);
 
                     if (patientDTO != null) {
 
@@ -233,7 +235,7 @@ public class PatientController implements Initializable {
 
                 } else {
 
-                    PatientDTO patientDTO = patientModel.searchPatientByName(name);
+                    PatientDTO patientDTO = patientDAOImpl.searchPatientByName(name);
 
                     if (patientDTO != null) {
 

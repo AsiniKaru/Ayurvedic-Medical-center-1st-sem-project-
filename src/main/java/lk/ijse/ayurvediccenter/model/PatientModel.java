@@ -15,7 +15,7 @@ import java.util.List;
 public class PatientModel {
 
 //  this Method will Save a new Patient to the Patient Table
-    public boolean savePatient (PatientDTO patientDTO) throws SQLException {
+  /*  public boolean savePatient (PatientDTO patientDTO) throws SQLException {
 
 
           String patientSince = LocalDate.now().toString();
@@ -34,10 +34,10 @@ public class PatientModel {
                           patientSince
                   );
           return result;
-      }
+      }*/
 
 //  this Method will Update the Patient Table
-    public boolean updatePatient(PatientDTO patientDTO) throws SQLException {
+   /* public boolean updatePatient(PatientDTO patientDTO) throws SQLException {
      boolean result =
         CrudUtil.execute(
                 "UPDATE Patient SET patient_fName=? ,patient_lName=? ,address=? ,patient_nic=? ,contact_num=?  , gender=?, date_of_birth=? WHERE patient_id=? ",
@@ -51,20 +51,20 @@ public class PatientModel {
                 patientDTO.getPatientId()
         );
      return result;
-  }
+  }*/
 
 //  this Method will Delete the details from the table of a specific patient_id
-    public boolean deletePatient(String id) throws SQLException {
+   /* public boolean deletePatient(String id) throws SQLException {
         boolean result =
                 CrudUtil.execute(
                         "DELETE FROM Patient  WHERE patient_id=? ",
                         id
                 );
         return result;
-    }
+    }*/
 
 //   this method will Search Patient details of a specific patient_id
-    public PatientDTO searchPatient(String id) throws SQLException {
+  /*  public PatientDTO searchPatient(String id) throws SQLException {
 
       ResultSet rs =
               CrudUtil.execute(
@@ -87,10 +87,10 @@ public class PatientModel {
                 }else {
                     return null;
                 }
-  }
+  }*/
 
 //  this Method will Search a specific Patient details by patient_name
-    public PatientDTO searchPatientByName(String name) throws SQLException {
+  /*  public PatientDTO searchPatientByName(String name) throws SQLException {
         ResultSet rs =
                 CrudUtil.execute(
                         "SELECT * FROM Patient WHERE patient_fName=? OR patient_lName=? ",
@@ -113,10 +113,10 @@ public class PatientModel {
         }else {
             return null;
         }
-    }
+    }*/
 
 //  this Method will get the details of all the Patient of the table
-    public List<PatientDTO> getPatients() throws SQLException {
+  /*  public List<PatientDTO> getPatients() throws SQLException {
 
     ResultSet rs =
             CrudUtil.execute(
@@ -144,7 +144,7 @@ public class PatientModel {
 
     return patientList;
 
-}
+}*/
 
 //   this Method will give appointment details of a specific patient_id
     public List<AppPatientTM> getAppointmentById(String id) throws SQLException {
@@ -220,12 +220,12 @@ public class PatientModel {
     }
 
 // this Method will check if the patient already existing in the system
-    public boolean isPatientExists (String  nic) throws SQLException {
+  /*  public boolean isPatientExists (String  nic) throws SQLException {
         ResultSet rs = CrudUtil.execute(
                 "SELECT patient_id FROM Patient WHERE patient_nic = ?",
                 nic
         );
         return rs.next();
     }
-
+*/
 }

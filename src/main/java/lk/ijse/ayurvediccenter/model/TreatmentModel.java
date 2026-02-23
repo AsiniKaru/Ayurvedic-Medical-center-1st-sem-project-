@@ -12,151 +12,152 @@ import java.util.List;
 public class TreatmentModel {
 
 //  this Method will Save new Treatments to the Treatments table
-    public boolean saveTreatment (TreatmentDTO treatmentDTO) throws SQLException {
-
-        boolean result =
-                CrudUtil.execute(
-                        "INSERT INTO Treatment ( treatment_name, treatment_type ,description , treatment_charges) VALUES (?,?,?,?)",
-                        treatmentDTO.getName(),
-                        treatmentDTO.getType(),
-                        treatmentDTO.getDescription(),
-                        treatmentDTO.getPrice()
-                );
-        return result;
-    }
+//    public boolean saveTreatment (TreatmentDTO treatmentDTO) throws SQLException {
+//
+//        boolean result =
+//                CrudUtil.execute(
+//                        "INSERT INTO Treatment ( treatment_name, treatment_type ,description , treatment_charges) VALUES (?,?,?,?)",
+//                        treatmentDTO.getName(),
+//                        treatmentDTO.getType(),
+//                        treatmentDTO.getDescription(),
+//                        treatmentDTO.getPrice()
+//                );
+//        return result;
+//    }
 
 //  this Method will Update the treatment details in the table
-    public boolean updateTreatment(TreatmentDTO treatmentDTO) throws SQLException {
-        boolean result =
-                CrudUtil.execute(
-                        "UPDATE Treatment SET treatment_name=? ,treatment_type=? , description=? , treatment_charges=? WHERE treatment_id=? ",
-                        treatmentDTO.getName(),
-                        treatmentDTO.getType(),
-                        treatmentDTO.getDescription(),
-                        treatmentDTO.getPrice(),
-                        treatmentDTO.getTreatment_id()
-                );
-        return result;
-    }
+
+//    public boolean updateTreatment(TreatmentDTO treatmentDTO) throws SQLException {
+//        boolean result =
+//                CrudUtil.execute(
+//                        "UPDATE Treatment SET treatment_name=? ,treatment_type=? , description=? , treatment_charges=? WHERE treatment_id=? ",
+//                        treatmentDTO.getName(),
+//                        treatmentDTO.getType(),
+//                        treatmentDTO.getDescription(),
+//                        treatmentDTO.getPrice(),
+//                        treatmentDTO.getTreatment_id()
+//                );
+//        return result;
+//    }
 
 //  this Method will Delete the treatment records from the Treatment table
-    public boolean deleteTreatment(String id) throws SQLException {
-        boolean result =
-                CrudUtil.execute(
-                        "DELETE FROM Treatment  WHERE treatment_id=? ",
-                        id
-                );
-        return result;
-
-
-    }
+//    public boolean deleteTreatment(String id) throws SQLException {
+//        boolean result =
+//                CrudUtil.execute(
+//                        "DELETE FROM Treatment  WHERE treatment_id=? ",
+//                        id
+//                );
+//        return result;
+//
+//
+//    }
 
 //  this Method will give Treatment details of a  Specific treatment_id
-    public TreatmentDTO searchTreatment(String id) throws SQLException {
-
-
-        ResultSet rs =
-                CrudUtil.execute(
-                        "SELECT * FROM Treatment WHERE treatment_id=? ",
-                        id
-                );
-
-        if (rs.next()){
-            int treatment_id = rs.getInt("treatment_id");
-            String treatment_Name = rs.getString("treatment_name");
-            String treatment_type = rs.getString("treatment_type");
-            String description = rs.getString("description");
-            double price = rs.getDouble("treatment_charges");
-
-
-            return new TreatmentDTO(treatment_id,treatment_Name,treatment_type,description,price);
-        }else {
-            return null;
-        }
-    }
+//    public TreatmentDTO searchTreatment(String id) throws SQLException {
+//
+//
+//        ResultSet rs =
+//                CrudUtil.execute(
+//                        "SELECT * FROM Treatment WHERE treatment_id=? ",
+//                        id
+//                );
+//
+//        if (rs.next()){
+//            int treatment_id = rs.getInt("treatment_id");
+//            String treatment_Name = rs.getString("treatment_name");
+//            String treatment_type = rs.getString("treatment_type");
+//            String description = rs.getString("description");
+//            double price = rs.getDouble("treatment_charges");
+//
+//
+//            return new TreatmentDTO(treatment_id,treatment_Name,treatment_type,description,price);
+//        }else {
+//            return null;
+//        }
+//    }
 
 //  this Method will give Treatment details of a specific treatment_name
-    public TreatmentDTO searchTreatmentByName(String name) throws SQLException {
-        ResultSet rs =
-                CrudUtil.execute(
-                        "SELECT * FROM Treatment WHERE treatment_name=?  ",
-                        name
-
-                );
-
-        if (rs.next()){
-            int treatment_id = rs.getInt("treatment_id");
-            String treatment_Name = rs.getString("treatment_name");
-            String treatment_type = rs.getString("treatment_type");
-            String description = rs.getString("description");
-            double price = rs.getDouble("treatment_charges");
-
-
-            return new TreatmentDTO(treatment_id,treatment_Name,treatment_type,description,price);
-        }else {
-            return null;
-        }
-    }
+//    public TreatmentDTO searchTreatmentByName(String name) throws SQLException {
+//        ResultSet rs =
+//                CrudUtil.execute(
+//                        "SELECT * FROM Treatment WHERE treatment_name=?  ",
+//                        name
+//
+//                );
+//
+//        if (rs.next()){
+//            int treatment_id = rs.getInt("treatment_id");
+//            String treatment_Name = rs.getString("treatment_name");
+//            String treatment_type = rs.getString("treatment_type");
+//            String description = rs.getString("description");
+//            double price = rs.getDouble("treatment_charges");
+//
+//
+//            return new TreatmentDTO(treatment_id,treatment_Name,treatment_type,description,price);
+//        }else {
+//            return null;
+//        }
+//    }
 
 //  this Method will give the all the Treatment details of the table
-    public List<TreatmentDTO> getTreatments() throws SQLException {
-
-        ResultSet rs =
-                CrudUtil.execute(
-                        "SELECT * FROM Treatment ORDER BY treatment_id DESC"
-                );
-
-        List<TreatmentDTO> treatmentList = new ArrayList<>();
-
-        while (rs.next()) {
-            TreatmentDTO treatmentDTO = new TreatmentDTO(
-                    rs.getInt("treatment_id"),
-                    rs.getString("treatment_name"),
-                    rs.getString("treatment_type"),
-                    rs.getString("description"),
-                    rs.getDouble("treatment_charges")
-            );
-            System.out.println(treatmentDTO);
-            treatmentList.add(treatmentDTO);
-        }
-
-        return treatmentList;
-
-    }
+//    public List<TreatmentDTO> getTreatments() throws SQLException {
+//
+//        ResultSet rs =
+//                CrudUtil.execute(
+//                        "SELECT * FROM Treatment ORDER BY treatment_id DESC"
+//                );
+//
+//        List<TreatmentDTO> treatmentList = new ArrayList<>();
+//
+//        while (rs.next()) {
+//            TreatmentDTO treatmentDTO = new TreatmentDTO(
+//                    rs.getInt("treatment_id"),
+//                    rs.getString("treatment_name"),
+//                    rs.getString("treatment_type"),
+//                    rs.getString("description"),
+//                    rs.getDouble("treatment_charges")
+//            );
+//            System.out.println(treatmentDTO);
+//            treatmentList.add(treatmentDTO);
+//        }
+//
+//        return treatmentList;
+//
+//    }
 
 //    this Method will give if the treatment is already existing in the system
-    public boolean isTreatmentExists(String name) throws SQLException {
-        ResultSet rs = CrudUtil.execute(
-                "SELECT treatment_id FROM Treatment WHERE treatment_name = ?",
-                name
-        );
-        return rs.next(); // true if patient exists
-    }
+//    public boolean isTreatmentExists(String name) throws SQLException {
+//        ResultSet rs = CrudUtil.execute(
+//                "SELECT treatment_id FROM Treatment WHERE treatment_name = ?",
+//                name
+//        );
+//        return rs.next(); // true if patient exists
+//    }
 
-   public TreatmentDTO getTreatmentById(String  id , int appId) throws SQLException {
-       ResultSet rs =
-               CrudUtil.execute(
-                       "SELECT t.treatment_id, t.treatment_name, t.treatment_type, t.description, t.treatment_charges " +
-                               "FROM Appointment a " +
-                               "JOIN App_Treatment at ON a.appointment_id = at.appointment_id " +
-                               "JOIN Treatment t ON at.treatment_id = t.treatment_id " +
-                               "WHERE a.patient_id = ?",
-                       id
-
-
-               );
-
-       if (rs.next()){
-           int treatment_id = rs.getInt("treatment_id");
-           String treatment_Name = rs.getString("treatment_name");
-           String treatment_type = rs.getString("treatment_type");
-           String description = rs.getString("description");
-           double price = rs.getDouble("treatment_charges");
-
-
-           return new TreatmentDTO(treatment_id,treatment_Name,treatment_type,description,price);
-       }else {
-           return null;
-       }
-   }
+//   public TreatmentDTO getTreatmentById(String  id , int appId) throws SQLException {
+//       ResultSet rs =
+//               CrudUtil.execute(
+//                       "SELECT t.treatment_id, t.treatment_name, t.treatment_type, t.description, t.treatment_charges " +
+//                               "FROM Appointment a " +
+//                               "JOIN App_Treatment at ON a.appointment_id = at.appointment_id " +
+//                               "JOIN Treatment t ON at.treatment_id = t.treatment_id " +
+//                               "WHERE a.patient_id = ?",
+//                       id
+//
+//
+//               );
+//
+//       if (rs.next()){
+//           int treatment_id = rs.getInt("treatment_id");
+//           String treatment_Name = rs.getString("treatment_name");
+//           String treatment_type = rs.getString("treatment_type");
+//           String description = rs.getString("description");
+//           double price = rs.getDouble("treatment_charges");
+//
+//
+//           return new TreatmentDTO(treatment_id,treatment_Name,treatment_type,description,price);
+//       }else {
+//           return null;
+//       }
+//   }
 }

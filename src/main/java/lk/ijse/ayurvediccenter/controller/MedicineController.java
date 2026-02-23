@@ -15,6 +15,7 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import lk.ijse.ayurvediccenter.dao.custom.impl.MedicineDAOImpl;
 import lk.ijse.ayurvediccenter.dto.MedicineDTO;
 import lk.ijse.ayurvediccenter.dto.TreatmentDTO;
 import lk.ijse.ayurvediccenter.model.MedicineModel;
@@ -62,6 +63,7 @@ public class MedicineController implements Initializable {
     private final String MEDICINE_PRICE_REGEX = "^\\d+(\\.\\d{1,2})?$";
 
     MedicineModel medicineModel = new MedicineModel();
+    MedicineDAOImpl  medicineDAOImpl = new MedicineDAOImpl();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -126,7 +128,7 @@ public class MedicineController implements Initializable {
     @FXML
     public void loadMedicineTable(){
         try{
-            List<MedicineDTO> medicineList = medicineModel.getMedicine();
+            List<MedicineDTO> medicineList = medicineDAOImpl.getMedicine();
 
             ObservableList<MedicineDTO> obList = FXCollections.observableArrayList();
 
@@ -218,7 +220,7 @@ public class MedicineController implements Initializable {
             tableMedicine.getItems().remove(medicineDTO);
 
             try{
-                boolean isDeleted = medicineModel.deleteMedicine(String.valueOf(medicineDTO.getMed_id()));
+                boolean isDeleted = medicineDAOImpl.deleteMedicine(String.valueOf(medicineDTO.getMed_id()));
 
                 if(isDeleted){
                     new Alert(Alert.AlertType.INFORMATION, "Customer deleted successfully!").show();
@@ -246,7 +248,7 @@ public class MedicineController implements Initializable {
 
 
                 }else {
-                    MedicineDTO medicineDTO = medicineModel.searchMedicine(id);
+                    MedicineDTO medicineDTO = medicineDAOImpl.searchMedicine(id);
 
                     if(medicineDTO != null){
 
@@ -282,7 +284,7 @@ public class MedicineController implements Initializable {
 
 
                 }else {
-                    MedicineDTO medicineDTO = medicineModel.searchMedicine(name);
+                    MedicineDTO medicineDTO = medicineDAOImpl.searchMedicine(name);
 
                     if(medicineDTO != null){
 

@@ -12,6 +12,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import lk.ijse.ayurvediccenter.dao.custom.impl.MedicineDAOImpl;
+import lk.ijse.ayurvediccenter.dao.custom.impl.TreatmentDAOImpl;
 import lk.ijse.ayurvediccenter.dto.*;
 import lk.ijse.ayurvediccenter.dto.tm.AppPatientTM;
 import lk.ijse.ayurvediccenter.model.MedicineModel;
@@ -84,6 +86,9 @@ public class AppointmentOverviewController {
     MedicineModel medicineModel = new MedicineModel();
     PrescriptionModel prescriptionModel = new PrescriptionModel();
     PatientModel patientModel = new PatientModel();
+    TreatmentDAOImpl treatmentDAOImpl = new TreatmentDAOImpl();
+    MedicineDAOImpl medicineDAOImpl = new MedicineDAOImpl();
+
     private ObservableList<PrescriptionMedDTO> prescriptionList = FXCollections.observableArrayList();
     private ObservableList<TreatmentDTO> treatmentList = FXCollections.observableArrayList();
 
@@ -226,7 +231,7 @@ public class AppointmentOverviewController {
         @FXML
         public void loadTreatmentName(){
             try{
-                List<TreatmentDTO> treatmentList = treatmentModel.getTreatments();
+                List<TreatmentDTO> treatmentList = treatmentDAOImpl.getTreatments();
 
                 ObservableList<String> obList = FXCollections.observableArrayList();
                 for(TreatmentDTO treatmentDTO : treatmentList){
@@ -243,7 +248,7 @@ public class AppointmentOverviewController {
         @FXML
         public void loadMedicineName(){
             try{
-                List<MedicineDTO> medicineList = medicineModel.getMedicine();
+                List<MedicineDTO> medicineList = medicineDAOImpl.getMedicine();
 
                 ObservableList<String> obList = FXCollections.observableArrayList();
                 for(MedicineDTO medicineDTO : medicineList){
@@ -271,7 +276,7 @@ public class AppointmentOverviewController {
 
                     String medName = comboMedType.getSelectionModel().getSelectedItem();
 
-                    MedicineDTO medicineDTO = medicineModel.searchTreatmentByName(medName);
+                    MedicineDTO medicineDTO = medicineDAOImpl.searchTreatmentByName(medName);
                     System.out.println(medicineDTO);
 
                     String medId = String.valueOf(medicineDTO.getMed_id());
@@ -305,7 +310,7 @@ public class AppointmentOverviewController {
                 try {
 
                     TreatmentDTO treatmentDTO =
-                            treatmentModel.searchTreatmentByName(comboTreatmentType.getValue());
+                            treatmentDAOImpl.searchTreatmentByName(comboTreatmentType.getValue());
 
                     // prevent duplicates (optional but good)
                     if (!treatmentList.contains(treatmentDTO)) {

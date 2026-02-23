@@ -11,6 +11,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import lk.ijse.ayurvediccenter.dao.custom.impl.*;
 import lk.ijse.ayurvediccenter.dto.*;
 import lk.ijse.ayurvediccenter.dto.tm.AppPatientTM;
 import lk.ijse.ayurvediccenter.model.*;
@@ -68,6 +69,12 @@ public class AddAppointmentController implements Initializable {
     private TreatmentModel treatmentModel = new TreatmentModel();
     private DoctorModel doctorModel = new DoctorModel();
     private AppTreatmentModel  appTreatmentModel = new AppTreatmentModel();
+
+    TreatmentDAOImpl treatmentDAOImpl = new TreatmentDAOImpl();
+    PatientDAOImpl patientDAOImpl = new PatientDAOImpl();
+    DoctorDAOImpl doctorDAOImpl = new DoctorDAOImpl();
+    AppTreatmentDAOImpl  appTreatmentDAOImpl = new AppTreatmentDAOImpl();
+    AppointmentDAOImpl appointmentDAOImpl = new AppointmentDAOImpl();
 
     private ObservableList<TreatmentDTO> treatmentList = FXCollections.observableArrayList();
 
@@ -148,7 +155,7 @@ public class AddAppointmentController implements Initializable {
     public void handleSelectDoctorId(ActionEvent event) {
         try {
             String selectedDoctorId = comboDocId.getSelectionModel().getSelectedItem();
-            String doctorName = doctorModel.getDoctorName(selectedDoctorId);
+            String doctorName = doctorDAOImpl.getDoctorName(selectedDoctorId);
 
             docNameField.setText(doctorName );
 
@@ -164,7 +171,7 @@ public class AddAppointmentController implements Initializable {
             String selectedPatientId = comboPatientId.getSelectionModel().getSelectedItem();
             if (selectedPatientId == null) return; // nothing selected
 
-            PatientDTO patientDTO = patientModel.searchPatient(selectedPatientId);
+            PatientDTO patientDTO = patientDAOImpl.searchPatient(selectedPatientId);
             if (patientDTO == null) {
                 new Alert(Alert.AlertType.WARNING, "Patient not found!").show();
                 return;
@@ -183,7 +190,7 @@ public class AddAppointmentController implements Initializable {
                 String doctorId = comboDocId.getSelectionModel().getSelectedItem();
                 String patientId = comboPatientId.getSelectionModel().getSelectedItem();
                 String appDate = dateField.getValue().toString();
-                double docCharges = doctorModel.getDoctorCharges(Integer.parseInt(doctorId));
+                double docCharges = doctorDAOImpl.getDoctorCharges(Integer.parseInt(doctorId));
                 AppointmentStatus appStatus = AppointmentStatus.ACTIVE;
                 String appType = comboAppointmentType.getSelectionModel().getSelectedItem();
 
@@ -213,7 +220,7 @@ public class AddAppointmentController implements Initializable {
                 );
 
             if(!update){
-                if(appointmentModel.isAppointmentExists(Integer.parseInt(patientId) ,appDate)) {
+                if(appointmentDAOImpl.isAppointmentExists(Integer.parseInt(patientId) ,appDate)) {
                     new Alert(Alert.AlertType.WARNING, "Appointment already exists!").show();
                 } else {
                     ////////////////// ADD Appointment ///////////////////////////////
@@ -292,7 +299,7 @@ public class AddAppointmentController implements Initializable {
 
         try {
             TreatmentDTO treatmentDTO =
-                    treatmentModel.searchTreatmentByName(comboTreatmentType.getValue());
+                    treatmentDAOImpl.searchTreatmentByName(comboTreatmentType.getValue());
 
             // prevent duplicates (optional but good)
             if (!treatmentList.contains(treatmentDTO)) {
@@ -310,7 +317,7 @@ public class AddAppointmentController implements Initializable {
 
     public void loadPatientId(){
         try{
-            List<PatientDTO> patientList = patientModel.getPatients();
+            List<PatientDTO> patientList = patientDAOImpl.getPatients();
 
             ObservableList<String> obList = FXCollections.observableArrayList();
 
@@ -330,7 +337,7 @@ public class AddAppointmentController implements Initializable {
 
     public void loadTreatmentName(){
         try{
-            List<TreatmentDTO> treatmentList = treatmentModel.getTreatments();
+            List<TreatmentDTO> treatmentList = treatmentDAOImpl.getTreatments();
 
             ObservableList<String> obList = FXCollections.observableArrayList();
             for(TreatmentDTO treatmentDTO : treatmentList){
@@ -353,7 +360,7 @@ public class AddAppointmentController implements Initializable {
 
     public void loadDocId(){
         try {
-            List<DoctorDTO> doctorList = doctorModel.getDoctors();
+            List<DoctorDTO> doctorList = doctorDAOImpl.getDoctors();
 
             ObservableList<String> obList = FXCollections.observableArrayList();
             for(DoctorDTO doctorDTO : doctorList){
@@ -402,7 +409,7 @@ public class AddAppointmentController implements Initializable {
 
     public void loadAppointmentId(){
         try {
-            appIDField.setText(String.valueOf(appointmentModel.getNextAppId()));
+            appIDField.setText(String.valueOf(appointmentDAOImpl.getNextAppId()));
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -466,9 +473,9 @@ public class AddAppointmentController implements Initializable {
 
             comboAppointmentType.setValue(String.valueOf(appPatientTM.getAppointmentType()));
 
-            int docId =doctorModel.getDocId(appId);
+            int docId =doctorDAOImpl.getDocId(appId);
             comboDocId.setValue(String.valueOf(docId));
-            docNameField.setText(doctorModel.getDoctorName(String.valueOf(docId)));
+            docNameField.setText(doctorDAOImpl.getDoctorName(String.valueOf(docId)));
 
             dateField.setValue(LocalDate.parse(appPatientTM.getAppointmentDate()));
 
@@ -476,7 +483,7 @@ public class AddAppointmentController implements Initializable {
 
             if(!appPatientTM.getAppointmentType().equals("Medication")){
                 visible();
-                List<AppTreatmentDTO> tList =appTreatmentModel.getSelectedTreatmentList(appId);
+                List<AppTreatmentDTO> tList =appTreatmentDAOImpl.getSelectedTreatmentList(appId);
 
                 for(AppTreatmentDTO appTreatmentDTO : tList){
                     treatmentList.add(new TreatmentDTO(

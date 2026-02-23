@@ -1,4 +1,4 @@
-package lk.ijse.ayurvediccenter.model;
+package lk.ijse.ayurvediccenter.util.report;
 
 import lk.ijse.ayurvediccenter.db.DBConnection;
 import net.sf.jasperreports.engine.*;
@@ -6,12 +6,11 @@ import net.sf.jasperreports.view.JasperViewer;
 
 import java.io.InputStream;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ReportModel {
+public class Report {
 
     public void printTSReport(String appDate) throws JRException , SQLException {
 

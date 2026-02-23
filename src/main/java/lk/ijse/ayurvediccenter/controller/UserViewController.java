@@ -16,6 +16,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import lk.ijse.ayurvediccenter.dao.custom.impl.AppointmentDAOImpl;
+import lk.ijse.ayurvediccenter.dao.custom.impl.MedicineDAOImpl;
 import lk.ijse.ayurvediccenter.dto.tm.AppPatientTM;
 import lk.ijse.ayurvediccenter.model.AppointmentModel;
 import lk.ijse.ayurvediccenter.model.MedicineModel;
@@ -56,6 +58,9 @@ public class UserViewController implements Initializable {
     MedicineModel  medicineModel = new MedicineModel();
     AppointmentModel appointmentModel = new AppointmentModel();
 
+    MedicineDAOImpl  medicineDAOImpl = new MedicineDAOImpl();
+    AppointmentDAOImpl appointmentDAOImpl = new AppointmentDAOImpl();
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -75,7 +80,7 @@ public class UserViewController implements Initializable {
 
     public void dashboardAppNum(){
         try{
-            String activeApp = String.valueOf(appointmentModel.getNumOfApp());
+            String activeApp = String.valueOf(appointmentDAOImpl.getNumOfApp());
             totalNumAppField.setText("Total num of Appointment : "+ activeApp);
         }catch(Exception e){
             e.printStackTrace();
@@ -83,7 +88,7 @@ public class UserViewController implements Initializable {
     }
     public void dashboardActiveAppNum(){
         try{
-            String activeApp = String.valueOf(appointmentModel.getNumOfActiveApp());
+            String activeApp = String.valueOf(appointmentDAOImpl.getNumOfActiveApp());
             activeAppField.setText(activeApp);
         }catch(Exception e){
             e.printStackTrace();
@@ -91,7 +96,7 @@ public class UserViewController implements Initializable {
     }
     public void dashboardLowMedQty() {
         try{
-            String medQty =String.valueOf(medicineModel.getLowMedQty());
+            String medQty =String.valueOf(medicineDAOImpl.getLowMedQty());
             lowMedField.setText("Low Med stock: "+ medQty +" items");
 
         }catch(Exception e){
@@ -100,7 +105,7 @@ public class UserViewController implements Initializable {
     }
     public void dashboardMedQty() {
         try {
-            String medQty = String.valueOf(medicineModel.getTotalMedQty());
+            String medQty = String.valueOf(medicineDAOImpl.getTotalMedQty());
             medQtyField.setText(medQty);
 
         } catch (Exception e) {

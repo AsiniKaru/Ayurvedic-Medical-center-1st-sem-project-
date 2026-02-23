@@ -6,11 +6,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import lk.ijse.ayurvediccenter.dto.PrescriptionDTO;
-import lk.ijse.ayurvediccenter.dto.PrescriptionMedDTO;
 import lk.ijse.ayurvediccenter.dto.tm.AppMedicationTM;
-import lk.ijse.ayurvediccenter.model.AppMedicationModel;
-import lk.ijse.ayurvediccenter.model.PrescriptionModel;
+import lk.ijse.ayurvediccenter.model.PresMedicationModel;
 
 import java.util.List;
 
@@ -25,7 +22,7 @@ public class MedicationViewController {
 
     private int patientId;
 
-    AppMedicationModel appMedicationModel =  new AppMedicationModel();
+    PresMedicationModel appMedicationModel =  new PresMedicationModel();
 
     public void initData(int patientId) {
         this.patientId = patientId;

@@ -12,6 +12,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import lk.ijse.ayurvediccenter.dao.custom.impl.DoctorDAOImpl;
+import lk.ijse.ayurvediccenter.dao.custom.impl.EmployeeDAOImpl;
 import lk.ijse.ayurvediccenter.dto.DoctorDTO;
 import lk.ijse.ayurvediccenter.dto.EmployeeDTO;
 import lk.ijse.ayurvediccenter.model.DoctorModel;
@@ -55,6 +57,9 @@ public class SettingController implements Initializable {
     DoctorModel doctorModel = new DoctorModel();
     DoctorDTO doctorDTO = new DoctorDTO();
 
+    EmployeeDAOImpl employeeDAOImpl = new EmployeeDAOImpl();
+    DoctorDAOImpl doctorDAOImpl = new DoctorDAOImpl();
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         getUserInfo();
@@ -73,13 +78,13 @@ public class SettingController implements Initializable {
     public void getUserInfo() {
         try {
             System.out.println(LoginController.userId);
-            isEmp = employeeModel.getEmpState();
+            isEmp = employeeDAOImpl.getEmpState();
             System.out.println(isEmp);
             if (isEmp) {
-                employeeDTO = employeeModel.getEmployeeId(LoginController.userId);
+                employeeDTO = employeeDAOImpl.getEmployeeId(LoginController.userId);
 
             }else{
-                doctorDTO = doctorModel.getDoctorId(LoginController.userId);
+                doctorDTO = doctorDAOImpl.getDoctorId(LoginController.userId);
             }
 
         } catch (SQLException e) {
@@ -92,7 +97,7 @@ public class SettingController implements Initializable {
     public void loadProfileInfo(){
         try {
             if (isEmp) {
-                employeeDTO = employeeModel.searchEmployee(employeeDTO.getEmp_id());
+                employeeDTO = employeeDAOImpl.searchEmployee(employeeDTO.getEmp_id());
                 userIdField.setText(String.valueOf(employeeDTO.getEmp_id()));
                 nameField.setText(employeeModel.username);
                 fNameField.setText(employeeDTO.getFName());
@@ -104,7 +109,7 @@ public class SettingController implements Initializable {
 
 
             }else{
-                doctorDTO = doctorModel.searchDoctor(doctorDTO.getDoctor_id());
+                doctorDTO = doctorDAOImpl.searchDoctor(doctorDTO.getDoctor_id());
                 userIdField.setText(String.valueOf(LoginController.userId));
                 nameField.setText(doctorModel.username);
                 fNameField.setText(doctorDTO.getFname());

@@ -9,6 +9,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextArea;
 
 import javafx.stage.Stage;
+import lk.ijse.ayurvediccenter.dao.custom.impl.PatientDAOImpl;
 import lk.ijse.ayurvediccenter.dto.PatientDTO;
 import lk.ijse.ayurvediccenter.model.PatientModel;
 
@@ -51,6 +52,7 @@ public class AddNewPatientController {
     private final String PATIENT_DATE_OF_BIRTH_REGEX = "^[0-9]{4}-[0-9]{2}-[0-9]{2}$";
 
     PatientModel patientModel = new PatientModel();
+    PatientDAOImpl patientDAOImpl = new PatientDAOImpl();
 
     private PatientController patientController;
 
@@ -87,13 +89,13 @@ public class AddNewPatientController {
         }else{
             try{
 
-                if(patientModel.isPatientExists(nic)) {
+                if(patientDAOImpl.isPatientExists(nic)) {
                     new Alert(Alert.AlertType.WARNING, "Patient already exists!").show();
                 } else {
 
                     System.out.println(fName + "," + address + "," + nic + "," + contactnumber + "," + gender + "," + dateofbirth);
                     PatientDTO patientDTO = new PatientDTO(fName, lName, address, nic, contactnumber, gender, dateofbirth);
-                    boolean result = patientModel.savePatient(patientDTO);
+                    boolean result = patientDAOImpl.savePatient(patientDTO);
 
                     if (result) {
                         patientController.loadPatientTable();

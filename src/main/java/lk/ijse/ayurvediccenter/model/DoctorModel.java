@@ -14,7 +14,7 @@ public class DoctorModel {
     public String username;
 
 //  this Method will give the logged doctor details from the User table using the user_id
-    public DoctorDTO getDoctorId(int userId) throws SQLException {
+  /*  public DoctorDTO getDoctorId(int userId) throws SQLException {
         ResultSet rs =
                 CrudUtil.execute(
                         "SELECT doc_id ,username FROM User WHERE emp_id is null and user_id=? ",
@@ -30,10 +30,10 @@ public class DoctorModel {
             return null;
         }
 
-    }
+    }*/
 
 //  this Method will give Doctor Details of a specific doctor_id
-    public DoctorDTO searchDoctor(int id) throws SQLException {
+  /*  public DoctorDTO searchDoctor(int id) throws SQLException {
 
         ResultSet rs =
                 CrudUtil.execute(
@@ -56,10 +56,10 @@ public class DoctorModel {
         }else {
             return null;
         }
-    }
+    } */
 
 //  this Method will give the all the Doctor details of the table
-    public List<DoctorDTO> getDoctors() throws SQLException {
+ /*   public List<DoctorDTO> getDoctors() throws SQLException {
 
         ResultSet rs =
                 CrudUtil.execute(
@@ -84,10 +84,10 @@ public class DoctorModel {
 
         return doctorList;
 
-    }
+    } */
 
 //   this Method will give the charges of a specific doctor_id
-    public double getDoctorCharges(int id) throws SQLException {
+  /*  public double getDoctorCharges(int id) throws SQLException {
         ResultSet rs =
                 CrudUtil.execute(
                         "SELECT doc_charges FROM Doctor WHERE doc_id=? ",
@@ -100,10 +100,10 @@ public class DoctorModel {
         }else {
             return 0.00;
         }
-    }
+    } */
 
 //   this Method will doctor name of a specific doctor_id
-    public String getDoctorName(String id) throws SQLException {
+  /*  public String getDoctorName(String id) throws SQLException {
         ResultSet rs = CrudUtil.execute(
                 "SELECT doc_fName , doc_lName FROM Doctor WHERE doc_id=? ",
                 id
@@ -116,10 +116,10 @@ public class DoctorModel {
 
         }
         return null;
-    }
+    } */
 
 //  this Method will give doctor id  of a specific chanelling Id
-    public int getDocId(String id) throws SQLException {
+ /*   public int getDocId(String id) throws SQLException {
         ResultSet rs = CrudUtil.execute(
                 "SELECT doc_id FROM Appointment WHERE appointment_id=? ",
                 id
@@ -130,6 +130,6 @@ public class DoctorModel {
         }
 
                 return 0;
-    }
+    } */
 
 }

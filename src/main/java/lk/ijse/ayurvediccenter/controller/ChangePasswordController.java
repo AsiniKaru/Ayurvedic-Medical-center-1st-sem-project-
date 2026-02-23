@@ -6,6 +6,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import lk.ijse.ayurvediccenter.dao.custom.impl.LoginDAOImpl;
 import lk.ijse.ayurvediccenter.dto.EmployeeDTO;
 import lk.ijse.ayurvediccenter.dto.LoginDTO;
 import lk.ijse.ayurvediccenter.model.LoginModel;
@@ -25,6 +26,9 @@ public class ChangePasswordController {
     private final String EMPLOYEE_NEW_PASSWORD_REGEX = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$\n";
 
     LoginModel loginModel = new LoginModel();
+
+    LoginDAOImpl loginDAOImpl = new LoginDAOImpl();
+
     private EmployeeDTO employeeDTO;
 
     public void initData(EmployeeDTO employeeDTO){
@@ -38,7 +42,7 @@ public class ChangePasswordController {
             String username = usernameField.getText();
             String password = currPwordField.getText();
 
-            LoginDTO loginDTO = loginModel.verifyPassword(userId, username, password);
+            LoginDTO loginDTO = loginDAOImpl.verifyPassword(userId, username, password);
 
             if (loginDTO != null) {
                 String newPassword = newPwordField.getText();
@@ -51,7 +55,7 @@ public class ChangePasswordController {
                 } else {
 
                     if (newPassword.equals(confirmNewPassword)) {
-                        boolean result = loginModel.updatePassword(employeeDTO.getEmp_id(), userId, username, confirmNewPassword);
+                        boolean result = loginDAOImpl.updatePassword(employeeDTO.getEmp_id(), userId, username, confirmNewPassword);
 
                         if (result) {
                             new Alert(Alert.AlertType.INFORMATION, "Password Updated successfully!", ButtonType.OK).show();

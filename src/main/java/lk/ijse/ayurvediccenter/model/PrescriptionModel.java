@@ -1,5 +1,7 @@
 package lk.ijse.ayurvediccenter.model;
 
+import lk.ijse.ayurvediccenter.dao.custom.impl.AppointmentDAOImpl;
+import lk.ijse.ayurvediccenter.dao.custom.impl.MedicineDAOImpl;
 import lk.ijse.ayurvediccenter.db.DBConnection;
 import lk.ijse.ayurvediccenter.dto.PrescriptionDTO;
 import lk.ijse.ayurvediccenter.dto.PrescriptionMedDTO;
@@ -20,6 +22,9 @@ public class PrescriptionModel {
 
     private AppointmentModel appointmentModel = new AppointmentModel();
     private MedicineModel medicineModel = new MedicineModel();
+
+    MedicineDAOImpl  medicineDAOImpl = new MedicineDAOImpl();
+    AppointmentDAOImpl  appointmentDAOImpl = new AppointmentDAOImpl();
 
 //   this will update the medicine inventory and app Status after doctor consultation
     public boolean consultationDone(PrescriptionDTO prescriptionDTO) throws Exception {
@@ -42,7 +47,7 @@ public class PrescriptionModel {
                         updatePrescriptionMed(PrescriptionId, prescriptionMeds);
                     }
             if(isConsultationDone) {
-                appointmentModel.changeAppStatusToConsulted(String.valueOf(prescriptionDTO.getAppointmentId()));
+                appointmentDAOImpl.changeAppStatusToConsulted(String.valueOf(prescriptionDTO.getAppointmentId()));
 
             }else{
                     throw new Exception("Something went wrong when Updating Appointment status.");
@@ -104,7 +109,7 @@ public class PrescriptionModel {
                     prescriptionMedDTO.getMedQty(),
                     prescriptionMedDTO.getInstruction()
             )){
-                if(!medicineModel.decreaseMedQty(prescriptionMedDTO.getMedId() , prescriptionMedDTO.getMedQty())){
+                if(!medicineDAOImpl.decreaseMedQty(prescriptionMedDTO.getMedId() , prescriptionMedDTO.getMedQty())){
 
                     throw new Exception("Something Went Wrong decreasing the med qty");
                 }

@@ -1,23 +1,20 @@
 package lk.ijse.ayurvediccenter.controller;
 
-import javafx.beans.binding.Bindings;
-import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import lk.ijse.ayurvediccenter.dao.custom.impl.AppointmentDAOImpl;
+import lk.ijse.ayurvediccenter.dao.custom.impl.TreatmentDAOImpl;
 import lk.ijse.ayurvediccenter.dto.TreatmentDTO;
-import lk.ijse.ayurvediccenter.dto.tm.AppMedicationTM;
 import lk.ijse.ayurvediccenter.dto.tm.MedBillTM;
-import lk.ijse.ayurvediccenter.model.AppMedicationModel;
+import lk.ijse.ayurvediccenter.model.PresMedicationModel;
 import lk.ijse.ayurvediccenter.model.AppointmentModel;
 import lk.ijse.ayurvediccenter.model.PrescriptionModel;
 import lk.ijse.ayurvediccenter.model.TreatmentModel;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public class PaymentController {
@@ -41,10 +38,13 @@ public class PaymentController {
 
     private String patientId;
     private int appId;
-    AppMedicationModel appMedicationModel = new AppMedicationModel();
+    PresMedicationModel appMedicationModel = new PresMedicationModel();
     TreatmentModel treatmentModel = new TreatmentModel();
     AppointmentModel  appointmentModel = new AppointmentModel();
     PrescriptionModel prescriptionModel = new PrescriptionModel();
+
+    TreatmentDAOImpl treatmentDAOImpl = new TreatmentDAOImpl();
+    AppointmentDAOImpl appointmentDAOImpl = new AppointmentDAOImpl();
 
     double totalDocCharges;
     double totalMedicineTotal;
@@ -96,7 +96,7 @@ public class PaymentController {
 
     public void loadTreatmentTable(){
         try{
-            TreatmentDTO tList =treatmentModel.getTreatmentById(patientId,appId);
+            TreatmentDTO tList =treatmentDAOImpl.getTreatmentById(patientId,appId);
             ObservableList<TreatmentDTO> obList = FXCollections.observableArrayList(tList);
             tableTreatment.setItems(obList);
         } catch (Exception e) {
@@ -106,7 +106,7 @@ public class PaymentController {
 
     public void loadDocChargesField(){
         try{
-            totalDocCharges = appointmentModel.getDocCharges( Integer.parseInt(patientId),appId);
+            totalDocCharges = appointmentDAOImpl.getDocCharges( Integer.parseInt(patientId),appId);
             System.out.println(totalDocCharges);
             docChargesField.setText(String.valueOf(totalDocCharges));
 

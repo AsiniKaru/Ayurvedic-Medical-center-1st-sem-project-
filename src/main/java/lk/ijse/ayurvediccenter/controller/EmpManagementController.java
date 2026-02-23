@@ -15,6 +15,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import lk.ijse.ayurvediccenter.dao.custom.impl.EmployeeDAOImpl;
 import lk.ijse.ayurvediccenter.dto.EmployeeDTO;
 import lk.ijse.ayurvediccenter.model.EmployeeModel;
 import lk.ijse.ayurvediccenter.util.CrudUtil;
@@ -48,6 +49,9 @@ public class EmpManagementController implements Initializable {
     @FXML private TableView<EmployeeDTO> tableEmployees;
 
     EmployeeModel employeeModel = new EmployeeModel();
+
+    EmployeeDAOImpl employeeDAOImpl = new EmployeeDAOImpl();
+
     EmpManagementController controllerRef = this;
 
     private final String EMPLOYEE_ID_REGEX = "^[0-9]+$";
@@ -146,7 +150,7 @@ public class EmpManagementController implements Initializable {
     public void loadEmployeeTable(){
         clearFields();
         try{
-            List<EmployeeDTO> employeeList = employeeModel.getEmployees();
+            List<EmployeeDTO> employeeList = employeeDAOImpl.getEmployees();
 
             ObservableList<EmployeeDTO> obList = FXCollections.observableArrayList();
 
@@ -172,7 +176,7 @@ public class EmpManagementController implements Initializable {
             tableEmployees.getItems().remove(employeeDTO);
 
             try{
-                boolean isDeleted = employeeModel.deleteEmployee(String.valueOf(employeeDTO.getEmp_id()));
+                boolean isDeleted = employeeDAOImpl.deleteEmployee(String.valueOf(employeeDTO.getEmp_id()));
 
                 if(isDeleted){
                     new Alert(Alert.AlertType.INFORMATION, "Employee deleted successfully!").show();
@@ -227,7 +231,7 @@ public class EmpManagementController implements Initializable {
 
 
                 }else {
-                    EmployeeDTO employeeDTO =employeeModel.searchEmployee(Integer.parseInt(id));
+                    EmployeeDTO employeeDTO =employeeDAOImpl.searchEmployee(Integer.parseInt(id));
 
                     if(employeeDTO != null){
 
@@ -263,7 +267,7 @@ public class EmpManagementController implements Initializable {
 
 
                 }else {
-                    EmployeeDTO employeeDTO = employeeModel.searchEmployeeByName(name);
+                    EmployeeDTO employeeDTO = employeeDAOImpl.searchEmployeeByName(name);
 
                     if(employeeDTO != null){
 

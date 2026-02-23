@@ -11,7 +11,7 @@ import java.util.List;
 
 public class MedicineModel {
 
-    public boolean saveMedicine (MedicineDTO medicineDTO) throws SQLException {
+  /*  public boolean saveMedicine (MedicineDTO medicineDTO) throws SQLException {
 
         boolean result =
              CrudUtil.execute(
@@ -23,8 +23,9 @@ public class MedicineModel {
              );
         return result;
     }
+*/
 
-    public boolean updateMedicine(MedicineDTO medicineDTO) throws SQLException {
+  /*  public boolean updateMedicine(MedicineDTO medicineDTO) throws SQLException {
         boolean result =
                 CrudUtil.execute(
                         "UPDATE Medicine SET med_Name=? ,description=? ,stock_qty=? ,unit_price=?  WHERE med_id=? ",
@@ -35,18 +36,18 @@ public class MedicineModel {
                         medicineDTO.getMed_id()
                 );
         return result;
-    }
+    }*/
 
-    public boolean deleteMedicine(String id) throws SQLException {
+   /* public boolean deleteMedicine(String id) throws SQLException {
         boolean result =
                 CrudUtil.execute(
                         "DELETE FROM Medicine  WHERE med_id=? ",
                         id
                 );
         return result;
-    }
+    }*/
 
-    public MedicineDTO searchMedicine(String id) throws SQLException {
+  /*  public MedicineDTO searchMedicine(String id) throws SQLException {
 
         ResultSet rs =
                 CrudUtil.execute(
@@ -66,9 +67,9 @@ public class MedicineModel {
         }else {
             return null;
         }
-    }
+    } */
 
-    public MedicineDTO searchTreatmentByName(String name) throws SQLException {
+   /* public MedicineDTO searchTreatmentByName(String name) throws SQLException {
         ResultSet rs =
                 CrudUtil.execute(
                         "SELECT * FROM Medicine WHERE med_name=?  ",
@@ -87,9 +88,9 @@ public class MedicineModel {
         }else {
             return null;
         }
-    }
+    } */
 
-    public List<MedicineDTO> getMedicine() throws SQLException {
+  /*  public List<MedicineDTO> getMedicine() throws SQLException {
 
         ResultSet rs =
                 CrudUtil.execute(
@@ -112,11 +113,11 @@ public class MedicineModel {
 
         return medicineList;
 
-    }
+    }*/
 
 
 //    this Method will get Total number of medQty
-    public int getTotalMedQty() throws SQLException {
+  /*  public int getTotalMedQty() throws SQLException {
         ResultSet rs =
                 CrudUtil.execute(
                         "SELECT SUM(stock_qty) AS total_quantity FROM Medicine"
@@ -130,10 +131,10 @@ public class MedicineModel {
         }else {
             return 0;
         }
-    }
+    }*/
 
 //    this Method will get number of medicines items that qty below 50
-    public int getLowMedQty() throws SQLException {
+  /*  public int getLowMedQty() throws SQLException {
         String sql = "SELECT COUNT(med_id) AS total_quantity FROM Medicine WHERE stock_qty < 50";
         ResultSet rs = CrudUtil.execute(sql);
 
@@ -144,10 +145,10 @@ public class MedicineModel {
         }else {
             return 0;
         }
-    }
+    }*/
 
 // this Method will decrease med qty the medicine according to the prescription
-    public boolean decreaseMedQty (int medId , int qty)throws SQLException{
+ /*   public boolean decreaseMedQty (int medId , int qty)throws SQLException{
 
         boolean isUpdated = CrudUtil.execute(
                 "UPDATE Medicine SET stock_qty=stock_qty-? WHERE med_id =?",
@@ -156,15 +157,15 @@ public class MedicineModel {
         );
         return isUpdated;
 
-    }
+    }*/
 
 //    this Method will check whether medicine is existing in the database
-    public boolean isMedExists(String medName) throws SQLException {
+  /*  public boolean isMedExists(String medName) throws SQLException {
         ResultSet rs = CrudUtil.execute(
                 "SELECT med_id FROM Medicine WHERE med_name = ?",
                 medName
         );
         return rs.next(); // true if patient exists
-    }
+    } */
 }
 

@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import lk.ijse.ayurvediccenter.dao.custom.impl.PatientDAOImpl;
 import lk.ijse.ayurvediccenter.dto.PatientDTO;
 import lk.ijse.ayurvediccenter.model.PatientModel;
 
@@ -30,6 +31,8 @@ public class PatientOverviewController {
     private final PatientModel patientModel = new PatientModel();
 
     private PatientController patientController = new PatientController();
+
+    PatientDAOImpl  patientDAOImpl = new PatientDAOImpl();
 
     private PatientDTO currentDTO;
 
@@ -150,7 +153,7 @@ public class PatientOverviewController {
     public void onActionDeletePatient(ActionEvent actionEvent) {
         try {
 
-            boolean isDeleted = patientModel.deletePatient(String.valueOf(currentDTO.getPatientId()));
+            boolean isDeleted = patientDAOImpl.deletePatient(String.valueOf(currentDTO.getPatientId()));
 
             if(isDeleted) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);

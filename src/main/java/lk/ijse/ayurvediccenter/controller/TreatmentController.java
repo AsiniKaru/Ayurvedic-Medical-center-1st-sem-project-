@@ -15,6 +15,7 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import lk.ijse.ayurvediccenter.dao.custom.impl.TreatmentDAOImpl;
 import lk.ijse.ayurvediccenter.dto.MedicineDTO;
 import lk.ijse.ayurvediccenter.dto.TreatmentDTO;
 import lk.ijse.ayurvediccenter.model.TreatmentModel;
@@ -54,6 +55,7 @@ public class TreatmentController implements Initializable {
 
 
     TreatmentModel treatmentModel = new TreatmentModel();
+    TreatmentDAOImpl  treatmentDAOImpl = new TreatmentDAOImpl();
 
     private final String TREATMENT_ID_REGEX = "^[0-9]+$";
     private final String TREATMENT_NAME_REGEX = "^[A-Za-z]+ [A-Za-z]+$";
@@ -162,7 +164,7 @@ public class TreatmentController implements Initializable {
     @FXML
     public void loadTreatmentTable(){
         try{
-            List<TreatmentDTO> treatmentList = treatmentModel.getTreatments();
+            List<TreatmentDTO> treatmentList = treatmentDAOImpl.getTreatments();
 
             ObservableList<TreatmentDTO> obList = FXCollections.observableArrayList();
 
@@ -269,7 +271,7 @@ public class TreatmentController implements Initializable {
             tableTreatment.getItems().remove(treatmentDTO);
 
             try{
-                boolean isDeleted = treatmentModel.deleteTreatment(String.valueOf(treatmentDTO.getTreatment_id()));
+                boolean isDeleted = treatmentDAOImpl.deleteTreatment(String.valueOf(treatmentDTO.getTreatment_id()));
 
                 if(isDeleted){
                     new Alert(Alert.AlertType.INFORMATION, "Treatment deleted successfully!").show();
@@ -297,7 +299,7 @@ public class TreatmentController implements Initializable {
 
 
                 }else {
-                    TreatmentDTO treatmentDTO = treatmentModel.searchTreatment(id);
+                    TreatmentDTO treatmentDTO = treatmentDAOImpl.searchTreatment(id);
 
                     if(treatmentDTO != null){
 
@@ -333,7 +335,7 @@ public class TreatmentController implements Initializable {
 
 
                 }else {
-                    TreatmentDTO treatmentDTO = treatmentModel.searchTreatmentByName(name);
+                    TreatmentDTO treatmentDTO = treatmentDAOImpl.searchTreatmentByName(name);
 
                     if(treatmentDTO != null){
 

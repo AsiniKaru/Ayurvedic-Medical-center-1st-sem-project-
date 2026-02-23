@@ -8,6 +8,8 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import lk.ijse.ayurvediccenter.dao.custom.impl.DoctorDAOImpl;
+import lk.ijse.ayurvediccenter.dao.custom.impl.EmployeeDAOImpl;
 import lk.ijse.ayurvediccenter.dto.DoctorDTO;
 import lk.ijse.ayurvediccenter.dto.EmployeeDTO;
 import lk.ijse.ayurvediccenter.model.DoctorModel;
@@ -44,10 +46,12 @@ public class ProfileController implements Initializable {
     private EmpManagementController empManagementController;
 
     EmployeeModel employeeModel = new EmployeeModel();
-    EmployeeDTO employeeDTO = new EmployeeDTO();
-
     DoctorModel doctorModel = new DoctorModel();
+    EmployeeDTO employeeDTO = new EmployeeDTO();
     DoctorDTO  doctorDTO = new DoctorDTO();
+
+    EmployeeDAOImpl employeeDAOImpl = new EmployeeDAOImpl();
+    DoctorDAOImpl doctorDAOImpl = new DoctorDAOImpl();
 
     private final String EMPLOYEE_FIRST_NAME_REGEX = "^[a-zA-Z]{3,}$";
     private final String EMPLOYEE_LAST_NAME_REGEX = "^[a-zA-Z]{3,}$";
@@ -63,7 +67,7 @@ public class ProfileController implements Initializable {
         enableEditMode();
 
         try {
-            emp_id = employeeModel.getNextEmpId();
+            emp_id = employeeDAOImpl.getNextEmpId();
             userIdField.setText(String.valueOf(emp_id));
 
         }catch (Exception e){
@@ -88,13 +92,13 @@ public class ProfileController implements Initializable {
     public void getUserInfo() {
         try {
             System.out.println(LoginController.userId);
-            isEmp = employeeModel.getEmpState();
+            isEmp = employeeDAOImpl.getEmpState();
             System.out.println(isEmp);
             if (isEmp) {
-                employeeDTO = employeeModel.getEmployeeId(LoginController.userId);
+                employeeDTO = employeeDAOImpl.getEmployeeId(LoginController.userId);
 
             }else{
-                doctorDTO = doctorModel.getDoctorId(LoginController.userId);
+                doctorDTO = doctorDAOImpl.getDoctorId(LoginController.userId);
             }
 
         } catch (SQLException e) {
@@ -107,7 +111,7 @@ public class ProfileController implements Initializable {
     public void loadProfileInfo(){
         try {
             if (isEmp) {
-                employeeDTO = employeeModel.searchEmployee(employeeDTO.getEmp_id());
+                employeeDTO = employeeDAOImpl.searchEmployee(employeeDTO.getEmp_id());
                     userIdField.setText(String.valueOf(employeeDTO.getEmp_id()));
                     nameField.setText(employeeModel.username);
                     fNameField.setText(employeeDTO.getFName());
@@ -119,7 +123,7 @@ public class ProfileController implements Initializable {
 
 
             }else{
-                doctorDTO = doctorModel.searchDoctor(doctorDTO.getDoctor_id());
+                doctorDTO = doctorDAOImpl.searchDoctor(doctorDTO.getDoctor_id());
                     userIdField.setText(String.valueOf(LoginController.userId));
                     nameField.setText(doctorModel.username);
                     fNameField.setText(doctorDTO.getFname());
@@ -162,12 +166,12 @@ public class ProfileController implements Initializable {
         }else {
             try{
 
-                if(employeeModel.isEmployeeExists(contactNumber,email)) {
+                if(employeeDAOImpl.isEmployeeExists(contactNumber,email)) {
                         new Alert(Alert.AlertType.WARNING, "Employee already exists!").show();
                 } else {
                     System.out.println(emp_id + "," + fName + "," + lName + "," + address + "," + contactNumber + "," + email + "," + role);
                     EmployeeDTO employeeDTO = new EmployeeDTO(emp_id, fName, lName, address, contactNumber, email, role);
-                    boolean result = employeeModel.saveEmployee(employeeDTO);
+                    boolean result = employeeDAOImpl.saveEmployee(employeeDTO);
 
 
                     if (result) {

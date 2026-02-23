@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
+import lk.ijse.ayurvediccenter.dao.custom.impl.MedicineDAOImpl;
 import lk.ijse.ayurvediccenter.dto.MedicineDTO;
 import lk.ijse.ayurvediccenter.model.MedicineModel;
 
@@ -40,6 +41,7 @@ public class AddMedicineController {
     private final String MEDICINE_PRICE_REGEX = "^\\d+(\\.\\d{1,2})?$";
 
     MedicineModel medicineModel = new MedicineModel();
+    MedicineDAOImpl  medicineDAOImpl = new MedicineDAOImpl();
 
 
     public void setMedicineController(MedicineController medicineController) {
@@ -67,11 +69,11 @@ public class AddMedicineController {
 
                         ////////////////////// Save Medicine ////////////////////////////
                         if (!update) {
-                            if(medicineModel.isMedExists(name)) {
+                            if(medicineDAOImpl.isMedExists(name)) {
                                 new Alert(Alert.AlertType.WARNING, "Medicine already exists!").show();
                             } else {
                                 MedicineDTO medicineDTO = new MedicineDTO(name, description, Integer.parseInt(qty), Double.parseDouble(price));
-                                boolean result = medicineModel.saveMedicine(medicineDTO);
+                                boolean result = medicineDAOImpl.saveMedicine(medicineDTO);
 
                                 if (result) {
                                     medicineController.loadMedicineTable();
@@ -106,7 +108,7 @@ public class AddMedicineController {
                             ////////////////////// Update Medicine ////////////////////////////
                         } else {
                             MedicineDTO medicineDTO = new MedicineDTO(id, name, description, Integer.parseInt(qty), Double.parseDouble(price));
-                            boolean result = medicineModel.updateMedicine(medicineDTO);
+                            boolean result = medicineDAOImpl.updateMedicine(medicineDTO);
 
                             if (result) {
                                 medicineController.loadMedicineTable();

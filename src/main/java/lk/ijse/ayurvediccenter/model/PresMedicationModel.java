@@ -1,7 +1,6 @@
 package lk.ijse.ayurvediccenter.model;
 
 import lk.ijse.ayurvediccenter.dto.tm.AppMedicationTM;
-import lk.ijse.ayurvediccenter.dto.tm.AppPrescriptionTM;
 import lk.ijse.ayurvediccenter.dto.tm.MedBillTM;
 import lk.ijse.ayurvediccenter.util.CrudUtil;
 
@@ -10,7 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AppMedicationModel {
+public class PresMedicationModel {
 
 //   this Method will give Medication history table data
     public List<AppMedicationTM> getMedHistory(int patientId) throws SQLException {

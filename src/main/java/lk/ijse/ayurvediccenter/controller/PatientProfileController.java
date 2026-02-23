@@ -10,6 +10,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import lk.ijse.ayurvediccenter.dao.custom.impl.PatientDAOImpl;
 import lk.ijse.ayurvediccenter.dto.PatientDTO;
 import lk.ijse.ayurvediccenter.model.PatientModel;
 import lk.ijse.ayurvediccenter.model.enums.UserRole;
@@ -57,6 +58,7 @@ public class PatientProfileController  {
     private PatientController patientController;
 
     PatientModel patientModel =  new PatientModel();
+    PatientDAOImpl patientDAOImpl = new PatientDAOImpl();
 
     private PatientDTO patientDTO;
 
@@ -117,7 +119,7 @@ public class PatientProfileController  {
     public void onActionDeletePatient(ActionEvent actionEvent) {
         try {
 
-            boolean isDeleted = patientModel.deletePatient(String.valueOf(patientDTO.getPatientId()));
+            boolean isDeleted = patientDAOImpl.deletePatient(String.valueOf(patientDTO.getPatientId()));
 
             if(isDeleted) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);

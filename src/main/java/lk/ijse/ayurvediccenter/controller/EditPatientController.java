@@ -5,6 +5,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import lk.ijse.ayurvediccenter.dao.custom.impl.PatientDAOImpl;
 import lk.ijse.ayurvediccenter.dto.PatientDTO;
 import lk.ijse.ayurvediccenter.model.PatientModel;
 import javafx.event.ActionEvent;
@@ -57,6 +58,7 @@ public class EditPatientController {
     private final String PATIENT_DATE_OF_BIRTH_REGEX = "^[0-9]{4}-[0-9]{2}-[0-9]{2}$";
 
     PatientModel patientModel = new PatientModel();
+    PatientDAOImpl  patientDAOImpl = new PatientDAOImpl();
 
     private PatientDTO patientDTO;
 
@@ -147,7 +149,7 @@ public class EditPatientController {
                 System.out.println(fName + "," + lName + "," + address + "," + nic + "," + contactnumber + "," + gender + "," + dateofbirth);
                 PatientDTO patientDTO = new PatientDTO(Integer.parseInt(id), fName, lName, address, nic, contactnumber, gender, dateofbirth);
 
-                boolean result = patientModel.updatePatient(patientDTO);
+                boolean result = patientDAOImpl.updatePatient(patientDTO);
 
                 if (result) {
                     new Alert(Alert.AlertType.INFORMATION, "Patient has been Updated successfully!", ButtonType.OK).show();

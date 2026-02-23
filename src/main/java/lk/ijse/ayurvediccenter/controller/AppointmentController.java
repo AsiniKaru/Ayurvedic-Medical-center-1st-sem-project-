@@ -14,6 +14,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import lk.ijse.ayurvediccenter.dao.custom.impl.AppointmentDAOImpl;
 import lk.ijse.ayurvediccenter.dto.tm.AppPatientTM;
 import lk.ijse.ayurvediccenter.model.AppointmentModel;
 import lk.ijse.ayurvediccenter.model.enums.UserRole;
@@ -51,6 +52,8 @@ public class AppointmentController  implements Initializable {
     @FXML private Button addAppButton;
 
     AppointmentModel appointmentModel = new AppointmentModel();
+
+    AppointmentDAOImpl  appointmentDAOImpl = new AppointmentDAOImpl();
 
     private final String PATIENT_ID_REGEX = "^[0-9]+$";
     private final String PATIENT_FIRST_NAME_REGEX = "^[a-zA-Z]{3,}$";
@@ -250,7 +253,7 @@ public class AppointmentController  implements Initializable {
             tableAppointment.getItems().remove(appPatientTM);
 
             try{
-                boolean isDeleted = appointmentModel.deleteAppointment(String.valueOf(appPatientTM.getAppointmentId()));
+                boolean isDeleted = appointmentDAOImpl.deleteAppointment(String.valueOf(appPatientTM.getAppointmentId()));
 
                 if(isDeleted){
                     new Alert(Alert.AlertType.INFORMATION, "Appointment deleted successfully!").show();

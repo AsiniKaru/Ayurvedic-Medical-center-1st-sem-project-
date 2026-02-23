@@ -1,6 +1,7 @@
 package lk.ijse.ayurvediccenter.model;
 
 import javafx.fxml.FXML;
+import lk.ijse.ayurvediccenter.dao.custom.impl.AppTreatmentDAOImpl;
 import lk.ijse.ayurvediccenter.db.DBConnection;
 import lk.ijse.ayurvediccenter.dto.AppointmentDTO;
 import lk.ijse.ayurvediccenter.dto.tm.AppPatientTM;
@@ -18,6 +19,9 @@ import java.util.List;
 public class AppointmentModel {
 
     private AppTreatmentModel appTreatmentModel = new AppTreatmentModel();
+
+    AppTreatmentDAOImpl appTreatmentDAOImpl = new AppTreatmentDAOImpl();
+
     String today = LocalDate.now().toString();
 
 //  this Method will get the details of all the (Today)Appointment of the table
@@ -172,7 +176,7 @@ public class AppointmentModel {
                 && appointmentDTO.getTreatmentList() != null
                 && !appointmentDTO.getTreatmentList().isEmpty()) {
 
-            appTreatmentModel.saveAppTreatment(
+            appTreatmentDAOImpl.saveAppTreatment(
                     appointmentId,
                     appointmentDTO.getAppointment_date(),
                     appointmentDTO.getTreatmentList()
@@ -214,18 +218,18 @@ public class AppointmentModel {
 
                 if (appointmentDTO.getAppType().equals("Medication")) {
 
-                    appTreatmentModel.deleteTreatmentbyAppId(appointmentId);
+                    appTreatmentDAOImpl.deleteTreatmentbyAppId(appointmentId);
 
                 } else {
 
-                    appTreatmentModel.deleteTreatmentbyAppId(appointmentId);
+                    appTreatmentDAOImpl.deleteTreatmentbyAppId(appointmentId);
 
                     // insert updated treatments
                     if (appointmentDTO.getTreatmentList() != null &&
                             !appointmentDTO.getTreatmentList().isEmpty()) {
 
 
-                        appTreatmentModel.saveAppTreatment(
+                        appTreatmentDAOImpl.saveAppTreatment(
                                 appointmentId,
                                 appointmentDTO.getAppointment_date(),
                                 appointmentDTO.getTreatmentList()
@@ -246,17 +250,17 @@ public class AppointmentModel {
     }
 
 // this Method will delete the existing appointment
-    public boolean deleteAppointment(String id) throws Exception {
+   /* public boolean deleteAppointment(String id) throws Exception {
         boolean result =
                 CrudUtil.execute(
                         "DELETE FROM Appointment  WHERE appointment_id=? ",
                         id
                 );
         return result;
-    }
+    }*/
 
 //  this Method will give the appointment_ID that new Appointment gonna assign-to
-    public int  getNextAppId() throws SQLException {
+ /*   public int  getNextAppId() throws SQLException {
         ResultSet rs =
                 CrudUtil.execute(
                         "SELECT appointment_id FROM Appointment ORDER BY appointment_id DESC LIMIT  1 "
@@ -273,10 +277,10 @@ public class AppointmentModel {
         // If table is empty
         return 1;
 
-    }
+    } */
 
 // this Method will change the appointment_statue when consultation done
-    public boolean changeAppStatusToConsulted( String id) throws Exception {
+/*    public boolean changeAppStatusToConsulted( String id) throws Exception {
 
         boolean isConsultationDone = CrudUtil.execute(
                 "UPDATE Appointment SET app_statues = ? WHERE appointment_id = ?",
@@ -284,10 +288,10 @@ public class AppointmentModel {
                 id
         );
                 return  isConsultationDone;
-    }
+    } */
 
 // this Method will give number of active appointments in today Appointment list
-    public int getNumOfActiveApp() throws SQLException {
+ /*   public int getNumOfActiveApp() throws SQLException {
         ResultSet rs = CrudUtil.execute(
                 "SELECT COUNT(*) AS total_active_appointments FROM Appointment " +
                         "WHERE appointment_date = ? " +
@@ -299,10 +303,10 @@ public class AppointmentModel {
             return totalActiveApp;
         }
         return 0;
-    }
+    } */
 
 // this Method will give total number of appointments in today Appointment list
-    public int getNumOfApp() throws SQLException {
+ /*   public int getNumOfApp() throws SQLException {
         ResultSet rs = CrudUtil.execute(
                 "SELECT COUNT(*) AS total_appointments FROM Appointment WHERE appointment_date = ? ",
                 today
@@ -312,7 +316,7 @@ public class AppointmentModel {
 
         }
         return 0;
-    }
+    } */
 
 //  this method will check patient appointment already exist
     public boolean isAppointmentExists(int pId , String date) throws SQLException {
@@ -326,7 +330,7 @@ public class AppointmentModel {
     }
 
 //    this Method will give the Doctor charges of a specific patientId
-    public double getDocCharges(int patientId , int appId)throws SQLException{
+ /*   public double getDocCharges(int patientId , int appId)throws SQLException{
         ResultSet rs = CrudUtil.execute(
                 "SELECT doc_charges FROM Appointment WHERE patient_id = ? AND appointment_id= ?",
                 patientId,
@@ -336,7 +340,7 @@ public class AppointmentModel {
             return rs.getDouble("doc_charges");
         }
         return 0;
-    }
+    } */
 
 //  this Method will collect the charges and change the status to Complete
     public boolean chgsCollect(int appId ,double totalDocCharges ,double totalMedicineTotal ,double totalTreatmentTotal ,double totalCharges) throws SQLException{

@@ -5,6 +5,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import lk.ijse.ayurvediccenter.dao.custom.impl.EmployeeDAOImpl;
 import lk.ijse.ayurvediccenter.dto.EmployeeDTO;
 import lk.ijse.ayurvediccenter.controller.SettingController;
 import lk.ijse.ayurvediccenter.model.EmployeeModel;
@@ -38,6 +39,7 @@ public class EditProfileController {
 
 
     EmployeeModel employeeModel =new EmployeeModel();
+    EmployeeDAOImpl employeeDAOImpl = new EmployeeDAOImpl();
 
     private EmployeeDTO employeeDTO;
 
@@ -91,7 +93,7 @@ public class EditProfileController {
                 System.out.println(fName + "," + lName + "," + address + "," + contactNumber + "," + email + "," + role );
                 EmployeeDTO empDTO = new EmployeeDTO(employeeDTO.getEmp_id(), fName, lName, address, contactNumber, email, role);
 
-                boolean result = employeeModel.updateEmployee(empDTO);
+                boolean result = employeeDAOImpl.updateEmployee(empDTO);
 
                 if (result) {
                     new Alert(Alert.AlertType.INFORMATION, "Employee has been Updated successfully!", ButtonType.OK).show();

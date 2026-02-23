@@ -40,7 +40,7 @@ public class LoginModel {
     }
 
 
-   public LoginDTO verifyPassword(int user_id ,String username, String password) throws SQLException{
+  /* public LoginDTO verifyPassword(int user_id ,String username, String password) throws SQLException{
 
             ResultSet rs  =
                     CrudUtil.execute(
@@ -63,10 +63,10 @@ public class LoginModel {
         }else{
             return null;
         }
-    }
+    } */
 
 
-    public boolean updatePassword(int emp_id ,int User_id, String username, String password) throws SQLException{
+  /*  public boolean updatePassword(int emp_id ,int User_id, String username, String password) throws SQLException{
 
         boolean result =
                 CrudUtil.execute(
@@ -78,6 +78,6 @@ public class LoginModel {
 
                 );
         return result;
-    }
+    } */
 
 }

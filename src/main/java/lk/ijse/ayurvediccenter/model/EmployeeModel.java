@@ -18,7 +18,7 @@ public class EmployeeModel {
     public String username;
 
 //    this Method will Update the Employee Table
-    public boolean updateEmployee(EmployeeDTO employeeDTO) throws SQLException {
+   /* public boolean updateEmployee(EmployeeDTO employeeDTO) throws SQLException {
         boolean result =
                 CrudUtil.execute(
                         "UPDATE Employee SET emp_name=? ,lName=? ,address=?  ,contact_num=? ,email=? , role=? WHERE emp_id=? ",
@@ -31,10 +31,10 @@ public class EmployeeModel {
                         employeeDTO.getEmp_id()
                 );
         return result;
-    }
+    } */
 
 //    this Method will search Employee Details of a specific emp_id
-    public EmployeeDTO searchEmployee(int id) throws SQLException {
+    /*public EmployeeDTO searchEmployee(int id) throws SQLException {
 
                 ResultSet rs =
                         CrudUtil.execute(
@@ -56,10 +56,10 @@ public class EmployeeModel {
                 }else {
                     return null;
                 }
-    }
+    }*/
 
 //    this Method will give logged user whether a Doctor or an employee
-    public boolean getEmpState() throws SQLException {
+ /*   public boolean getEmpState() throws SQLException {
         ResultSet rs =
                 CrudUtil.execute(
                         "SELECT * FROM User WHERE user_id=? ",
@@ -85,10 +85,10 @@ public class EmployeeModel {
                 return false;
             }
 
-    }
+    } */
 
 //    this Method will give the emp_id of the user
-    public EmployeeDTO getEmployeeId(int userId) throws SQLException {
+  /*  public EmployeeDTO getEmployeeId(int userId) throws SQLException {
         ResultSet rs =
                 CrudUtil.execute(
                         "SELECT * FROM User WHERE user_id=? ",
@@ -103,10 +103,10 @@ public class EmployeeModel {
         }else {
             return null;
         }
-    }
+    } */
 
 //    this Method will give details of the all Employees
-    public List<EmployeeDTO> getEmployees() throws  SQLException {
+ /*   public List<EmployeeDTO> getEmployees() throws  SQLException {
         ResultSet rs =
                 CrudUtil.execute(
                         "SELECT * FROM Employee ORDER BY emp_id DESC"
@@ -130,10 +130,10 @@ public class EmployeeModel {
 
         return employeeList;
 
-    }
+    }*/
 
 //    this Method will delete the details of a specific emp_id
-    public boolean deleteEmployee(String id) throws SQLException {
+/*    public boolean deleteEmployee(String id) throws SQLException {
         boolean result =
                 CrudUtil.execute(
                         "DELETE FROM Employee  WHERE emp_id=? ",
@@ -141,10 +141,10 @@ public class EmployeeModel {
                 );
         return result;
 
-    }
+    }*/
 
 //    this Method will save a new employee to the Employee table
-    public boolean saveEmployee(EmployeeDTO employeeDTO) throws SQLException {
+  /*  public boolean saveEmployee(EmployeeDTO employeeDTO) throws SQLException {
 
         boolean result =
                 CrudUtil.execute(
@@ -159,10 +159,10 @@ public class EmployeeModel {
 
                 );
         return result;
-    }
+    } */
 
 //    this Method will give details of a specific emp_name
-    public EmployeeDTO searchEmployeeByName(String name) throws SQLException {
+ /*   public EmployeeDTO searchEmployeeByName(String name) throws SQLException {
         ResultSet rs =
                 CrudUtil.execute(
                         "SELECT * FROM Employee WHERE emp_name=? OR lName=? ",
@@ -184,11 +184,11 @@ public class EmployeeModel {
         }else {
             return null;
         }
-    }
+    } */
 
 
     //    this method will give the next emp_id that the new Employee gonna assign-to
-    public int  getNextEmpId() throws SQLException {
+  /*  public int  getNextEmpId() throws SQLException {
         ResultSet rs =
                 CrudUtil.execute(
                         "SELECT emp_id FROM Employee ORDER BY emp_id DESC LIMIT  1 "
@@ -205,15 +205,15 @@ public class EmployeeModel {
         // If table is empty
         return 0;
 
-    }
+    }*/
 
     //  this Method check whether employee is existing in the database
-    public boolean isEmployeeExists(String contactNum , String email) throws SQLException {
+  /*  public boolean isEmployeeExists(String contactNum , String email) throws SQLException {
         ResultSet rs = CrudUtil.execute(
                 "SELECT emp_id FROM Employee WHERE contact_num = ? OR email = ?",
                 contactNum,
                 email
         );
         return rs.next();
-    }
+    } */
 }
